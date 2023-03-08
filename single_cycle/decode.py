@@ -58,8 +58,8 @@ def decode():
 
     #for control signals(we set them according to the different opcodes)
     #for R type
-    if(opcode=='0b0110011'):
-        execute.rfWrite=1
-        execute.isBranch_de=0
-        execute.isBranch_ALU=0
-        execute.op2Select=0
+    # if(opcode=='0b0110011'):
+    #     execute.rfWrite=1
+    #     execute.isBranch_de=0
+    #     execute.isBranch_ALU=0
+    #     execute.op2Select=0
