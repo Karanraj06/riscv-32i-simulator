@@ -1,9 +1,15 @@
-from collections import defaultdict
 import decode
-instructionMemory=defaultdict(lambda:'$')
-PC='0x0'
-Next_PC='0x0'
+import single_cycle
+instruction_memory = {}
+pc = "0x0"
+next_pc = "0x0"
+
+
 def fetch():
-    inst=instructionMemory[PC]
-    decode.instruction=inst
-    decode.PC=str(hex(int(PC,16)+0x4))
+    inst = instruction_memory[pc]
+    decode.instruction = inst
+    if(inst=='$'):
+        single_cycle.end=1
+    next_pc = str(hex(int(pc, 16) + 0x4))
+    decode.pc = pc
+    decode.next_pc = next_pc
