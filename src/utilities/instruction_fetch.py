@@ -13,3 +13,4 @@ def fetch():
     next_pc = str(hex(int(pc, 16) + 0x4))
     decode.pc = pc
     decode.next_pc = next_pc
+
