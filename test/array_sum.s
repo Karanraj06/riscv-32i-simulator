@@ -1,29 +1,31 @@
-# This RISCV program finds sum of n numbers in a array, and stores it in the nth index of the array.
-addi s0, x0, 10    # s0 = 10
-lui s1, 0x10000    # base address of the array
-addi t0, x0, 1    # i = 1
-add t1, x0, s1    # t1 = s1
+# Sum of an array of n elements in RISCV-32I Assembly Language
+# Initialize an array in the first loop with each element equal to its index
+# In the second loop, find this array's sum, and store the result at a[n]
+addi x1, x0, 10    # x1 = n = 10
+lui x2, 0x10000    # x2 = array base address = 0x10000000
+addi x3, x0, 1    # x3 = loop 1 counter = i = 1
+add x4, x2, x0    # x4 = x2
 
 loop1:
-	bgt t0, s0, end1
-    sw t0, 0(t1)
-    addi t0, t0, 1
-    addi t1, t1, 4
-    beq x0, x0, loop1
+    bgt x3, x1, end1    # if x3 > x1, goto end1
+    sw x3, 0(x4)    # M[x4] = x3 OR a[i - 1] = i
+    addi x3, x3, 1    # x3++
+    addi x4, x4, 4    # x4 += 4
+    beq x0, x0, loop1    # goto loop1
 
 end1:
 
-add t2, x0, x0    # t2 = 0
-add t0, x0, x0    # i = 0
-add t1, x0, s1
+add x3, x0, x0    # x3 = loop 2 counter = 0
+add x4, x2, x0    # x4 = x2
+add x5, x0, x0    # x5 = sum = 0
 
 loop2:
-    bge t0, s0, end2
-    lw t3, 0(t1) 
-    add t2, t2, t3    # sum += a[i]
-    addi t1, t1, 4
-    addi t0, t0, 1
-    beq x0, x0, loop2
+    bge x3, x1, end2    # if x3 >= x1, goto end2
+    lw x6, 0(x4)    # x6 = M[x4] OR x6 = a[i]
+    add x5, x5, x6    # x5 += x6 OR sum += a[i]
+    addi x4, x4, 4    # x4 += 4
+    addi x3, x3, 1    # x3++
+    beq x0, x0, loop2    # goto loop2
 
 end2:
-    sw t2 0(t1)    # a[n] = sum
+    sw x5, 0(x4)    # M[x4] = x5 OR a[n] = sum
