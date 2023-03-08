@@ -15,7 +15,7 @@ for key in keys_list:
 while(1):
     instruction_fetch.pc=pc
     instruction_fetch.fetch()
-    if not end:
+    if not instruction_fetch.end:
        decode.decode()
        execute.execute()
        memory_access.ma()
