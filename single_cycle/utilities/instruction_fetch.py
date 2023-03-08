@@ -12,9 +12,3 @@ def fetch():
         single_cycle.end=1
     next_pc = str(hex(int(pc, 16) + 0x4))
     decode.next_pc = next_pc
-<<<<<<< HEAD
-
-=======
-    decode.pc = pc
-    
->>>>>>> 35d761c3d2d4705e1a6efac4712d903e6b824c21
