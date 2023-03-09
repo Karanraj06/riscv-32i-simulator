@@ -5,16 +5,22 @@ import memory_access as ma
 import write_back as wb
 import registers as rg
 
-# Read the contents of the input file and store them in instruction_memory
+# Read the contents of the input file and store them in instruction_memory and also in data memory
+track:int=0 #to know if we are now scanning data memory or instruction memory 
 with open("input.mc", "r") as f:
-    while True:
-        key, value = f.readline().split()
-
-        if value == "_":
-            fi.instruction_memory[int(key, 16)] = None
-            break
+    lines=f.readlines()
+    for line in lines:
+        key, value = line.split()
+        if(track==0):
+            if value == "_":
+                fi.instruction_memory[int(key, 16)] = None
+                track=1
+                break
+            else:
+                fi.instruction_memory[int(key, 16)] = value
         else:
-            fi.instruction_memory[int(key, 16)] = value
+            ma.update_mem(key,value)
+
 
 
 def run() -> None:
