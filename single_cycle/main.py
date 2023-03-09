@@ -22,7 +22,10 @@ with open("input.mc", "r") as f:
             print(key+" "+value)
             ma.update_mem(key, value)
 
-
+# Clearing the contents of the output file before writing anything.
+with open("output.txt", "w") as f:      
+    f.truncate(0)
+    
 def run() -> None:
     '''Executes the program until the end of the instruction memory is reached'''
     pass
