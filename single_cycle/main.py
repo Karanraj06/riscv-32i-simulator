@@ -25,6 +25,7 @@ def run() -> None:
 def step() -> None:
     '''Executes one instruction'''
     fi.fetch()
+    de.decode()
     pass
 
 
@@ -37,7 +38,7 @@ def reset() -> None:
     with open("output.txt", "w") as f:
         f.truncate(0)
 
-print(fi.instruction_memory)
+
 while True:
     print("1. Run")
     print("2. Step")
