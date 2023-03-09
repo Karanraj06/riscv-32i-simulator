@@ -1,65 +1,90 @@
-import execute
-instruction='0x00000000'
-pc='0x0'
-next_pc='0x0'
-def dec_to_bin(x):
-    my_list=[0,0,0,0]
-    for i in range(0,4):
-        my_list[4-i-1]=x%2
-        x=x//2
-    return str(my_list)
-def decode():
-    inst_bin=str(bin(int(instruction,16)))
-    if(int(instruction[2])<8):
-        temp=inst_bin[::-1]
-        temp=temp[0:28:]
-        temp=temp[::-1]
-        inst_bin='0b'+dec_to_bin(instruction[2])+temp
-    #lets invert the inst_bin for easier indexing
-    inst_bin=inst_bin[::-1]
-    #for opcode
-    opcode=inst_bin[0:7:]
-    opcode='0b'+opcode[::-1]
-    #for rd
-    rd=inst_bin[7:12:]
-    rd='0b'+rd[::-1]
-    #for funct3
-    funct3=inst_bin[12:15:]
-    funct3='0b'+funct3[::-1]
-    #for rs1
-    rs1=inst_bin[15:20:]
-    rs1='0b'+rs1[::-1]
-    #for rs2
-    rs2=inst_bin[20:25:]
-    rs2='0b'+rs2[::-1]
-    #for funct7
-    funct7=inst_bin[25:32:]
-    funct7='0b'+funct7[::-1]
-    #for immI
-    immI=inst_bin[20:32:]
-    immI=immI[::-1]#now we need to perform sign extension
-    if(immI[0]=='1'):
-        immI='0b11111111111111111111'+immI
-    else:
-        immI='0b00000000000000000000'+immI
-    #for immS
-    immS=funct7+rd
-    if(immS[0]=='1'):
-        immS='0b11111111111111111111'+immS
-    else:
-        immS='0b00000000000000000000'+immS
-    #for immU
-    immU=inst_bin[12:32:]
-    immU=immU[::-1]
-    if(immU[0]=='1'):
-        immU='0b111111111111'+immU
-    else:
-        immU='0b000000000000'+immU
+# =================== Incomplete! : To-do Control Signals ===================
+# =================== Incomplete! : To-do ALU Operation ===================
+# =================== Debugging: To-do ===================
+# =================== GLOBAL VARIABLES ===================
+instruction: str = None
+pc: int = None
+rs1: str = None
+rs2: str = None
+rd: str = None
+func3: str = None
+func7: str = None
+op1: int = None
+op2: int = None
 
-    #for control signals(we set them according to the different opcodes)
-    #for R type
-    # if(opcode=='0b0110011'):
-    #     execute.rfWrite=1
-    #     execute.isBranch_de=0
-    #     execute.isBranch_ALU=0
-    #     execute.op2Select=0
+# =================== IMMEDIATE VALUES ===================
+imm: int = None
+immS: int = None
+immU: int = None
+immB: int = None
+immJ: int = None
+
+OP2Select: int = None
+ALUOperation: int = None
+MemOp: int = None
+ResultSelect: int = None
+RFWrite: int = None
+
+BranchTargetAddress: int = None
+
+
+def bin_to_dec(binary: str) -> int:
+    """Converts a binary string (2's complement representation) to its decimal equivalent"""
+    if binary[0] == '0':
+        return int(binary, 2)
+    else:
+        return int(binary, 2) - 2 ** len(binary)
+
+
+def decode() -> None:
+    global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress
+
+    opcode = instruction[25:]
+
+    # R type
+    if opcode == "0110011":
+        rd = instruction[20:25]
+        func3 = instruction[17:20]
+        rs1 = instruction[12:17]
+        rs2 = instruction[7:12]
+        func7 = instruction[:7]
+        pass
+
+    # I type
+    elif opcode == "0010011":
+        rd = instruction[20:25]
+        func3 = instruction[17:20]
+        rs1 = instruction[12:17]
+        imm = bin_to_dec(instruction[:12])
+        pass
+    # S type
+    elif opcode == "0100011":
+        func3 = instruction[17:20]
+        rs1 = instruction[12:17]
+        rs2 = instruction[7:12]
+        immS = bin_to_dec(instruction[:7] + instruction[20:25])
+        pass
+    # B type
+    elif opcode == "1100011":
+        func3 = instruction[17:20]
+        rs1 = instruction[12:17]
+        rs2 = instruction[7:12]
+        immB = bin_to_dec(instruction[0] + instruction[24] + instruction[1:7] + instruction[20:24] + '0')
+        pass
+    # U type
+    elif opcode == "0010111":
+        rd = instruction[20:25]
+        immU = bin_to_dec(instruction[:20] + '0' * 12)
+        pass
+    # J type
+    elif opcode == "1101111":
+        rd = instruction[20:25]
+        immJ = bin_to_dec(instruction[0] + instruction[12:20] + instruction[11] + instruction[1:11] + '0')
+        pass
+
+
+def init() -> None:
+    """Initializes all global variables to their initial value"""
+    global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress
+
+    instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress = None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None

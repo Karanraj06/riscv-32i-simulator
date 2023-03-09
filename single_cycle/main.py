@@ -1,34 +1,52 @@
-# Importing the required modules
-import sys
-sys.path.append('utilities')
-from utilities import instruction_fetch, decode, execute, memory_access, write_back
+import instruction_fetch as fi
+import decode as de
+import execute as ex
+import memory_access as ma
+import write_back as wb
+import registers as rg
 
-# from utilities import instruction_fetch
-execute.aluOperation = 0
-decode.rd = 0
-pc = "0x0"
-
+# Read the contents of the input file and store them in instruction_memory
 with open("input.mc", "r") as f:
     while True:
         key, value = f.readline().split()
-        instruction_fetch.instruction_memory[key] = value
-        if value == '_':
+
+        if value == "_":
+            fi.instruction_memory[int(key, 16)] = None
             break
+        else:
+            fi.instruction_memory[int(key, 16)] = value
 
 
-# instruction memory has been populated
-keys_list = instruction_fetch.instruction_memory.keys()
-for key in keys_list:
-    pc = key
-    break
-# while 1:
-#     instruction_fetch.pc = pc
-#     instruction_fetch.fetch()
-#     if not instruction_fetch.end:
-#         decode.decode()
-#         execute.execute()
-#         memory_access.ma()
-#         write_back.wb()
-#     else:
-#         break
-print(key, instruction_fetch.instruction_memory.keys())
+def run() -> None:
+    '''Executes the program until the end of the instruction memory is reached'''
+    pass
+
+
+def step() -> None:
+    '''Executes one instruction'''
+    pass
+
+
+def reset() -> None:
+    '''Resets to the initial state'''
+    fi.init()
+    de.init()
+    pass
+
+
+while True:
+    print("1. Run")
+    print("2. Step")
+    print("3. Reset")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        run()
+        break
+    elif choice == "2":
+        step()
+    elif choice == "3":
+        reset()
+    else:
+        print("Invalid choice")
