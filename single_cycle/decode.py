@@ -53,9 +53,9 @@ def decode() -> None:
         op2 = rg.x[int(rs2, 2)]
 
         if func3 == "000":
+            
             # ADD
             if func7 == "0000000":
-                # ADD
                 OP2Select = 0
                 ALUOperation = 0
                 MemOp = 0
@@ -64,12 +64,11 @@ def decode() -> None:
                 BranchTargetAddress = 0
                 with open("output.txt", "a") as f:
                     f.write(
-                        f"DE: R-type instruction: ADD, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                        f"DE: R-type instruction: ADD, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                     )
 
             # SUB
             elif func7 == "0100000":
-                # SUB
                 OP2Select = 0
                 ALUOperation = 1
                 MemOp = 0
@@ -78,7 +77,7 @@ def decode() -> None:
                 BranchTargetAddress = 0
                 with open("output.txt", "a") as f:
                     f.write(
-                        f"DE: R-type instruction: SUB, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                        f"DE: R-type instruction: SUB, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                     )
 
         # XOR
@@ -91,7 +90,7 @@ def decode() -> None:
             BranchTargetAddress = 0
             with open("output.txt", "a") as f:
                 f.write(
-                    f"DE: R-type instruction: XOR, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                    f"DE: R-type instruction: XOR, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                 )
 
         # OR
@@ -104,7 +103,7 @@ def decode() -> None:
             BranchTargetAddress = 0
             with open("output.txt", "a") as f:
                 f.write(
-                    f"DE: R-type instruction: OR, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                    f"DE: R-type instruction: OR, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                 )
 
         # AND
@@ -117,7 +116,7 @@ def decode() -> None:
             BranchTargetAddress = 0
             with open("output.txt", "a") as f:
                 f.write(
-                    f"DE: R-type instruction: AND, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                    f"DE: R-type instruction: AND, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                 )
 
         # SLL
@@ -130,10 +129,11 @@ def decode() -> None:
             BranchTargetAddress = 0
             with open("output.txt", "a") as f:
                 f.write(
-                    f"DE: R-type instruction: SLL, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                    f"DE: R-type instruction: SLL, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                 )
 
         elif func3 == "101":
+
             # SRL
             if func7 == "0000000":
                 OP2Select = 0
@@ -144,7 +144,7 @@ def decode() -> None:
                 BranchTargetAddress = 0
                 with open("output.txt", "a") as f:
                     f.write(
-                        f"DE: R-type instruction: SRL, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                        f"DE: R-type instruction: SRL, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                     )
 
             # SRA
@@ -157,7 +157,7 @@ def decode() -> None:
                 BranchTargetAddress = 0
                 with open("output.txt", "a") as f:
                     f.write(
-                        f"DE: R-type instruction: SRA, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op1}, rd = x{int(rd, 2)}\n"
+                        f"DE: R-type instruction: SRA, rs1 = x{int(rs1, 2)} = {op1}, rs2 = x{int(rs2, 2)} = {op2}, rd = x{int(rd, 2)}\n"
                     )
 
     # I type
@@ -265,6 +265,54 @@ def decode() -> None:
                     f.write(
                         f"DE: R-type instruction: SRAI, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
                     )
+
+    # I type continued (LB, LH, LW)
+    elif opcode == "0000011":
+        rd = instruction[20:25]
+        func3 = instruction[17:20]
+        rs1 = instruction[12:17]
+        imm = bin_to_dec(instruction[:12])
+
+        op1 = rg.x[int(rs1, 2)]
+
+        # LB
+        if func3 == "000":
+            OP2Select = 1
+            ALUOperation = 0
+            MemOp = 1
+            ResultSelect = 1
+            RFWrite = 1
+            BranchTargetAddress = 0
+            with open("output.txt", "a") as f:
+                f.write(
+                    f"DE: I-type instruction: LB, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
+                )
+
+        # LH
+        elif func3 == "001":
+            OP2Select = 1
+            ALUOperation = 0
+            MemOp = 1
+            ResultSelect = 2
+            RFWrite = 1
+            BranchTargetAddress = 0
+            with open("output.txt", "a") as f:
+                f.write(
+                    f"DE: I-type instruction: LH, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
+                )
+        
+        # LW
+        elif func3 == "010":
+            OP2Select = 1
+            ALUOperation = 0
+            MemOp = 1
+            ResultSelect = 3
+            RFWrite = 1
+            BranchTargetAddress = 0
+            with open("output.txt", "a") as f:
+                f.write(
+                    f"DE: I-type instruction: LW, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
+                )
 
     # S type
     elif opcode == "0100011":
@@ -443,12 +491,13 @@ def decode() -> None:
 
         op1 = rg.x[int(rs1, 2)]
 
+        # !!!!!!!!! IsBranch should select ALUResult !!!!!!!!!
         OP2Select = 1
         ALUOperation = 0
         MemOp = 0
         ResultSelect = 3
         RFWrite = 1
-        BranchTargetAddress = pc + imm
+        BranchTargetAddress = 0
         with open("output.txt", "a") as f:
             f.write(
                 f"DE: I-type instruction: JALR, rd = x{int(rd, 2)}, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}\n"

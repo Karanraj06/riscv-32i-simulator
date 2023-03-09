@@ -1,4 +1,7 @@
 # ============!Incomplete SRA and SRL(both are giving same result)==============
+# ============ For JALR IsBranch should select ALUResult ==============
+
+# ============ IsBranch: 0 -> pc + 4, 1 -> BranchTargetAddress, 2 -> ALUResult ==============
 import decode as de
 import instruction_fetch as fi
 # ===========GLOBAL VARIABLES===============
@@ -73,6 +76,8 @@ def execute() -> int:
         else:
             isBranch = 0
     # for JAL and JALR
+    # this needs to be corrected, won't work for jalr, use opcode to check if inst is jalr
+    # DEBUG!!!!!
     if (de.ResultSelect == 3):
         fi.pc = de.BranchTargetAddress
         f.write(f"EXECUTE: PC set to {de.BranchTargetAddress}")

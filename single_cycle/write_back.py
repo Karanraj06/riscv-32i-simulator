@@ -10,13 +10,14 @@ clk: int = 0
 
 def writeBack() -> None:
     """Writeback the result into the Register File by selecting ResultSelect accordingly."""
+    global clk
 
     # if RFWrite is 0, then there is no need to write result
     if de.RFWrite == 0:
         clk += 1
         return
     # if rd is set to x0, then its value can't be updated
-    if int(de.rd,2) is not 0:
+    if int(de.rd,2) != 0:
         # Selecting ResultSelect
         if de.ResultSelect == 0:
             rg.x[int(de.rd, 2)] = ex.aluResult
