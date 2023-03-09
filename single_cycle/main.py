@@ -37,6 +37,7 @@ def step() -> None:
         de.decode()
         ex.execute()
         ma.memory_access()
+        wb.writeBack()
     pass
 
 
