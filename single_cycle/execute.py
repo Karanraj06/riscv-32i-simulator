@@ -1,5 +1,4 @@
-#============!Incomplete SRA and SRL==============
-#============!Incomplete Branch Target Address
+#============!Incomplete SRA and SRL(both are giving same result)==============
 import decode as de
 import instruction_fetch as fi
 #===========GLOBAL VARIABLES===============
@@ -77,7 +76,7 @@ def execute()->int:
     if(de.ResultSelect==3):
         fi.pc=de.BranchTargetAddress
         f.write(f"EXECUTE: PC set to {de.BranchTargetAddress}")
-    
+    f.close()
     print(aluResult)
     #write the Execute operation to the output file
 

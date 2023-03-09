@@ -11,15 +11,15 @@ with open("input.mc", "r") as f:
     lines=f.readlines()
     for line in lines:
         key, value = line.split()
-        if(track==0):
+        if track==0 :
+            print(key+" "+value)
             if value == "_":
                 fi.instruction_memory[int(key, 16)] = None
                 track=1
-                break
             else:
                 fi.instruction_memory[int(key, 16)] = value
-        else:
-            
+        elif track==1:
+            print(key+" "+value)
             ma.update_mem(key,value)
 
 
@@ -42,7 +42,6 @@ def reset() -> None:
     '''Resets to the initial state'''
     fi.init()
     de.init()
-
     rg.init()
     with open("output.txt", "w") as f:
         f.truncate(0)
