@@ -56,4 +56,3 @@ def execute()->int:
 
 def init()->None:
     '''Initializes all global variables to their initial value'''
-
