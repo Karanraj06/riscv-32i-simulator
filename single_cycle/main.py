@@ -19,6 +19,7 @@ with open("input.mc", "r") as f:
             else:
                 fi.instruction_memory[int(key, 16)] = value
         else:
+            
             ma.update_mem(key,value)
 
 
@@ -30,8 +31,10 @@ def run() -> None:
 
 def step() -> None:
     '''Executes one instruction'''
-    fi.fetch()
-    de.decode()
+    if(not fi.fetch()):
+        de.decode()
+        ex.execute()
+        ma.memory_access()
     pass
 
 
