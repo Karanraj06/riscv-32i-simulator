@@ -430,7 +430,7 @@ def decode() -> None:
         MemOp = 0
         ResultSelect = 3
         RFWrite = 1
-        BranchTargetAddress = pc + immJ
+        BranchTargetAddress = 0
         with open("output.txt", "a") as f:
             f.write(f"DE: J-type instruction: JAL, rd = x{int(rd, 2)}, immJ = {immJ}\n")
 
