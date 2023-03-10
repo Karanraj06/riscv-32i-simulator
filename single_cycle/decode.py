@@ -1,5 +1,7 @@
 import registers as rg
-
+#Changed AluOperation for JAL
+#Changed branchtargetadress in JAL
+#Changed resultselect in LW to 1
 # =================== GLOBAL VARIABLES ===================
 instruction: str = None
 pc: int = None
@@ -294,7 +296,7 @@ def decode() -> None:
             OP2Select = 1
             ALUOperation = 0
             MemOp = 1
-            ResultSelect = 2
+            ResultSelect = 1
             RFWrite = 1
             BranchTargetAddress = 0
             with open("output.txt", "a") as f:
@@ -307,7 +309,7 @@ def decode() -> None:
             OP2Select = 1
             ALUOperation = 0
             MemOp = 1
-            ResultSelect = 3
+            ResultSelect = 1
             RFWrite = 1
             BranchTargetAddress = 0
             with open("output.txt", "a") as f:
@@ -475,11 +477,11 @@ def decode() -> None:
         )
 
         OP2Select = 0
-        ALUOperation = 0
+        ALUOperation = 12
         MemOp = 0
         ResultSelect = 3
         RFWrite = 1
-        BranchTargetAddress = 0
+        BranchTargetAddress = pc+immJ
         with open("output.txt", "a") as f:
             f.write(f"DE: J-type instruction: JAL, rd = x{int(rd, 2)}, immJ = {immJ}\n")
 
