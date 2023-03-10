@@ -14,13 +14,15 @@ def writeBack() -> None:
 
     # if RFWrite is 0, then there is no need to write result
     if de.RFWrite == 0:
+        with open("output.txt", "a") as f:
+            f.write(f"WRITEBACK:No writeback Operation\n")
         clk += 1
         return
     # if rd is set to x0, then its value can't be updated
     if int(de.rd,2) != 0:
         # Selecting ResultSelect
         if de.ResultSelect == 0:
-            rg.x[int(de.rd, 2)] = ex.aluResult
+            rg.x[int(de.rd, 2)] = ex.aluResult      
         elif de.ResultSelect == 1:
             rg.x[int(de.rd, 2)] = ma.loadData
         elif de.ResultSelect == 2:
