@@ -1,7 +1,104 @@
 IF: Fetch instruction 0x00300413 from address 0x0
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 3, rd = x8
-EXECUTE:ADD 0 and 3MEMORY:No Memory Operation
-WRITEBACK: write 3 to rd = x[8]IF: Fetch instruction 0x00400493 from address 0x4
+EXECUTE:ADD 0 and 3
+MEMORY:No Memory Operation
+WRITEBACK: write 3 to rd = x[8]
+
+IF: Fetch instruction 0x00400493 from address 0x4
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 4, rd = x9
-EXECUTE:ADD 0 and 4MEMORY:No Memory Operation
+EXECUTE:ADD 0 and 4
+MEMORY:No Memory Operation
 WRITEBACK: write 4 to rd = x[9]
+
+IF: Fetch instruction 0x00C000EF from address 0x8
+DE: J-type instruction: JAL, rd = x1, immJ = 12
+EXECUTE: PC set to 20
+MEMORY:No Memory Operation
+WRITEBACK: write 12 to rd = x[1]
+
+IF: Fetch instruction 0xFF410113 from address 0x14
+DE: I-type instruction: ADDI, rs1 = x2 = 2147483644, imm = -12, rd = x2
+EXECUTE:ADD 2147483644 and -12
+MEMORY:No Memory Operation
+WRITEBACK: write 2147483632 to rd = x[2]
+
+IF: Fetch instruction 0x00112023 from address 0x18
+DE: S-type instruction: SW, rs1 = x2 = 2147483632, rs2 = x1 = 12, immS = 0
+EXECUTE:ADD 2147483632 and 0
+MEMORY: Store 12 at address 2147483632
+WRITEBACK:No writeback Operation
+
+IF: Fetch instruction 0x00812223 from address 0x1c
+DE: S-type instruction: SW, rs1 = x2 = 2147483632, rs2 = x8 = 3, immS = 4
+EXECUTE:ADD 2147483632 and 4
+MEMORY: Store 3 at address 2147483636
+WRITEBACK:No writeback Operation
+
+IF: Fetch instruction 0x00912423 from address 0x20
+DE: S-type instruction: SW, rs1 = x2 = 2147483632, rs2 = x9 = 4, immS = 8
+EXECUTE:ADD 2147483632 and 8
+MEMORY: Store 4 at address 2147483640
+WRITEBACK:No writeback Operation
+
+IF: Fetch instruction 0x00040633 from address 0x24
+DE: R-type instruction: ADD, rs1 = x8 = 3, rs2 = x0 = 0, rd = x12
+EXECUTE:ADD 3 and 0
+MEMORY:No Memory Operation
+WRITEBACK: write 3 to rd = x[12]
+
+IF: Fetch instruction 0x000486B3 from address 0x28
+DE: R-type instruction: ADD, rs1 = x9 = 4, rs2 = x0 = 0, rd = x13
+EXECUTE:ADD 4 and 0
+MEMORY:No Memory Operation
+WRITEBACK: write 4 to rd = x[13]
+
+IF: Fetch instruction 0x00D60533 from address 0x2c
+DE: R-type instruction: ADD, rs1 = x12 = 3, rs2 = x13 = 4, rd = x10
+EXECUTE:ADD 3 and 4
+MEMORY:No Memory Operation
+WRITEBACK: write 7 to rd = x[10]
+
+IF: Fetch instruction 0x00012083 from address 0x30
+DE: I-type instruction: LW, rs1 = x2 = 2147483632, imm = 0, rd = x1
+EXECUTE:ADD 2147483632 and 0
+MEMORY: Load at address 2147483632
+WRITEBACK: write 12 to rd = x[1]
+
+IF: Fetch instruction 0x00412403 from address 0x34
+DE: I-type instruction: LW, rs1 = x2 = 2147483632, imm = 4, rd = x8
+EXECUTE:ADD 2147483632 and 4
+MEMORY: Load at address 2147483636
+WRITEBACK: write 3 to rd = x[8]
+
+IF: Fetch instruction 0x00812483 from address 0x38
+DE: I-type instruction: LW, rs1 = x2 = 2147483632, imm = 8, rd = x9
+EXECUTE:ADD 2147483632 and 8
+MEMORY: Load at address 2147483640
+WRITEBACK: write 4 to rd = x[9]
+
+IF: Fetch instruction 0x00C10113 from address 0x3c
+DE: I-type instruction: ADDI, rs1 = x2 = 2147483632, imm = 12, rd = x2
+EXECUTE:ADD 2147483632 and 12
+MEMORY:No Memory Operation
+WRITEBACK: write 2147483644 to rd = x[2]
+
+IF: Fetch instruction 0x00008067 from address 0x40
+DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 12, imm = 0
+EXECUTE:ADD 12 and 0
+EXECUTE: PC set to 12
+MEMORY:No Memory Operation
+WRITEBACK:Can't write to rd = x[0
+
+IF: Fetch instruction 0x00A00933 from address 0xc
+DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x10 = 7, rd = x18
+EXECUTE:ADD 0 and 7
+MEMORY:No Memory Operation
+WRITEBACK: write 7 to rd = x[18]
+
+IF: Fetch instruction 0x02000A63 from address 0x10
+DE: B-type instruction: BEQ, rs1 = x0 = 0, rs2 = x0 = 0, immB = 52
+EXECUTE:BEQ PC set to 68
+MEMORY:No Memory Operation
+WRITEBACK:No writeback Operation
+
+Program execution completed successfully
