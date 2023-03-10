@@ -1,6 +1,3 @@
-# ============!Incomplete SRA and SRL(both are giving same result)==============
-# ============ For JALR IsBranch should select ALUResult ==============
-
 # ============ IsBranch: 0 -> pc + 4, 1 -> BranchTargetAddress, 2 -> ALUResult ==============
 import decode as de
 import instruction_fetch as fi
@@ -8,13 +5,17 @@ import instruction_fetch as fi
 aluResult: int = None
 isBranch: int = None
 
+def srl(a:int,b:int)->int:
+    if(a>=0):
+        return a>>b
+    else:
+        return (a+0x100000000)>>b
 
 def execute() -> int:
     global aluResult, isBranch
-    op1 = de.op1
+    op1:int = de.op1
     op2: int = None
     # Selecting op2
-    # fi.pc = BranchTargetAddress
     if (de.OP2Select == 0):
         op2 = de.op2
     elif (de.OP2Select == 1):
@@ -42,7 +43,7 @@ def execute() -> int:
         aluResult = op1 << op2
         f.write(f"EXECUTE:SLL {op1} and {op2}")
     elif (de.ALUOperation == 6):
-        aluResult = op1 >> op2
+        aluResult=srl(op1,op2)
         f.write(f"EXECUTE:SRL {op1} and {op2}")
     elif (de.ALUOperation == 7):
         aluResult = op1 >> op2
@@ -75,16 +76,19 @@ def execute() -> int:
             f.write(f"EXECUTE:BLT PC set to {de.BranchTargetAddress}")
         else:
             isBranch = 0
-    # for JAL and JALR
-    # this needs to be corrected, won't work for jalr, use opcode to check if inst is jalr
-    # DEBUG!!!!!
-    if (de.ResultSelect == 3):
+    # for JAL
+    if (de.opcode == '1101111'):
         fi.pc = de.BranchTargetAddress
+        f.write(f"EXECUTE: PC set to {de.BranchTargetAddress}")
+    elif (de.opcode == '1100111'):  # for JALR
+        fi.pc = aluResult
         f.write(f"EXECUTE: PC set to {de.BranchTargetAddress}")
     f.close()
     print(aluResult)
-    # write the Execute operation to the output file
 
 
 def init() -> None:
     '''Initializes all global variables to their initial value'''
+    global aluResult, isBranch
+    aluResult = None
+    isBranch = None

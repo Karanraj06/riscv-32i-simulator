@@ -10,7 +10,7 @@ func3: str = None
 func7: str = None
 op1: int = None
 op2: int = None
-
+opcode:str=None
 # =================== IMMEDIATE VALUES ===================
 imm: int = None
 immS: int = None
@@ -39,6 +39,7 @@ def decode() -> None:
     """Decodes the instruction and passes the required values to the execute stage"""
     global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress
 
+    global opcode
     opcode = instruction[25:]
 
     # R type
