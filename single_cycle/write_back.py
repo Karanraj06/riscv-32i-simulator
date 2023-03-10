@@ -13,7 +13,7 @@ def writeBack() -> None:
     global clk
 
     # if RFWrite is 0, then there is no need to write result
-    if de.RFWrite == 0:
+    if de.RFWrite == 0 :
         with open("output.txt", "a") as f:
             f.write(f"WRITEBACK:No writeback Operation\n\n")
         clk += 1
@@ -33,6 +33,9 @@ def writeBack() -> None:
             rg.x[int(de.rd, 2)] = de.immU + de.pc
         with open("output.txt", "a") as f:
             f.write(f"WRITEBACK: write {rg.x[int(de.rd,2)]} to rd = x[{int(de.rd, 2)}]\n\n")
+    else:
+        with open("output.txt", "a") as f:
+            f.write(f"WRITEBACK:Can't write to rd = x[{int(de.rd, 2)}\n\n")
     # incrementing clock cycle by 1 after the writeback stage is completed
     clk += 1
 
