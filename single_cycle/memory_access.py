@@ -31,7 +31,7 @@ def memory_access() -> None:
         f.write(f"MEMORY:No Memory Operation\n")
         pass
     elif (de.MemOp == 1):
-        f.write(f"MEMORY: Load at address {ex.aluResult}")
+        f.write(f"MEMORY: Load at address {ex.aluResult}\n")
         #Check if memory address exists or not
         if(ex.aluResult not in data_memory.keys()):
             data_memory[ex.aluResult]='0'*32
@@ -49,7 +49,7 @@ def memory_access() -> None:
             pass
     elif (de.MemOp == 2):
         if(de.func3=='010'):#for SW
-            f.write(f"MEMORY: Store {de.op2} at address {ex.aluResult}")
+            f.write(f"MEMORY: Store {de.op2} at address {ex.aluResult}\n")
             data_memory[ex.aluResult] = dec_to_bin(de.op2)
         elif(de.func3=='000'):#for SB
             pass
