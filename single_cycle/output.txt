@@ -1,0 +1,7 @@
+IF: Fetch instruction 0x00300413 from address 0x0
+DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 3, rd = x8
+EXECUTE:ADD 0 and 3MEMORY:No Memory Operation
+WRITEBACK: write 3 to rd = x[8]IF: Fetch instruction 0x00400493 from address 0x4
+DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 4, rd = x9
+EXECUTE:ADD 0 and 4MEMORY:No Memory Operation
+WRITEBACK: write 4 to rd = x[9]
