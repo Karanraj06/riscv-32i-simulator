@@ -1,4 +1,6 @@
-#==============! Incomplete SB,SH,LB,LH(check how it works)==========
+#==============! Incomplete SB,SH(check how it works)==========
+#===============DONE!!!CHECK if memory address exists===============
+#===============CHECK if we should store addresses as hex and not int============
 import decode as de
 import execute as ex
 # ========Globals=========
@@ -30,12 +32,20 @@ def memory_access() -> None:
         pass
     elif (de.MemOp == 1):
         f.write(f"MEMORY: Load at address {ex.aluResult}")
+        #Check if memory address exists or not
+        if(ex.aluResult not in data_memory.keys()):
+            data_memory[ex.aluResult]='0'*32
+        
         if(de.func3=='010'):#for LW
             loadData = de.bin_to_dec(data_memory[ex.aluResult])
             print(f"The loaded value is{loadData}")
         elif(de.func3=='000'):#for LB
+            temp=data_memory[ex.aluResult]
+            loadData=de.bin_to_dec(temp[:8].rjust(32,temp[0]))
             pass
         elif(de.func3=='001'):#for LH
+            temp=data_memory[ex.aluResult]
+            loadData=de.bin_to_dec(temp[:16].rjust(32,temp[0]))
             pass
     elif (de.MemOp == 2):
         if(de.func3=='010'):#for SW
