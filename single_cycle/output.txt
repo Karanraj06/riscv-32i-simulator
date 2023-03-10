@@ -87,7 +87,7 @@ DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 12, imm = 0
 EXECUTE:ADD 12 and 0
 EXECUTE: PC set to 12
 MEMORY:No Memory Operation
-WRITEBACK:Can't write to rd = x[0
+WRITEBACK:Can't write to rd = x[0]
 
 IF: Fetch instruction 0x00A00933 from address 0xc
 DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x10 = 7, rd = x18
