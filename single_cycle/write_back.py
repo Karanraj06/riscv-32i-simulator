@@ -26,9 +26,9 @@ def writeBack() -> None:
         elif de.ResultSelect == 2:
             rg.x[int(de.rd, 2)] = de.immU
         elif de.ResultSelect == 3:
-            rg.x[int(de.rd, 2)] = fi.pc + 4
+            rg.x[int(de.rd, 2)] = de.pc + 4
         elif de.ResultSelect == 4:
-            rg.x[int(de.rd, 2)] = de.immU + fi.pc
+            rg.x[int(de.rd, 2)] = de.immU + de.pc
         with open("output.txt", "a") as f:
             f.write(f"WRITEBACK: write {rg.x[int(de.rd,2)]} to rd = x[{int(de.rd, 2)}]")
     # incrementing clock cycle by 1 after the writeback stage is completed
