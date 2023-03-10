@@ -1,3 +1,4 @@
+#==============! Incomplete SB,SH,LB,LH(check how it works)==========
 import decode as de
 import execute as ex
 # ========Globals=========
@@ -29,15 +30,25 @@ def memory_access() -> None:
         pass
     elif (de.MemOp == 1):
         f.write(f"MEMORY: Load at address {ex.aluResult}")
-
-        loadData = de.bin_to_dec(data_memory[ex.aluResult])
-        print(f"The loaded value is{loadData}")
+        if(de.func3=='010'):#for LW
+            loadData = de.bin_to_dec(data_memory[ex.aluResult])
+            print(f"The loaded value is{loadData}")
+        elif(de.func3=='000'):#for LB
+            pass
+        elif(de.func3=='001'):#for LH
+            pass
     elif (de.MemOp == 2):
-        f.write(f"MEMORY: Store {de.op2} at address {ex.aluResult}")
-        data_memory[ex.aluResult] = dec_to_bin(de.op2)
+        if(de.func3=='010'):#for SW
+            f.write(f"MEMORY: Store {de.op2} at address {ex.aluResult}")
+            data_memory[ex.aluResult] = dec_to_bin(de.op2)
+        elif(de.func3=='000'):#for SB
+            pass
+        elif(de.func3=='001'):#for SH
+            pass
 
 
 def init() -> None:
     """Initialize the global variables"""
-    global loadData
+    global loadData,data_memory
     loadData = None
+    data_memory={}
