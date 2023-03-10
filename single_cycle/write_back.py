@@ -30,7 +30,7 @@ def writeBack() -> None:
         elif de.ResultSelect == 4:
             rg.x[int(de.rd, 2)] = de.immU + de.pc
         with open("output.txt", "a") as f:
-            f.write(f"WRITEBACK: write {rg.x[int(de.rd,2)]} to rd = x[{int(de.rd, 2)}]")
+            f.write(f"WRITEBACK: write {rg.x[int(de.rd,2)]} to rd = x[{int(de.rd, 2)}]\n\n")
     # incrementing clock cycle by 1 after the writeback stage is completed
     clk += 1
 
