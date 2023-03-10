@@ -15,7 +15,7 @@ def writeBack() -> None:
     # if RFWrite is 0, then there is no need to write result
     if de.RFWrite == 0:
         with open("output.txt", "a") as f:
-            f.write(f"WRITEBACK:No writeback Operation\n")
+            f.write(f"WRITEBACK:No writeback Operation\n\n")
         clk += 1
         return
     # if rd is set to x0, then its value can't be updated
