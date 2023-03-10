@@ -82,7 +82,7 @@ def execute() -> int:
         f.write(f"EXECUTE: PC set to {de.BranchTargetAddress}\n")
     elif (de.opcode == '1100111'):  # for JALR
         fi.pc = aluResult
-        f.write(f"EXECUTE: PC set to {de.BranchTargetAddress}\n")
+        f.write(f"EXECUTE: PC set to {aluResult}\n")
     f.close()
     print(aluResult)
 
