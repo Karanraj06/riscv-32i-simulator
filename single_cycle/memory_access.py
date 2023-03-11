@@ -29,7 +29,7 @@ def memory_access() -> None:
     f = open("output.txt", "a")
     if (de.MemOp == 0):
         f.write(f"MEMORY:No Memory Operation\n")
-        pass
+        
     elif (de.MemOp == 1):
         f.write(f"MEMORY: Load at address {ex.aluResult}\n")
         #Check if memory address exists or not
@@ -47,16 +47,19 @@ def memory_access() -> None:
             temp=data_memory[ex.aluResult]
             loadData=de.bin_to_dec(temp[:16].rjust(32,temp[0]))
             f.write(f"The loaded value is{loadData}")
+
     elif (de.MemOp == 2):
         if(de.func3=='010'):#for SW
             f.write(f"MEMORY: Store {de.op2} at address {ex.aluResult}\n")
             data_memory[ex.aluResult] = dec_to_bin(de.op2)
+
         elif(de.func3=='000'):#for SB
-            temp=dec_to_bin(de.op2)
-            temp=temp[:8].ljust(32,0)
-            pass
+            data_memory[ex.aluResult] = dec_to_bin(de.op2)[24:].zfill(32)
+            f.write(f"MEMORY: Store {de.bin_to_dec(dec_to_bin(de.op2)[24:].zfill(32))} at address {ex.aluResult}\n")
+
         elif(de.func3=='001'):#for SH
-            pass
+            data_memory[ex.aluResult] = dec_to_bin(de.op2)[16:].zfill(32)
+            f.write(f"MEMORY: Store {de.bin_to_dec(dec_to_bin(de.op2)[16:].zfill(32))} at address {ex.aluResult}\n")
 
 
 def init() -> None:

@@ -235,14 +235,14 @@ def decode() -> None:
             RFWrite = 1
             BranchTargetAddress = 0
 
-            imm = bin_to_dec(instruction[:12])
+            imm = bin_to_dec(instruction[7:12])
             with open("output.txt", "a") as f:
                 f.write(
                     f"DE: I-type instruction: SLLI, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
                 )
 
         elif func3 == "101":
-            imm = bin_to_dec(instruction[:12])
+            imm = bin_to_dec(instruction[7:12])
 
             # SRLI
             if instruction[:7] == "0000000":

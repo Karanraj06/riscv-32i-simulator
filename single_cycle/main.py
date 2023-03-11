@@ -6,12 +6,12 @@ import write_back as wb
 import registers as rg
 
 def print_output():
-    print("#=========Register File===========#")
+    print("# ========= Register File ===========")
     track=0
     for x in rg.x:
         print(f"x{track} : {x}")
         track+=1
-    print("#===============Data Memory===========#")
+    print("# =============== Data Memory ===========")
     #we will first sort the data memory according to address
     mem_addresses=list(ma.data_memory.keys())
     mem_addresses.sort()
@@ -20,13 +20,8 @@ def print_output():
         value=de.bin_to_dec(ma.data_memory[key])
         key='0x'+(hex(key)[2:].zfill(8))
         if(key[2]=='1'):
-            print(f" {key} : {value} ")
+            print(f"{key}: {value}")
 
-
-
-# Read the contents of the input file and store them in instruction_memory
-# !!!!!!!!!!IMPORTANT!!!!!!!!!!
-# data memory is not part of input.mc, it will be filled as the instructions are executed
 with open("input.mc", "r") as f:
     while True:
         key, value = f.readline().split()
@@ -56,7 +51,6 @@ def step() -> bool:
         ma.memory_access()
         wb.writeBack()
         return True
-    # print("\n\n#================Program execution Successful!!!=====================#\n\n")
     return False
 
 
@@ -83,7 +77,9 @@ while True:
         run()
         break
     elif choice == "2":
-        step()
+        if (not step()):
+            print_output()
+            break
     elif choice == "3":
         reset()
     else:
