@@ -3,6 +3,7 @@ import registers as rg
 #Changed branchtargetadress in JAL
 #Changed resultselect in LW to 1
 #Added immU to the list of globals in decode()
+#changed immediate in slli
 # =================== GLOBAL VARIABLES ===================
 instruction: str = None
 pc: int = None
@@ -234,14 +235,14 @@ def decode() -> None:
             RFWrite = 1
             BranchTargetAddress = 0
 
-            imm = bin_to_dec(instruction[7:12])
+            imm = bin_to_dec(instruction[:12])
             with open("output.txt", "a") as f:
                 f.write(
                     f"DE: I-type instruction: SLLI, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
                 )
 
         elif func3 == "101":
-            imm = bin_to_dec(instruction[7:12])
+            imm = bin_to_dec(instruction[:12])
 
             # SRLI
             if instruction[:7] == "0000000":

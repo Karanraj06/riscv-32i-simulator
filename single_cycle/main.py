@@ -5,13 +5,14 @@ import memory_access as ma
 import write_back as wb
 import registers as rg
 
+def print_output():
+    print("#=========Register File===========#")
 # Read the contents of the input file and store them in instruction_memory
 # !!!!!!!!!!IMPORTANT!!!!!!!!!!
 # data memory is not part of input.mc, it will be filled as the instructions are executed
 with open("input.mc", "r") as f:
     while True:
         key, value = f.readline().split()
-
         if value == "_":
             fi.instruction_memory[int(key, 16)] = None
             break
@@ -26,6 +27,7 @@ def run() -> None:
     '''Executes the program until the end of the instruction memory is reached'''
     while(step()):
         continue
+    print_output()
 
 
 
@@ -37,6 +39,7 @@ def step() -> None:
         ma.memory_access()
         wb.writeBack()
         return True
+    print("\n\n#================Program execution Successful!!!=====================#\n\n")
     return False
 
 
@@ -44,6 +47,9 @@ def reset() -> None:
     '''Resets to the initial state'''
     fi.init()
     de.init()
+    ex.init()
+    ma.init()
+    wb.init()
     rg.init()
     with open("output.txt", "w") as f:
         f.truncate(0)
