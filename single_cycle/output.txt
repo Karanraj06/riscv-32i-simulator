@@ -77,13 +77,13 @@ IF: Fetch instruction 0x01551613 from address 0x60
 DE: I-type instruction: SLLI, rs1 = x10 = 268435456, imm = 21, rd = x12
 EXECUTE:SLL 268435456 and 21
 MEMORY:No Memory Operation
-WRITEBACK: write 562949953421312 to rd = x[12]
+WRITEBACK: write 0 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x64
-DE: R-type instruction: XOR, rs1 = x10 = 268435456, rs2 = x12 = 562949953421312, rd = x10
-EXECUTE:XOR 268435456 and 562949953421312
+DE: R-type instruction: XOR, rs1 = x10 = 268435456, rs2 = x12 = 0, rd = x10
+EXECUTE:XOR 268435456 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 562950221856768 to rd = x[10]
+WRITEBACK: write 268435456 to rd = x[10]
 
 IF: Fetch instruction 0x02300693 from address 0x68
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 35, rd = x13
@@ -92,34 +92,34 @@ MEMORY:No Memory Operation
 WRITEBACK: write 35 to rd = x[13]
 
 IF: Fetch instruction 0x00D55633 from address 0x6c
-DE: R-type instruction: SRL, rs1 = x10 = 562950221856768, rs2 = x13 = 35, rd = x12
-EXECUTE:SRL 562950221856768 and 35
+DE: R-type instruction: SRL, rs1 = x10 = 268435456, rs2 = x13 = 35, rd = x12
+EXECUTE:SRL 268435456 and 3
 MEMORY:No Memory Operation
-WRITEBACK: write 16384 to rd = x[12]
+WRITEBACK: write 33554432 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x70
-DE: R-type instruction: XOR, rs1 = x10 = 562950221856768, rs2 = x12 = 16384, rd = x10
-EXECUTE:XOR 562950221856768 and 16384
+DE: R-type instruction: XOR, rs1 = x10 = 268435456, rs2 = x12 = 33554432, rd = x10
+EXECUTE:XOR 268435456 and 33554432
 MEMORY:No Memory Operation
-WRITEBACK: write 562950221873152 to rd = x[10]
+WRITEBACK: write 301989888 to rd = x[10]
 
 IF: Fetch instruction 0x00451613 from address 0x74
-DE: I-type instruction: SLLI, rs1 = x10 = 562950221873152, imm = 4, rd = x12
-EXECUTE:SLL 562950221873152 and 4
+DE: I-type instruction: SLLI, rs1 = x10 = 301989888, imm = 4, rd = x12
+EXECUTE:SLL 301989888 and 4
 MEMORY:No Memory Operation
-WRITEBACK: write 9007203549970432 to rd = x[12]
+WRITEBACK: write 536870912 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x78
-DE: R-type instruction: XOR, rs1 = x10 = 562950221873152, rs2 = x12 = 9007203549970432, rd = x10
-EXECUTE:XOR 562950221873152 and 9007203549970432
+DE: R-type instruction: XOR, rs1 = x10 = 301989888, rs2 = x12 = 536870912, rd = x10
+EXECUTE:XOR 301989888 and 536870912
 MEMORY:No Memory Operation
-WRITEBACK: write 9570153771843584 to rd = x[10]
+WRITEBACK: write 838860800 to rd = x[10]
 
 IF: Fetch instruction 0x00050933 from address 0x7c
-DE: R-type instruction: ADD, rs1 = x10 = 9570153771843584, rs2 = x0 = 0, rd = x18
-EXECUTE:ADD 9570153771843584 and 0
+DE: R-type instruction: ADD, rs1 = x10 = 838860800, rs2 = x0 = 0, rd = x18
+EXECUTE:ADD 838860800 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 9570153771843584 to rd = x[18]
+WRITEBACK: write 838860800 to rd = x[18]
 
 IF: Fetch instruction 0x00012283 from address 0x80
 DE: I-type instruction: LW, rs1 = x2 = 2147483636, imm = 0, rd = x5
@@ -159,15 +159,15 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00A42023 from address 0x2c
-DE: S-type instruction: SW, rs1 = x8 = 268435476, rs2 = x10 = 9570153771843584, immS = 0
+DE: S-type instruction: SW, rs1 = x8 = 268435476, rs2 = x10 = 838860800, immS = 0
 EXECUTE:ADD 268435476 and 0
-MEMORY: Store 9570153771843584 at address 268435476
+MEMORY: Store 838860800 at address 268435476
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00A4A023 from address 0x30
-DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x10 = 9570153771843584, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x10 = 838860800, immS = 0
 EXECUTE:ADD 268435456 and 0
-MEMORY: Store 9570153771843584 at address 268435456
+MEMORY: Store 838860800 at address 268435456
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40640433 from address 0x34
@@ -225,22 +225,22 @@ MEMORY: Store 4 at address 2147483640
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x01200533 from address 0x5c
-DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 9570153771843584, rd = x10
-EXECUTE:ADD 0 and 9570153771843584
+DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 838860800, rd = x10
+EXECUTE:ADD 0 and 838860800
 MEMORY:No Memory Operation
-WRITEBACK: write 9570153771843584 to rd = x[10]
+WRITEBACK: write 838860800 to rd = x[10]
 
 IF: Fetch instruction 0x01551613 from address 0x60
-DE: I-type instruction: SLLI, rs1 = x10 = 9570153771843584, imm = 21, rd = x12
-EXECUTE:SLL 9570153771843584 and 21
+DE: I-type instruction: SLLI, rs1 = x10 = 838860800, imm = 21, rd = x12
+EXECUTE:SLL 838860800 and 21
 MEMORY:No Memory Operation
-WRITEBACK: write 20070067122929315872768 to rd = x[12]
+WRITEBACK: write 0 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x64
-DE: R-type instruction: XOR, rs1 = x10 = 9570153771843584, rs2 = x12 = 20070067122929315872768, rd = x10
-EXECUTE:XOR 9570153771843584 and 20070067122929315872768
+DE: R-type instruction: XOR, rs1 = x10 = 838860800, rs2 = x12 = 0, rd = x10
+EXECUTE:XOR 838860800 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 20070057552784671391744 to rd = x[10]
+WRITEBACK: write 838860800 to rd = x[10]
 
 IF: Fetch instruction 0x02300693 from address 0x68
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 35, rd = x13
@@ -249,34 +249,34 @@ MEMORY:No Memory Operation
 WRITEBACK: write 35 to rd = x[13]
 
 IF: Fetch instruction 0x00D55633 from address 0x6c
-DE: R-type instruction: SRL, rs1 = x10 = 20070057552784671391744, rs2 = x13 = 35, rd = x12
-EXECUTE:SRL 20070057552784671391744 and 35
+DE: R-type instruction: SRL, rs1 = x10 = 838860800, rs2 = x13 = 35, rd = x12
+EXECUTE:SRL 838860800 and 3
 MEMORY:No Memory Operation
-WRITEBACK: write 584115552273 to rd = x[12]
+WRITEBACK: write 104857600 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x70
-DE: R-type instruction: XOR, rs1 = x10 = 20070057552784671391744, rs2 = x12 = 584115552273, rd = x10
-EXECUTE:XOR 20070057552784671391744 and 584115552273
+DE: R-type instruction: XOR, rs1 = x10 = 838860800, rs2 = x12 = 104857600, rd = x10
+EXECUTE:XOR 838860800 and 104857600
 MEMORY:No Memory Operation
-WRITEBACK: write 20070057552200555839505 to rd = x[10]
+WRITEBACK: write 876609536 to rd = x[10]
 
 IF: Fetch instruction 0x00451613 from address 0x74
-DE: I-type instruction: SLLI, rs1 = x10 = 20070057552200555839505, imm = 4, rd = x12
-EXECUTE:SLL 20070057552200555839505 and 4
+DE: I-type instruction: SLLI, rs1 = x10 = 876609536, imm = 4, rd = x12
+EXECUTE:SLL 876609536 and 4
 MEMORY:No Memory Operation
-WRITEBACK: write 321120920835208893432080 to rd = x[12]
+WRITEBACK: write 1140850688 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x78
-DE: R-type instruction: XOR, rs1 = x10 = 20070057552200555839505, rs2 = x12 = 321120920835208893432080, rd = x10
-EXECUTE:XOR 20070057552200555839505 and 321120920835208893432080
+DE: R-type instruction: XOR, rs1 = x10 = 876609536, rs2 = x12 = 1140850688, rd = x10
+EXECUTE:XOR 876609536 and 1140850688
 MEMORY:No Memory Operation
-WRITEBACK: write 303412046524443697103105 to rd = x[10]
+WRITEBACK: write 1883242496 to rd = x[10]
 
 IF: Fetch instruction 0x00050933 from address 0x7c
-DE: R-type instruction: ADD, rs1 = x10 = 303412046524443697103105, rs2 = x0 = 0, rd = x18
-EXECUTE:ADD 303412046524443697103105 and 0
+DE: R-type instruction: ADD, rs1 = x10 = 1883242496, rs2 = x0 = 0, rd = x18
+EXECUTE:ADD 1883242496 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 303412046524443697103105 to rd = x[18]
+WRITEBACK: write 1883242496 to rd = x[18]
 
 IF: Fetch instruction 0x00012283 from address 0x80
 DE: I-type instruction: LW, rs1 = x2 = 2147483636, imm = 0, rd = x5
@@ -316,15 +316,15 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435460 to rd = x[9]
 
 IF: Fetch instruction 0x00A42023 from address 0x2c
-DE: S-type instruction: SW, rs1 = x8 = 268435480, rs2 = x10 = 303412046524443697103105, immS = 0
+DE: S-type instruction: SW, rs1 = x8 = 268435480, rs2 = x10 = 1883242496, immS = 0
 EXECUTE:ADD 268435480 and 0
-MEMORY: Store 303412046524443697103105 at address 268435480
+MEMORY: Store 1883242496 at address 268435480
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00A4A023 from address 0x30
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x10 = 303412046524443697103105, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x10 = 1883242496, immS = 0
 EXECUTE:ADD 268435460 and 0
-MEMORY: Store 303412046524443697103105 at address 268435460
+MEMORY: Store 1883242496 at address 268435460
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40640433 from address 0x34
@@ -382,22 +382,22 @@ MEMORY: Store 8 at address 2147483640
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x01200533 from address 0x5c
-DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 303412046524443697103105, rd = x10
-EXECUTE:ADD 0 and 303412046524443697103105
+DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 1883242496, rd = x10
+EXECUTE:ADD 0 and 1883242496
 MEMORY:No Memory Operation
-WRITEBACK: write 303412046524443697103105 to rd = x[10]
+WRITEBACK: write 1883242496 to rd = x[10]
 
 IF: Fetch instruction 0x01551613 from address 0x60
-DE: I-type instruction: SLLI, rs1 = x10 = 303412046524443697103105, imm = 21, rd = x12
-EXECUTE:SLL 303412046524443697103105 and 21
+DE: I-type instruction: SLLI, rs1 = x10 = 1883242496, imm = 21, rd = x12
+EXECUTE:SLL 1883242496 and 21
 MEMORY:No Memory Operation
-WRITEBACK: write 636301180192830148267170856960 to rd = x[12]
+WRITEBACK: write 0 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x64
-DE: R-type instruction: XOR, rs1 = x10 = 303412046524443697103105, rs2 = x12 = 636301180192830148267170856960, rd = x10
-EXECUTE:XOR 303412046524443697103105 and 636301180192830148267170856960
+DE: R-type instruction: XOR, rs1 = x10 = 1883242496, rs2 = x12 = 0, rd = x10
+EXECUTE:XOR 1883242496 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 636301483604876672710867960065 to rd = x[10]
+WRITEBACK: write 1883242496 to rd = x[10]
 
 IF: Fetch instruction 0x02300693 from address 0x68
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 35, rd = x13
@@ -406,34 +406,34 @@ MEMORY:No Memory Operation
 WRITEBACK: write 35 to rd = x[13]
 
 IF: Fetch instruction 0x00D55633 from address 0x6c
-DE: R-type instruction: SRL, rs1 = x10 = 636301483604876672710867960065, rs2 = x13 = 35, rd = x12
-EXECUTE:SRL 636301483604876672710867960065 and 35
+DE: R-type instruction: SRL, rs1 = x10 = 1883242496, rs2 = x13 = 35, rd = x12
+EXECUTE:SRL 1883242496 and 3
 MEMORY:No Memory Operation
-WRITEBACK: write 18518810498204451075 to rd = x[12]
+WRITEBACK: write 235405312 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x70
-DE: R-type instruction: XOR, rs1 = x10 = 636301483604876672710867960065, rs2 = x12 = 18518810498204451075, rd = x10
-EXECUTE:XOR 636301483604876672710867960065 and 18518810498204451075
+DE: R-type instruction: XOR, rs1 = x10 = 1883242496, rs2 = x12 = 235405312, rd = x10
+EXECUTE:XOR 1883242496 and 235405312
 MEMORY:No Memory Operation
-WRITEBACK: write 636301483623395465548158468098 to rd = x[10]
+WRITEBACK: write 2118647808 to rd = x[10]
 
 IF: Fetch instruction 0x00451613 from address 0x74
-DE: I-type instruction: SLLI, rs1 = x10 = 636301483623395465548158468098, imm = 4, rd = x12
-EXECUTE:SLL 636301483623395465548158468098 and 4
+DE: I-type instruction: SLLI, rs1 = x10 = 2118647808, imm = 4, rd = x12
+EXECUTE:SLL 2118647808 and 4
 MEMORY:No Memory Operation
-WRITEBACK: write 10180823737974327448770535489568 to rd = x[12]
+WRITEBACK: write -461373440 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x78
-DE: R-type instruction: XOR, rs1 = x10 = 636301483623395465548158468098, rs2 = x12 = 10180823737974327448770535489568, rd = x10
-EXECUTE:XOR 636301483623395465548158468098 and 10180823737974327448770535489568
+DE: R-type instruction: XOR, rs1 = x10 = 2118647808, rs2 = x12 = -461373440, rd = x10
+EXECUTE:XOR 2118647808 and -461373440
 MEMORY:No Memory Operation
-WRITEBACK: write 10817125221597722914318693957666 to rd = x[10]
+WRITEBACK: write -1698168832 to rd = x[10]
 
 IF: Fetch instruction 0x00050933 from address 0x7c
-DE: R-type instruction: ADD, rs1 = x10 = 10817125221597722914318693957666, rs2 = x0 = 0, rd = x18
-EXECUTE:ADD 10817125221597722914318693957666 and 0
+DE: R-type instruction: ADD, rs1 = x10 = -1698168832, rs2 = x0 = 0, rd = x18
+EXECUTE:ADD -1698168832 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 10817125221597722914318693957666 to rd = x[18]
+WRITEBACK: write -1698168832 to rd = x[18]
 
 IF: Fetch instruction 0x00012283 from address 0x80
 DE: I-type instruction: LW, rs1 = x2 = 2147483636, imm = 0, rd = x5
@@ -473,15 +473,15 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435464 to rd = x[9]
 
 IF: Fetch instruction 0x00A42023 from address 0x2c
-DE: S-type instruction: SW, rs1 = x8 = 268435484, rs2 = x10 = 10817125221597722914318693957666, immS = 0
+DE: S-type instruction: SW, rs1 = x8 = 268435484, rs2 = x10 = -1698168832, immS = 0
 EXECUTE:ADD 268435484 and 0
-MEMORY: Store 10817125221597722914318693957666 at address 268435484
+MEMORY: Store -1698168832 at address 268435484
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00A4A023 from address 0x30
-DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x10 = 10817125221597722914318693957666, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x10 = -1698168832, immS = 0
 EXECUTE:ADD 268435464 and 0
-MEMORY: Store 10817125221597722914318693957666 at address 268435464
+MEMORY: Store -1698168832 at address 268435464
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40640433 from address 0x34
@@ -539,22 +539,22 @@ MEMORY: Store 12 at address 2147483640
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x01200533 from address 0x5c
-DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 10817125221597722914318693957666, rd = x10
-EXECUTE:ADD 0 and 10817125221597722914318693957666
+DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = -1698168832, rd = x10
+EXECUTE:ADD 0 and -1698168832
 MEMORY:No Memory Operation
-WRITEBACK: write 10817125221597722914318693957666 to rd = x[10]
+WRITEBACK: write -1698168832 to rd = x[10]
 
 IF: Fetch instruction 0x01551613 from address 0x60
-DE: I-type instruction: SLLI, rs1 = x10 = 10817125221597722914318693957666, imm = 21, rd = x12
-EXECUTE:SLL 10817125221597722914318693957666 and 21
+DE: I-type instruction: SLLI, rs1 = x10 = -1698168832, imm = 21, rd = x12
+EXECUTE:SLL -1698168832 and 21
 MEMORY:No Memory Operation
-WRITEBACK: write 22685155792724107805209277670707167232 to rd = x[12]
+WRITEBACK: write 0 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x64
-DE: R-type instruction: XOR, rs1 = x10 = 10817125221597722914318693957666, rs2 = x12 = 22685155792724107805209277670707167232, rd = x10
-EXECUTE:XOR 10817125221597722914318693957666 and 22685155792724107805209277670707167232
+DE: R-type instruction: XOR, rs1 = x10 = -1698168832, rs2 = x12 = 0, rd = x10
+EXECUTE:XOR -1698168832 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 22685144975598886837125622419341443106 to rd = x[10]
+WRITEBACK: write -1698168832 to rd = x[10]
 
 IF: Fetch instruction 0x02300693 from address 0x68
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 35, rd = x13
@@ -563,34 +563,34 @@ MEMORY:No Memory Operation
 WRITEBACK: write 35 to rd = x[13]
 
 IF: Fetch instruction 0x00D55633 from address 0x6c
-DE: R-type instruction: SRL, rs1 = x10 = 22685144975598886837125622419341443106, rs2 = x13 = 35, rd = x12
-EXECUTE:SRL 22685144975598886837125622419341443106 and 35
+DE: R-type instruction: SRL, rs1 = x10 = -1698168832, rs2 = x13 = 35, rd = x12
+EXECUTE:SRL -1698168832 and 3
 MEMORY:No Memory Operation
-WRITEBACK: write 660224613256254432406440098 to rd = x[12]
+WRITEBACK: write 324599808 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x70
-DE: R-type instruction: XOR, rs1 = x10 = 22685144975598886837125622419341443106, rs2 = x12 = 660224613256254432406440098, rd = x10
-EXECUTE:XOR 22685144975598886837125622419341443106 and 660224613256254432406440098
+DE: R-type instruction: XOR, rs1 = x10 = -1698168832, rs2 = x12 = 324599808, rd = x10
+EXECUTE:XOR -1698168832 and 324599808
 MEMORY:No Memory Operation
-WRITEBACK: write 22685144974938662223869367986936121472 to rd = x[10]
+WRITEBACK: write -1986985984 to rd = x[10]
 
 IF: Fetch instruction 0x00451613 from address 0x74
-DE: I-type instruction: SLLI, rs1 = x10 = 22685144974938662223869367986936121472, imm = 4, rd = x12
-EXECUTE:SLL 22685144974938662223869367986936121472 and 4
+DE: I-type instruction: SLLI, rs1 = x10 = -1986985984, imm = 4, rd = x12
+EXECUTE:SLL -1986985984 and 4
 MEMORY:No Memory Operation
-WRITEBACK: write 362962319599018595581909887790977943552 to rd = x[12]
+WRITEBACK: write -1727004672 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x78
-DE: R-type instruction: XOR, rs1 = x10 = 22685144974938662223869367986936121472, rs2 = x12 = 362962319599018595581909887790977943552, rd = x10
-EXECUTE:XOR 22685144974938662223869367986936121472 and 362962319599018595581909887790977943552
+DE: R-type instruction: XOR, rs1 = x10 = -1986985984, rs2 = x12 = -1727004672, rd = x10
+EXECUTE:XOR -1986985984 and -1727004672
 MEMORY:No Memory Operation
-WRITEBACK: write 340287559217797003013441695985321377920 to rd = x[10]
+WRITEBACK: write 276889600 to rd = x[10]
 
 IF: Fetch instruction 0x00050933 from address 0x7c
-DE: R-type instruction: ADD, rs1 = x10 = 340287559217797003013441695985321377920, rs2 = x0 = 0, rd = x18
-EXECUTE:ADD 340287559217797003013441695985321377920 and 0
+DE: R-type instruction: ADD, rs1 = x10 = 276889600, rs2 = x0 = 0, rd = x18
+EXECUTE:ADD 276889600 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 340287559217797003013441695985321377920 to rd = x[18]
+WRITEBACK: write 276889600 to rd = x[18]
 
 IF: Fetch instruction 0x00012283 from address 0x80
 DE: I-type instruction: LW, rs1 = x2 = 2147483636, imm = 0, rd = x5
@@ -630,15 +630,15 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435468 to rd = x[9]
 
 IF: Fetch instruction 0x00A42023 from address 0x2c
-DE: S-type instruction: SW, rs1 = x8 = 268435488, rs2 = x10 = 340287559217797003013441695985321377920, immS = 0
+DE: S-type instruction: SW, rs1 = x8 = 268435488, rs2 = x10 = 276889600, immS = 0
 EXECUTE:ADD 268435488 and 0
-MEMORY: Store 340287559217797003013441695985321377920 at address 268435488
+MEMORY: Store 276889600 at address 268435488
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00A4A023 from address 0x30
-DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x10 = 340287559217797003013441695985321377920, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x10 = 276889600, immS = 0
 EXECUTE:ADD 268435468 and 0
-MEMORY: Store 340287559217797003013441695985321377920 at address 268435468
+MEMORY: Store 276889600 at address 268435468
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40640433 from address 0x34
@@ -696,22 +696,22 @@ MEMORY: Store 16 at address 2147483640
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x01200533 from address 0x5c
-DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 340287559217797003013441695985321377920, rd = x10
-EXECUTE:ADD 0 and 340287559217797003013441695985321377920
+DE: R-type instruction: ADD, rs1 = x0 = 0, rs2 = x18 = 276889600, rd = x10
+EXECUTE:ADD 0 and 276889600
 MEMORY:No Memory Operation
-WRITEBACK: write 340287559217797003013441695985321377920 to rd = x[10]
+WRITEBACK: write 276889600 to rd = x[10]
 
 IF: Fetch instruction 0x01551613 from address 0x60
-DE: I-type instruction: SLLI, rs1 = x10 = 340287559217797003013441695985321377920, imm = 21, rd = x12
-EXECUTE:SLL 340287559217797003013441695985321377920 and 21
+DE: I-type instruction: SLLI, rs1 = x10 = 276889600, imm = 21, rd = x12
+EXECUTE:SLL 276889600 and 21
 MEMORY:No Memory Operation
-WRITEBACK: write 713634735388721420463645279619008698347683840 to rd = x[12]
+WRITEBACK: write 0 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x64
-DE: R-type instruction: XOR, rs1 = x10 = 340287559217797003013441695985321377920, rs2 = x12 = 713634735388721420463645279619008698347683840, rd = x10
-EXECUTE:XOR 340287559217797003013441695985321377920 and 713634735388721420463645279619008698347683840
+DE: R-type instruction: XOR, rs1 = x10 = 276889600, rs2 = x12 = 0, rd = x10
+EXECUTE:XOR 276889600 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 713635075676280638260648293060669498760102016 to rd = x[10]
+WRITEBACK: write 276889600 to rd = x[10]
 
 IF: Fetch instruction 0x02300693 from address 0x68
 DE: I-type instruction: ADDI, rs1 = x0 = 0, imm = 35, rd = x13
@@ -720,34 +720,34 @@ MEMORY:No Memory Operation
 WRITEBACK: write 35 to rd = x[13]
 
 IF: Fetch instruction 0x00D55633 from address 0x6c
-DE: R-type instruction: SRL, rs1 = x10 = 713635075676280638260648293060669498760102016, rs2 = x13 = 35, rd = x12
-EXECUTE:SRL 713635075676280638260648293060669498760102016 and 35
+DE: R-type instruction: SRL, rs1 = x10 = 276889600, rs2 = x13 = 35, rd = x12
+EXECUTE:SRL 276889600 and 3
 MEMORY:No Memory Operation
-WRITEBACK: write 20769514250460797870201300045611264 to rd = x[12]
+WRITEBACK: write 34611200 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x70
-DE: R-type instruction: XOR, rs1 = x10 = 713635075676280638260648293060669498760102016, rs2 = x12 = 20769514250460797870201300045611264, rd = x10
-EXECUTE:XOR 713635075676280638260648293060669498760102016 and 20769514250460797870201300045611264
+DE: R-type instruction: XOR, rs1 = x10 = 276889600, rs2 = x12 = 34611200, rd = x10
+EXECUTE:XOR 276889600 and 34611200
 MEMORY:No Memory Operation
-WRITEBACK: write 713635075697050132703766230909882740978565504 to rd = x[10]
+WRITEBACK: write 311500800 to rd = x[10]
 
 IF: Fetch instruction 0x00451613 from address 0x74
-DE: I-type instruction: SLLI, rs1 = x10 = 713635075697050132703766230909882740978565504, imm = 4, rd = x12
-EXECUTE:SLL 713635075697050132703766230909882740978565504 and 4
+DE: I-type instruction: SLLI, rs1 = x10 = 311500800, imm = 4, rd = x12
+EXECUTE:SLL 311500800 and 4
 MEMORY:No Memory Operation
-WRITEBACK: write 11418161211152802123260259694558123855657048064 to rd = x[12]
+WRITEBACK: write 689045504 to rd = x[12]
 
 IF: Fetch instruction 0x00C54533 from address 0x78
-DE: R-type instruction: XOR, rs1 = x10 = 713635075697050132703766230909882740978565504, rs2 = x12 = 11418161211152802123260259694558123855657048064, rd = x10
-EXECUTE:XOR 713635075697050132703766230909882740978565504 and 11418161211152802123260259694558123855657048064
+DE: R-type instruction: XOR, rs1 = x10 = 311500800, rs2 = x12 = 689045504, rd = x10
+EXECUTE:XOR 311500800 and 689045504
 MEMORY:No Memory Operation
-WRITEBACK: write 12131796286849852255964025925468006596635613568 to rd = x[10]
+WRITEBACK: write 998449152 to rd = x[10]
 
 IF: Fetch instruction 0x00050933 from address 0x7c
-DE: R-type instruction: ADD, rs1 = x10 = 12131796286849852255964025925468006596635613568, rs2 = x0 = 0, rd = x18
-EXECUTE:ADD 12131796286849852255964025925468006596635613568 and 0
+DE: R-type instruction: ADD, rs1 = x10 = 998449152, rs2 = x0 = 0, rd = x18
+EXECUTE:ADD 998449152 and 0
 MEMORY:No Memory Operation
-WRITEBACK: write 12131796286849852255964025925468006596635613568 to rd = x[18]
+WRITEBACK: write 998449152 to rd = x[18]
 
 IF: Fetch instruction 0x00012283 from address 0x80
 DE: I-type instruction: LW, rs1 = x2 = 2147483636, imm = 0, rd = x5
@@ -787,15 +787,15 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435472 to rd = x[9]
 
 IF: Fetch instruction 0x00A42023 from address 0x2c
-DE: S-type instruction: SW, rs1 = x8 = 268435492, rs2 = x10 = 12131796286849852255964025925468006596635613568, immS = 0
+DE: S-type instruction: SW, rs1 = x8 = 268435492, rs2 = x10 = 998449152, immS = 0
 EXECUTE:ADD 268435492 and 0
-MEMORY: Store 12131796286849852255964025925468006596635613568 at address 268435492
+MEMORY: Store 998449152 at address 268435492
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00A4A023 from address 0x30
-DE: S-type instruction: SW, rs1 = x9 = 268435472, rs2 = x10 = 12131796286849852255964025925468006596635613568, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435472, rs2 = x10 = 998449152, immS = 0
 EXECUTE:ADD 268435472 and 0
-MEMORY: Store 12131796286849852255964025925468006596635613568 at address 268435472
+MEMORY: Store 998449152 at address 268435472
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40640433 from address 0x34
@@ -891,13 +891,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x13
 EXECUTE:ADD 268435456 and 0
 MEMORY: Load at address 268435456
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 4, rd = x14
 EXECUTE:ADD 268435456 and 4
 MEMORY: Load at address 268435460
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[14]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x7 = 0, rd = x9
@@ -906,172 +906,10 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -301050863282870890249983, rs2 = x13 = -8444244737638400, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 1883242496, rs2 = x13 = 838860800, immB = 8
+EXECUTE:BGE PC set to 200
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x028000EF from address 0xc4
-DE: J-type instruction: JAL, rd = x1, immJ = 40
-EXECUTE: PC set to 236
-MEMORY:No Memory Operation
-WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0xFE410113 from address 0xec
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483640, imm = -28, rd = x2
-EXECUTE:ADD 2147483640 and -28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483612 to rd = x[2]
-
-IF: Fetch instruction 0x00112023 from address 0xf0
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x1 = 200, immS = 0
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Store 200 at address 2147483612
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00512223 from address 0xf4
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x5 = 0, immS = 4
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Store 0 at address 2147483616
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00612423 from address 0xf8
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x6 = 0, immS = 8
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Store 0 at address 2147483620
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00712623 from address 0xfc
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x7 = 0, immS = 12
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Store 0 at address 2147483624
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00C12823 from address 0x100
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x12 = 4, immS = 16
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Store 4 at address 2147483628
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -8444244737638400, immS = 20
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -8444244737638400 at address 2147483632
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -301050863282870890249983, immS = 24
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -301050863282870890249983 at address 2147483636
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x000386B3 from address 0x10c
-DE: R-type instruction: ADD, rs1 = x7 = 0, rs2 = x0 = 0, rd = x13
-EXECUTE:ADD 0 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 0 to rd = x[13]
-
-IF: Fetch instruction 0x00D484B3 from address 0x110
-DE: R-type instruction: ADD, rs1 = x9 = 268435456, rs2 = x13 = 0, rd = x9
-EXECUTE:ADD 268435456 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x0004A703 from address 0x114
-DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x14
-EXECUTE:ADD 268435456 and 0
-MEMORY: Load at address 268435456
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[14]
-
-IF: Fetch instruction 0x00448493 from address 0x118
-DE: I-type instruction: ADDI, rs1 = x9 = 268435456, imm = 4, rd = x9
-EXECUTE:ADD 268435456 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435460 to rd = x[9]
-
-IF: Fetch instruction 0x0004A783 from address 0x11c
-DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x15
-EXECUTE:ADD 268435460 and 0
-MEMORY: Load at address 268435460
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[15]
-
-IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x14 = -8444244737638400, immS = 0
-EXECUTE:ADD 268435460 and 0
-MEMORY: Store -8444244737638400 at address 268435460
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0xFFC48493 from address 0x124
-DE: I-type instruction: ADDI, rs1 = x9 = 268435460, imm = -4, rd = x9
-EXECUTE:ADD 268435460 and -4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x15 = -301050863282870890249983, immS = 0
-EXECUTE:ADD 268435456 and 0
-MEMORY: Store -301050863282870890249983 at address 268435456
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x40D484B3 from address 0x12c
-DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x13 = 0, rd = x9
-EXECUTE:SUB 268435456 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00012083 from address 0x130
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 0, rd = x1
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Load at address 2147483612
-The loaded value is200WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0x00412283 from address 0x134
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 4, rd = x5
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Load at address 2147483616
-The loaded value is0WRITEBACK: write 0 to rd = x[5]
-
-IF: Fetch instruction 0x00812303 from address 0x138
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 8, rd = x6
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Load at address 2147483620
-The loaded value is0WRITEBACK: write 0 to rd = x[6]
-
-IF: Fetch instruction 0x00C12383 from address 0x13c
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 12, rd = x7
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Load at address 2147483624
-The loaded value is0WRITEBACK: write 0 to rd = x[7]
-
-IF: Fetch instruction 0x01012603 from address 0x140
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 16, rd = x12
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Load at address 2147483628
-The loaded value is4WRITEBACK: write 4 to rd = x[12]
-
-IF: Fetch instruction 0x01412683 from address 0x144
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Load at address 2147483632
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
-
-IF: Fetch instruction 0x01812703 from address 0x148
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Load at address 2147483636
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[14]
-
-IF: Fetch instruction 0x01C10113 from address 0x14c
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
-EXECUTE:ADD 2147483612 and 28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483640 to rd = x[2]
-
-IF: Fetch instruction 0x00008067 from address 0x150
-DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 200, imm = 0
-EXECUTE:ADD 200 and 0
-EXECUTE: PC set to 200
-MEMORY:No Memory Operation
-WRITEBACK:Can't write to rd = x[0]
 
 IF: Fetch instruction 0x00130313 from address 0xc8
 DE: I-type instruction: ADDI, rs1 = x6 = 0, imm = 1, rd = x6
@@ -1101,13 +939,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x13
 EXECUTE:ADD 268435460 and 0
 MEMORY: Load at address 268435460
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 4, rd = x14
 EXECUTE:ADD 268435460 and 4
 MEMORY: Load at address 268435464
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[14]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435460, rs2 = x7 = 4, rd = x9
@@ -1116,7 +954,7 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -9465284382053947509628557328350, rs2 = x13 = -8444244737638400, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = -1698168832, rs2 = x13 = 1883242496, immB = 8
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
 
@@ -1163,15 +1001,15 @@ MEMORY: Store 4 at address 2147483628
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -8444244737638400, immS = 20
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = 1883242496, immS = 20
 EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -8444244737638400 at address 2147483632
+MEMORY: Store 1883242496 at address 2147483632
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -9465284382053947509628557328350, immS = 24
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -1698168832, immS = 24
 EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -9465284382053947509628557328350 at address 2147483636
+MEMORY: Store -1698168832 at address 2147483636
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x000386B3 from address 0x10c
@@ -1190,7 +1028,7 @@ IF: Fetch instruction 0x0004A703 from address 0x114
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x14
 EXECUTE:ADD 268435460 and 0
 MEMORY: Load at address 268435460
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[14]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[14]
 
 IF: Fetch instruction 0x00448493 from address 0x118
 DE: I-type instruction: ADDI, rs1 = x9 = 268435460, imm = 4, rd = x9
@@ -1202,12 +1040,12 @@ IF: Fetch instruction 0x0004A783 from address 0x11c
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x15
 EXECUTE:ADD 268435464 and 0
 MEMORY: Load at address 268435464
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[15]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[15]
 
 IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x14 = -8444244737638400, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x14 = 1883242496, immS = 0
 EXECUTE:ADD 268435464 and 0
-MEMORY: Store -8444244737638400 at address 268435464
+MEMORY: Store 1883242496 at address 268435464
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0xFFC48493 from address 0x124
@@ -1217,9 +1055,9 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435460 to rd = x[9]
 
 IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x15 = -9465284382053947509628557328350, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x15 = -1698168832, immS = 0
 EXECUTE:ADD 268435460 and 0
-MEMORY: Store -9465284382053947509628557328350 at address 268435460
+MEMORY: Store -1698168832 at address 268435460
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40D484B3 from address 0x12c
@@ -1262,13 +1100,13 @@ IF: Fetch instruction 0x01412683 from address 0x144
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
 EXECUTE:ADD 2147483612 and 20
 MEMORY: Load at address 2147483632
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[13]
 
 IF: Fetch instruction 0x01812703 from address 0x148
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
 EXECUTE:ADD 2147483612 and 24
 MEMORY: Load at address 2147483636
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[14]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[14]
 
 IF: Fetch instruction 0x01C10113 from address 0x14c
 DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
@@ -1311,13 +1149,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x13
 EXECUTE:ADD 268435464 and 0
 MEMORY: Load at address 268435464
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 4, rd = x14
 EXECUTE:ADD 268435464 and 4
 MEMORY: Load at address 268435468
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435464, rs2 = x7 = 8, rd = x9
@@ -1326,7 +1164,7 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -340277174624079923913307518878215044992, rs2 = x13 = -8444244737638400, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 276889600, rs2 = x13 = 1883242496, immB = 8
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
 
@@ -1373,15 +1211,15 @@ MEMORY: Store 4 at address 2147483628
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -8444244737638400, immS = 20
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = 1883242496, immS = 20
 EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -8444244737638400 at address 2147483632
+MEMORY: Store 1883242496 at address 2147483632
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -340277174624079923913307518878215044992, immS = 24
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = 276889600, immS = 24
 EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -340277174624079923913307518878215044992 at address 2147483636
+MEMORY: Store 276889600 at address 2147483636
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x000386B3 from address 0x10c
@@ -1400,7 +1238,7 @@ IF: Fetch instruction 0x0004A703 from address 0x114
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x14
 EXECUTE:ADD 268435464 and 0
 MEMORY: Load at address 268435464
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[14]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[14]
 
 IF: Fetch instruction 0x00448493 from address 0x118
 DE: I-type instruction: ADDI, rs1 = x9 = 268435464, imm = 4, rd = x9
@@ -1412,12 +1250,12 @@ IF: Fetch instruction 0x0004A783 from address 0x11c
 DE: I-type instruction: LW, rs1 = x9 = 268435468, imm = 0, rd = x15
 EXECUTE:ADD 268435468 and 0
 MEMORY: Load at address 268435468
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[15]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[15]
 
 IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x14 = -8444244737638400, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x14 = 1883242496, immS = 0
 EXECUTE:ADD 268435468 and 0
-MEMORY: Store -8444244737638400 at address 268435468
+MEMORY: Store 1883242496 at address 268435468
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0xFFC48493 from address 0x124
@@ -1427,9 +1265,9 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435464 to rd = x[9]
 
 IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x15 = -340277174624079923913307518878215044992, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x15 = 276889600, immS = 0
 EXECUTE:ADD 268435464 and 0
-MEMORY: Store -340277174624079923913307518878215044992 at address 268435464
+MEMORY: Store 276889600 at address 268435464
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40D484B3 from address 0x12c
@@ -1472,13 +1310,13 @@ IF: Fetch instruction 0x01412683 from address 0x144
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
 EXECUTE:ADD 2147483612 and 20
 MEMORY: Load at address 2147483632
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[13]
 
 IF: Fetch instruction 0x01812703 from address 0x148
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
 EXECUTE:ADD 2147483612 and 24
 MEMORY: Load at address 2147483636
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x01C10113 from address 0x14c
 DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
@@ -1521,13 +1359,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435468, imm = 0, rd = x13
 EXECUTE:ADD 268435468 and 0
 MEMORY: Load at address 268435468
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435468, imm = 4, rd = x14
 EXECUTE:ADD 268435468 and 4
 MEMORY: Load at address 268435472
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
+The loaded value is998449152WRITEBACK: write 998449152 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435468, rs2 = x7 = 12, rd = x9
@@ -1536,7 +1374,7 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -10704166796445505840968549585723915585488332416, rs2 = x13 = -8444244737638400, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 998449152, rs2 = x13 = 1883242496, immB = 8
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
 
@@ -1583,15 +1421,15 @@ MEMORY: Store 4 at address 2147483628
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -8444244737638400, immS = 20
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = 1883242496, immS = 20
 EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -8444244737638400 at address 2147483632
+MEMORY: Store 1883242496 at address 2147483632
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -10704166796445505840968549585723915585488332416, immS = 24
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = 998449152, immS = 24
 EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 2147483636
+MEMORY: Store 998449152 at address 2147483636
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x000386B3 from address 0x10c
@@ -1610,7 +1448,7 @@ IF: Fetch instruction 0x0004A703 from address 0x114
 DE: I-type instruction: LW, rs1 = x9 = 268435468, imm = 0, rd = x14
 EXECUTE:ADD 268435468 and 0
 MEMORY: Load at address 268435468
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[14]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[14]
 
 IF: Fetch instruction 0x00448493 from address 0x118
 DE: I-type instruction: ADDI, rs1 = x9 = 268435468, imm = 4, rd = x9
@@ -1622,12 +1460,12 @@ IF: Fetch instruction 0x0004A783 from address 0x11c
 DE: I-type instruction: LW, rs1 = x9 = 268435472, imm = 0, rd = x15
 EXECUTE:ADD 268435472 and 0
 MEMORY: Load at address 268435472
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[15]
+The loaded value is998449152WRITEBACK: write 998449152 to rd = x[15]
 
 IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435472, rs2 = x14 = -8444244737638400, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435472, rs2 = x14 = 1883242496, immS = 0
 EXECUTE:ADD 268435472 and 0
-MEMORY: Store -8444244737638400 at address 268435472
+MEMORY: Store 1883242496 at address 268435472
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0xFFC48493 from address 0x124
@@ -1637,9 +1475,9 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435468 to rd = x[9]
 
 IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x15 = -10704166796445505840968549585723915585488332416, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x15 = 998449152, immS = 0
 EXECUTE:ADD 268435468 and 0
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 268435468
+MEMORY: Store 998449152 at address 268435468
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40D484B3 from address 0x12c
@@ -1682,13 +1520,13 @@ IF: Fetch instruction 0x01412683 from address 0x144
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
 EXECUTE:ADD 2147483612 and 20
 MEMORY: Load at address 2147483632
-The loaded value is-8444244737638400WRITEBACK: write -8444244737638400 to rd = x[13]
+The loaded value is1883242496WRITEBACK: write 1883242496 to rd = x[13]
 
 IF: Fetch instruction 0x01812703 from address 0x148
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
 EXECUTE:ADD 2147483612 and 24
 MEMORY: Load at address 2147483636
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
+The loaded value is998449152WRITEBACK: write 998449152 to rd = x[14]
 
 IF: Fetch instruction 0x01C10113 from address 0x14c
 DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
@@ -1772,13 +1610,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x13
 EXECUTE:ADD 268435456 and 0
 MEMORY: Load at address 268435456
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[13]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 4, rd = x14
 EXECUTE:ADD 268435456 and 4
 MEMORY: Load at address 268435460
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[14]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x7 = 0, rd = x9
@@ -1787,7 +1625,7 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -9465284382053947509628557328350, rs2 = x13 = -301050863282870890249983, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = -1698168832, rs2 = x13 = 838860800, immB = 8
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
 
@@ -1834,15 +1672,15 @@ MEMORY: Store 3 at address 2147483628
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -301050863282870890249983, immS = 20
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = 838860800, immS = 20
 EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -301050863282870890249983 at address 2147483632
+MEMORY: Store 838860800 at address 2147483632
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -9465284382053947509628557328350, immS = 24
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -1698168832, immS = 24
 EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -9465284382053947509628557328350 at address 2147483636
+MEMORY: Store -1698168832 at address 2147483636
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x000386B3 from address 0x10c
@@ -1861,7 +1699,7 @@ IF: Fetch instruction 0x0004A703 from address 0x114
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x14
 EXECUTE:ADD 268435456 and 0
 MEMORY: Load at address 268435456
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[14]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[14]
 
 IF: Fetch instruction 0x00448493 from address 0x118
 DE: I-type instruction: ADDI, rs1 = x9 = 268435456, imm = 4, rd = x9
@@ -1873,12 +1711,12 @@ IF: Fetch instruction 0x0004A783 from address 0x11c
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x15
 EXECUTE:ADD 268435460 and 0
 MEMORY: Load at address 268435460
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[15]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[15]
 
 IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x14 = -301050863282870890249983, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x14 = 838860800, immS = 0
 EXECUTE:ADD 268435460 and 0
-MEMORY: Store -301050863282870890249983 at address 268435460
+MEMORY: Store 838860800 at address 268435460
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0xFFC48493 from address 0x124
@@ -1888,9 +1726,9 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x15 = -9465284382053947509628557328350, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x15 = -1698168832, immS = 0
 EXECUTE:ADD 268435456 and 0
-MEMORY: Store -9465284382053947509628557328350 at address 268435456
+MEMORY: Store -1698168832 at address 268435456
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40D484B3 from address 0x12c
@@ -1933,13 +1771,13 @@ IF: Fetch instruction 0x01412683 from address 0x144
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
 EXECUTE:ADD 2147483612 and 20
 MEMORY: Load at address 2147483632
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[13]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[13]
 
 IF: Fetch instruction 0x01812703 from address 0x148
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
 EXECUTE:ADD 2147483612 and 24
 MEMORY: Load at address 2147483636
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[14]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[14]
 
 IF: Fetch instruction 0x01C10113 from address 0x14c
 DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
@@ -1982,13 +1820,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x13
 EXECUTE:ADD 268435460 and 0
 MEMORY: Load at address 268435460
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[13]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 4, rd = x14
 EXECUTE:ADD 268435460 and 4
 MEMORY: Load at address 268435464
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435460, rs2 = x7 = 4, rd = x9
@@ -1997,7 +1835,7 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -340277174624079923913307518878215044992, rs2 = x13 = -301050863282870890249983, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 276889600, rs2 = x13 = 838860800, immB = 8
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
 
@@ -2044,15 +1882,15 @@ MEMORY: Store 3 at address 2147483628
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -301050863282870890249983, immS = 20
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = 838860800, immS = 20
 EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -301050863282870890249983 at address 2147483632
+MEMORY: Store 838860800 at address 2147483632
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -340277174624079923913307518878215044992, immS = 24
+DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = 276889600, immS = 24
 EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -340277174624079923913307518878215044992 at address 2147483636
+MEMORY: Store 276889600 at address 2147483636
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x000386B3 from address 0x10c
@@ -2071,7 +1909,7 @@ IF: Fetch instruction 0x0004A703 from address 0x114
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x14
 EXECUTE:ADD 268435460 and 0
 MEMORY: Load at address 268435460
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[14]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[14]
 
 IF: Fetch instruction 0x00448493 from address 0x118
 DE: I-type instruction: ADDI, rs1 = x9 = 268435460, imm = 4, rd = x9
@@ -2083,12 +1921,12 @@ IF: Fetch instruction 0x0004A783 from address 0x11c
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x15
 EXECUTE:ADD 268435464 and 0
 MEMORY: Load at address 268435464
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[15]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[15]
 
 IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x14 = -301050863282870890249983, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x14 = 838860800, immS = 0
 EXECUTE:ADD 268435464 and 0
-MEMORY: Store -301050863282870890249983 at address 268435464
+MEMORY: Store 838860800 at address 268435464
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0xFFC48493 from address 0x124
@@ -2098,9 +1936,9 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435460 to rd = x[9]
 
 IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x15 = -340277174624079923913307518878215044992, immS = 0
+DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x15 = 276889600, immS = 0
 EXECUTE:ADD 268435460 and 0
-MEMORY: Store -340277174624079923913307518878215044992 at address 268435460
+MEMORY: Store 276889600 at address 268435460
 WRITEBACK:No writeback Operation
 
 IF: Fetch instruction 0x40D484B3 from address 0x12c
@@ -2143,13 +1981,13 @@ IF: Fetch instruction 0x01412683 from address 0x144
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
 EXECUTE:ADD 2147483612 and 20
 MEMORY: Load at address 2147483632
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[13]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[13]
 
 IF: Fetch instruction 0x01812703 from address 0x148
 DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
 EXECUTE:ADD 2147483612 and 24
 MEMORY: Load at address 2147483636
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x01C10113 from address 0x14c
 DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
@@ -2192,13 +2030,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x13
 EXECUTE:ADD 268435464 and 0
 MEMORY: Load at address 268435464
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[13]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 4, rd = x14
 EXECUTE:ADD 268435464 and 4
 MEMORY: Load at address 268435468
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
+The loaded value is998449152WRITEBACK: write 998449152 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435464, rs2 = x7 = 8, rd = x9
@@ -2207,172 +2045,10 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -10704166796445505840968549585723915585488332416, rs2 = x13 = -301050863282870890249983, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 998449152, rs2 = x13 = 838860800, immB = 8
+EXECUTE:BGE PC set to 200
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x028000EF from address 0xc4
-DE: J-type instruction: JAL, rd = x1, immJ = 40
-EXECUTE: PC set to 236
-MEMORY:No Memory Operation
-WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0xFE410113 from address 0xec
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483640, imm = -28, rd = x2
-EXECUTE:ADD 2147483640 and -28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483612 to rd = x[2]
-
-IF: Fetch instruction 0x00112023 from address 0xf0
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x1 = 200, immS = 0
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Store 200 at address 2147483612
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00512223 from address 0xf4
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x5 = 1, immS = 4
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Store 1 at address 2147483616
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00612423 from address 0xf8
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x6 = 2, immS = 8
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Store 2 at address 2147483620
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00712623 from address 0xfc
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x7 = 8, immS = 12
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Store 8 at address 2147483624
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00C12823 from address 0x100
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x12 = 3, immS = 16
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Store 3 at address 2147483628
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -301050863282870890249983, immS = 20
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -301050863282870890249983 at address 2147483632
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -10704166796445505840968549585723915585488332416, immS = 24
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 2147483636
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x000386B3 from address 0x10c
-DE: R-type instruction: ADD, rs1 = x7 = 8, rs2 = x0 = 0, rd = x13
-EXECUTE:ADD 8 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 8 to rd = x[13]
-
-IF: Fetch instruction 0x00D484B3 from address 0x110
-DE: R-type instruction: ADD, rs1 = x9 = 268435456, rs2 = x13 = 8, rd = x9
-EXECUTE:ADD 268435456 and 8
-MEMORY:No Memory Operation
-WRITEBACK: write 268435464 to rd = x[9]
-
-IF: Fetch instruction 0x0004A703 from address 0x114
-DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x14
-EXECUTE:ADD 268435464 and 0
-MEMORY: Load at address 268435464
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[14]
-
-IF: Fetch instruction 0x00448493 from address 0x118
-DE: I-type instruction: ADDI, rs1 = x9 = 268435464, imm = 4, rd = x9
-EXECUTE:ADD 268435464 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435468 to rd = x[9]
-
-IF: Fetch instruction 0x0004A783 from address 0x11c
-DE: I-type instruction: LW, rs1 = x9 = 268435468, imm = 0, rd = x15
-EXECUTE:ADD 268435468 and 0
-MEMORY: Load at address 268435468
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[15]
-
-IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435468, rs2 = x14 = -301050863282870890249983, immS = 0
-EXECUTE:ADD 268435468 and 0
-MEMORY: Store -301050863282870890249983 at address 268435468
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0xFFC48493 from address 0x124
-DE: I-type instruction: ADDI, rs1 = x9 = 268435468, imm = -4, rd = x9
-EXECUTE:ADD 268435468 and -4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435464 to rd = x[9]
-
-IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x15 = -10704166796445505840968549585723915585488332416, immS = 0
-EXECUTE:ADD 268435464 and 0
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 268435464
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x40D484B3 from address 0x12c
-DE: R-type instruction: SUB, rs1 = x9 = 268435464, rs2 = x13 = 8, rd = x9
-EXECUTE:SUB 268435464 and 8
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00012083 from address 0x130
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 0, rd = x1
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Load at address 2147483612
-The loaded value is200WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0x00412283 from address 0x134
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 4, rd = x5
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Load at address 2147483616
-The loaded value is1WRITEBACK: write 1 to rd = x[5]
-
-IF: Fetch instruction 0x00812303 from address 0x138
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 8, rd = x6
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Load at address 2147483620
-The loaded value is2WRITEBACK: write 2 to rd = x[6]
-
-IF: Fetch instruction 0x00C12383 from address 0x13c
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 12, rd = x7
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Load at address 2147483624
-The loaded value is8WRITEBACK: write 8 to rd = x[7]
-
-IF: Fetch instruction 0x01012603 from address 0x140
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 16, rd = x12
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Load at address 2147483628
-The loaded value is3WRITEBACK: write 3 to rd = x[12]
-
-IF: Fetch instruction 0x01412683 from address 0x144
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Load at address 2147483632
-The loaded value is-301050863282870890249983WRITEBACK: write -301050863282870890249983 to rd = x[13]
-
-IF: Fetch instruction 0x01812703 from address 0x148
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Load at address 2147483636
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
-
-IF: Fetch instruction 0x01C10113 from address 0x14c
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
-EXECUTE:ADD 2147483612 and 28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483640 to rd = x[2]
-
-IF: Fetch instruction 0x00008067 from address 0x150
-DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 200, imm = 0
-EXECUTE:ADD 200 and 0
-EXECUTE: PC set to 200
-MEMORY:No Memory Operation
-WRITEBACK:Can't write to rd = x[0]
 
 IF: Fetch instruction 0x00130313 from address 0xc8
 DE: I-type instruction: ADDI, rs1 = x6 = 2, imm = 1, rd = x6
@@ -2443,13 +2119,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x13
 EXECUTE:ADD 268435456 and 0
 MEMORY: Load at address 268435456
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[13]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 4, rd = x14
 EXECUTE:ADD 268435456 and 4
 MEMORY: Load at address 268435460
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x7 = 0, rd = x9
@@ -2458,172 +2134,10 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -340277174624079923913307518878215044992, rs2 = x13 = -9465284382053947509628557328350, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 276889600, rs2 = x13 = -1698168832, immB = 8
+EXECUTE:BGE PC set to 200
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x028000EF from address 0xc4
-DE: J-type instruction: JAL, rd = x1, immJ = 40
-EXECUTE: PC set to 236
-MEMORY:No Memory Operation
-WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0xFE410113 from address 0xec
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483640, imm = -28, rd = x2
-EXECUTE:ADD 2147483640 and -28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483612 to rd = x[2]
-
-IF: Fetch instruction 0x00112023 from address 0xf0
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x1 = 200, immS = 0
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Store 200 at address 2147483612
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00512223 from address 0xf4
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x5 = 2, immS = 4
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Store 2 at address 2147483616
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00612423 from address 0xf8
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x6 = 0, immS = 8
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Store 0 at address 2147483620
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00712623 from address 0xfc
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x7 = 0, immS = 12
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Store 0 at address 2147483624
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00C12823 from address 0x100
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x12 = 2, immS = 16
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Store 2 at address 2147483628
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -9465284382053947509628557328350, immS = 20
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -9465284382053947509628557328350 at address 2147483632
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -340277174624079923913307518878215044992, immS = 24
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -340277174624079923913307518878215044992 at address 2147483636
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x000386B3 from address 0x10c
-DE: R-type instruction: ADD, rs1 = x7 = 0, rs2 = x0 = 0, rd = x13
-EXECUTE:ADD 0 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 0 to rd = x[13]
-
-IF: Fetch instruction 0x00D484B3 from address 0x110
-DE: R-type instruction: ADD, rs1 = x9 = 268435456, rs2 = x13 = 0, rd = x9
-EXECUTE:ADD 268435456 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x0004A703 from address 0x114
-DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x14
-EXECUTE:ADD 268435456 and 0
-MEMORY: Load at address 268435456
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[14]
-
-IF: Fetch instruction 0x00448493 from address 0x118
-DE: I-type instruction: ADDI, rs1 = x9 = 268435456, imm = 4, rd = x9
-EXECUTE:ADD 268435456 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435460 to rd = x[9]
-
-IF: Fetch instruction 0x0004A783 from address 0x11c
-DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x15
-EXECUTE:ADD 268435460 and 0
-MEMORY: Load at address 268435460
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[15]
-
-IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x14 = -9465284382053947509628557328350, immS = 0
-EXECUTE:ADD 268435460 and 0
-MEMORY: Store -9465284382053947509628557328350 at address 268435460
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0xFFC48493 from address 0x124
-DE: I-type instruction: ADDI, rs1 = x9 = 268435460, imm = -4, rd = x9
-EXECUTE:ADD 268435460 and -4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x15 = -340277174624079923913307518878215044992, immS = 0
-EXECUTE:ADD 268435456 and 0
-MEMORY: Store -340277174624079923913307518878215044992 at address 268435456
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x40D484B3 from address 0x12c
-DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x13 = 0, rd = x9
-EXECUTE:SUB 268435456 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00012083 from address 0x130
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 0, rd = x1
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Load at address 2147483612
-The loaded value is200WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0x00412283 from address 0x134
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 4, rd = x5
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Load at address 2147483616
-The loaded value is2WRITEBACK: write 2 to rd = x[5]
-
-IF: Fetch instruction 0x00812303 from address 0x138
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 8, rd = x6
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Load at address 2147483620
-The loaded value is0WRITEBACK: write 0 to rd = x[6]
-
-IF: Fetch instruction 0x00C12383 from address 0x13c
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 12, rd = x7
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Load at address 2147483624
-The loaded value is0WRITEBACK: write 0 to rd = x[7]
-
-IF: Fetch instruction 0x01012603 from address 0x140
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 16, rd = x12
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Load at address 2147483628
-The loaded value is2WRITEBACK: write 2 to rd = x[12]
-
-IF: Fetch instruction 0x01412683 from address 0x144
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Load at address 2147483632
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[13]
-
-IF: Fetch instruction 0x01812703 from address 0x148
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Load at address 2147483636
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
-
-IF: Fetch instruction 0x01C10113 from address 0x14c
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
-EXECUTE:ADD 2147483612 and 28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483640 to rd = x[2]
-
-IF: Fetch instruction 0x00008067 from address 0x150
-DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 200, imm = 0
-EXECUTE:ADD 200 and 0
-EXECUTE: PC set to 200
-MEMORY:No Memory Operation
-WRITEBACK:Can't write to rd = x[0]
 
 IF: Fetch instruction 0x00130313 from address 0xc8
 DE: I-type instruction: ADDI, rs1 = x6 = 0, imm = 1, rd = x6
@@ -2653,13 +2167,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x13
 EXECUTE:ADD 268435460 and 0
 MEMORY: Load at address 268435460
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[13]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 4, rd = x14
 EXECUTE:ADD 268435460 and 4
 MEMORY: Load at address 268435464
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
+The loaded value is838860800WRITEBACK: write 838860800 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435460, rs2 = x7 = 4, rd = x9
@@ -2668,172 +2182,10 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -10704166796445505840968549585723915585488332416, rs2 = x13 = -9465284382053947509628557328350, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 838860800, rs2 = x13 = 276889600, immB = 8
+EXECUTE:BGE PC set to 200
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x028000EF from address 0xc4
-DE: J-type instruction: JAL, rd = x1, immJ = 40
-EXECUTE: PC set to 236
-MEMORY:No Memory Operation
-WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0xFE410113 from address 0xec
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483640, imm = -28, rd = x2
-EXECUTE:ADD 2147483640 and -28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483612 to rd = x[2]
-
-IF: Fetch instruction 0x00112023 from address 0xf0
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x1 = 200, immS = 0
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Store 200 at address 2147483612
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00512223 from address 0xf4
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x5 = 2, immS = 4
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Store 2 at address 2147483616
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00612423 from address 0xf8
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x6 = 1, immS = 8
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Store 1 at address 2147483620
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00712623 from address 0xfc
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x7 = 4, immS = 12
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Store 4 at address 2147483624
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00C12823 from address 0x100
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x12 = 2, immS = 16
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Store 2 at address 2147483628
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -9465284382053947509628557328350, immS = 20
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -9465284382053947509628557328350 at address 2147483632
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -10704166796445505840968549585723915585488332416, immS = 24
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 2147483636
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x000386B3 from address 0x10c
-DE: R-type instruction: ADD, rs1 = x7 = 4, rs2 = x0 = 0, rd = x13
-EXECUTE:ADD 4 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 4 to rd = x[13]
-
-IF: Fetch instruction 0x00D484B3 from address 0x110
-DE: R-type instruction: ADD, rs1 = x9 = 268435456, rs2 = x13 = 4, rd = x9
-EXECUTE:ADD 268435456 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435460 to rd = x[9]
-
-IF: Fetch instruction 0x0004A703 from address 0x114
-DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x14
-EXECUTE:ADD 268435460 and 0
-MEMORY: Load at address 268435460
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[14]
-
-IF: Fetch instruction 0x00448493 from address 0x118
-DE: I-type instruction: ADDI, rs1 = x9 = 268435460, imm = 4, rd = x9
-EXECUTE:ADD 268435460 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435464 to rd = x[9]
-
-IF: Fetch instruction 0x0004A783 from address 0x11c
-DE: I-type instruction: LW, rs1 = x9 = 268435464, imm = 0, rd = x15
-EXECUTE:ADD 268435464 and 0
-MEMORY: Load at address 268435464
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[15]
-
-IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435464, rs2 = x14 = -9465284382053947509628557328350, immS = 0
-EXECUTE:ADD 268435464 and 0
-MEMORY: Store -9465284382053947509628557328350 at address 268435464
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0xFFC48493 from address 0x124
-DE: I-type instruction: ADDI, rs1 = x9 = 268435464, imm = -4, rd = x9
-EXECUTE:ADD 268435464 and -4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435460 to rd = x[9]
-
-IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x15 = -10704166796445505840968549585723915585488332416, immS = 0
-EXECUTE:ADD 268435460 and 0
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 268435460
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x40D484B3 from address 0x12c
-DE: R-type instruction: SUB, rs1 = x9 = 268435460, rs2 = x13 = 4, rd = x9
-EXECUTE:SUB 268435460 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00012083 from address 0x130
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 0, rd = x1
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Load at address 2147483612
-The loaded value is200WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0x00412283 from address 0x134
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 4, rd = x5
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Load at address 2147483616
-The loaded value is2WRITEBACK: write 2 to rd = x[5]
-
-IF: Fetch instruction 0x00812303 from address 0x138
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 8, rd = x6
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Load at address 2147483620
-The loaded value is1WRITEBACK: write 1 to rd = x[6]
-
-IF: Fetch instruction 0x00C12383 from address 0x13c
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 12, rd = x7
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Load at address 2147483624
-The loaded value is4WRITEBACK: write 4 to rd = x[7]
-
-IF: Fetch instruction 0x01012603 from address 0x140
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 16, rd = x12
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Load at address 2147483628
-The loaded value is2WRITEBACK: write 2 to rd = x[12]
-
-IF: Fetch instruction 0x01412683 from address 0x144
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Load at address 2147483632
-The loaded value is-9465284382053947509628557328350WRITEBACK: write -9465284382053947509628557328350 to rd = x[13]
-
-IF: Fetch instruction 0x01812703 from address 0x148
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Load at address 2147483636
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
-
-IF: Fetch instruction 0x01C10113 from address 0x14c
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
-EXECUTE:ADD 2147483612 and 28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483640 to rd = x[2]
-
-IF: Fetch instruction 0x00008067 from address 0x150
-DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 200, imm = 0
-EXECUTE:ADD 200 and 0
-EXECUTE: PC set to 200
-MEMORY:No Memory Operation
-WRITEBACK:Can't write to rd = x[0]
 
 IF: Fetch instruction 0x00130313 from address 0xc8
 DE: I-type instruction: ADDI, rs1 = x6 = 1, imm = 1, rd = x6
@@ -2904,13 +2256,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x13
 EXECUTE:ADD 268435456 and 0
 MEMORY: Load at address 268435456
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[13]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 4, rd = x14
 EXECUTE:ADD 268435456 and 4
 MEMORY: Load at address 268435460
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x7 = 0, rd = x9
@@ -2919,172 +2271,10 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -10704166796445505840968549585723915585488332416, rs2 = x13 = -340277174624079923913307518878215044992, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 276889600, rs2 = x13 = -1698168832, immB = 8
+EXECUTE:BGE PC set to 200
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x028000EF from address 0xc4
-DE: J-type instruction: JAL, rd = x1, immJ = 40
-EXECUTE: PC set to 236
-MEMORY:No Memory Operation
-WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0xFE410113 from address 0xec
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483640, imm = -28, rd = x2
-EXECUTE:ADD 2147483640 and -28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483612 to rd = x[2]
-
-IF: Fetch instruction 0x00112023 from address 0xf0
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x1 = 200, immS = 0
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Store 200 at address 2147483612
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00512223 from address 0xf4
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x5 = 3, immS = 4
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Store 3 at address 2147483616
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00612423 from address 0xf8
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x6 = 0, immS = 8
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Store 0 at address 2147483620
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00712623 from address 0xfc
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x7 = 0, immS = 12
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Store 0 at address 2147483624
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00C12823 from address 0x100
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x12 = 1, immS = 16
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Store 1 at address 2147483628
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00D12A23 from address 0x104
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x13 = -340277174624079923913307518878215044992, immS = 20
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Store -340277174624079923913307518878215044992 at address 2147483632
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x00E12C23 from address 0x108
-DE: S-type instruction: SW, rs1 = x2 = 2147483612, rs2 = x14 = -10704166796445505840968549585723915585488332416, immS = 24
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 2147483636
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x000386B3 from address 0x10c
-DE: R-type instruction: ADD, rs1 = x7 = 0, rs2 = x0 = 0, rd = x13
-EXECUTE:ADD 0 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 0 to rd = x[13]
-
-IF: Fetch instruction 0x00D484B3 from address 0x110
-DE: R-type instruction: ADD, rs1 = x9 = 268435456, rs2 = x13 = 0, rd = x9
-EXECUTE:ADD 268435456 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x0004A703 from address 0x114
-DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x14
-EXECUTE:ADD 268435456 and 0
-MEMORY: Load at address 268435456
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
-
-IF: Fetch instruction 0x00448493 from address 0x118
-DE: I-type instruction: ADDI, rs1 = x9 = 268435456, imm = 4, rd = x9
-EXECUTE:ADD 268435456 and 4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435460 to rd = x[9]
-
-IF: Fetch instruction 0x0004A783 from address 0x11c
-DE: I-type instruction: LW, rs1 = x9 = 268435460, imm = 0, rd = x15
-EXECUTE:ADD 268435460 and 0
-MEMORY: Load at address 268435460
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[15]
-
-IF: Fetch instruction 0x00E4A023 from address 0x120
-DE: S-type instruction: SW, rs1 = x9 = 268435460, rs2 = x14 = -340277174624079923913307518878215044992, immS = 0
-EXECUTE:ADD 268435460 and 0
-MEMORY: Store -340277174624079923913307518878215044992 at address 268435460
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0xFFC48493 from address 0x124
-DE: I-type instruction: ADDI, rs1 = x9 = 268435460, imm = -4, rd = x9
-EXECUTE:ADD 268435460 and -4
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00F4A023 from address 0x128
-DE: S-type instruction: SW, rs1 = x9 = 268435456, rs2 = x15 = -10704166796445505840968549585723915585488332416, immS = 0
-EXECUTE:ADD 268435456 and 0
-MEMORY: Store -10704166796445505840968549585723915585488332416 at address 268435456
-WRITEBACK:No writeback Operation
-
-IF: Fetch instruction 0x40D484B3 from address 0x12c
-DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x13 = 0, rd = x9
-EXECUTE:SUB 268435456 and 0
-MEMORY:No Memory Operation
-WRITEBACK: write 268435456 to rd = x[9]
-
-IF: Fetch instruction 0x00012083 from address 0x130
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 0, rd = x1
-EXECUTE:ADD 2147483612 and 0
-MEMORY: Load at address 2147483612
-The loaded value is200WRITEBACK: write 200 to rd = x[1]
-
-IF: Fetch instruction 0x00412283 from address 0x134
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 4, rd = x5
-EXECUTE:ADD 2147483612 and 4
-MEMORY: Load at address 2147483616
-The loaded value is3WRITEBACK: write 3 to rd = x[5]
-
-IF: Fetch instruction 0x00812303 from address 0x138
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 8, rd = x6
-EXECUTE:ADD 2147483612 and 8
-MEMORY: Load at address 2147483620
-The loaded value is0WRITEBACK: write 0 to rd = x[6]
-
-IF: Fetch instruction 0x00C12383 from address 0x13c
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 12, rd = x7
-EXECUTE:ADD 2147483612 and 12
-MEMORY: Load at address 2147483624
-The loaded value is0WRITEBACK: write 0 to rd = x[7]
-
-IF: Fetch instruction 0x01012603 from address 0x140
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 16, rd = x12
-EXECUTE:ADD 2147483612 and 16
-MEMORY: Load at address 2147483628
-The loaded value is1WRITEBACK: write 1 to rd = x[12]
-
-IF: Fetch instruction 0x01412683 from address 0x144
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 20, rd = x13
-EXECUTE:ADD 2147483612 and 20
-MEMORY: Load at address 2147483632
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[13]
-
-IF: Fetch instruction 0x01812703 from address 0x148
-DE: I-type instruction: LW, rs1 = x2 = 2147483612, imm = 24, rd = x14
-EXECUTE:ADD 2147483612 and 24
-MEMORY: Load at address 2147483636
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[14]
-
-IF: Fetch instruction 0x01C10113 from address 0x14c
-DE: I-type instruction: ADDI, rs1 = x2 = 2147483612, imm = 28, rd = x2
-EXECUTE:ADD 2147483612 and 28
-MEMORY:No Memory Operation
-WRITEBACK: write 2147483640 to rd = x[2]
-
-IF: Fetch instruction 0x00008067 from address 0x150
-DE: I-type instruction: JALR, rd = x0, rs1 = x1 = 200, imm = 0
-EXECUTE:ADD 200 and 0
-EXECUTE: PC set to 200
-MEMORY:No Memory Operation
-WRITEBACK:Can't write to rd = x[0]
 
 IF: Fetch instruction 0x00130313 from address 0xc8
 DE: I-type instruction: ADDI, rs1 = x6 = 0, imm = 1, rd = x6
@@ -3155,13 +2345,13 @@ IF: Fetch instruction 0x0004A683 from address 0xb4
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 0, rd = x13
 EXECUTE:ADD 268435456 and 0
 MEMORY: Load at address 268435456
-The loaded value is-10704166796445505840968549585723915585488332416WRITEBACK: write -10704166796445505840968549585723915585488332416 to rd = x[13]
+The loaded value is-1698168832WRITEBACK: write -1698168832 to rd = x[13]
 
 IF: Fetch instruction 0x0044A703 from address 0xb8
 DE: I-type instruction: LW, rs1 = x9 = 268435456, imm = 4, rd = x14
 EXECUTE:ADD 268435456 and 4
 MEMORY: Load at address 268435460
-The loaded value is-340277174624079923913307518878215044992WRITEBACK: write -340277174624079923913307518878215044992 to rd = x[14]
+The loaded value is276889600WRITEBACK: write 276889600 to rd = x[14]
 
 IF: Fetch instruction 0x407484B3 from address 0xbc
 DE: R-type instruction: SUB, rs1 = x9 = 268435456, rs2 = x7 = 0, rd = x9
@@ -3170,7 +2360,7 @@ MEMORY:No Memory Operation
 WRITEBACK: write 268435456 to rd = x[9]
 
 IF: Fetch instruction 0x00D75463 from address 0xc0
-DE: B-type instruction: BGE, rs1 = x14 = -340277174624079923913307518878215044992, rs2 = x13 = -10704166796445505840968549585723915585488332416, immB = 8
+DE: B-type instruction: BGE, rs1 = x14 = 276889600, rs2 = x13 = -1698168832, immB = 8
 EXECUTE:BGE PC set to 200
 MEMORY:No Memory Operation
 WRITEBACK:No writeback Operation

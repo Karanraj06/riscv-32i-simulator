@@ -18,8 +18,9 @@ def print_output():
     sorted_memory={i:ma.data_memory[i] for i in mem_addresses}
     for key in mem_addresses:
         value=de.bin_to_dec(ma.data_memory[key])
-        key=hex(key)[2:].zfill(8)
-        print(f" {key} : {value} ")
+        key='0x'+(hex(key)[2:].zfill(8))
+        if(key[2]=='1'):
+            print(f" {key} : {value} ")
 
 
 

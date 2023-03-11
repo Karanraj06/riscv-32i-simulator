@@ -1,7 +1,9 @@
 # ============ IsBranch: 0 -> pc + 4, 1 -> BranchTargetAddress, 2 -> ALUResult ==============
 import decode as de
+import memory_access as ma
 import instruction_fetch as fi
 # ===========GLOBAL VARIABLES===============
+#===========DONE!!!===!Need to make corrections for shift left(not greater than 32 bits!!!)
 aluResult: int = None
 isBranch: int = None
 
@@ -10,6 +12,14 @@ def srl(a:int,b:int)->int:
         return a>>b
     else:
         return (a+0x100000000)>>b
+def sll(a:int,b:int)->int:#required as python doesnt have 32 bit limit on int,when we use left shift,python arbitrarily extends the number
+    if(b>=32):
+        return 0
+    else:
+        a=ma.dec_to_bin(a)
+        a=a[b:].ljust(32,'0')
+        return de.bin_to_dec(a)
+    pass
 
 def execute() -> int:
     global aluResult, isBranch
@@ -40,12 +50,16 @@ def execute() -> int:
         aluResult = op1 & op2
         f.write(f"EXECUTE:AND {op1} and {op2}\n")
     elif (de.ALUOperation == 5):
-        aluResult = op1 << op2
+        aluResult = sll(op1,op2)
         f.write(f"EXECUTE:SLL {op1} and {op2}\n")
     elif (de.ALUOperation == 6):
+        if(op2>=32):
+            op2=op2%32
         aluResult=srl(op1,op2)
         f.write(f"EXECUTE:SRL {op1} and {op2}\n")
     elif (de.ALUOperation == 7):
+        if(op2>32):
+            op2=op2%32
         aluResult = op1 >> op2
         f.write(f"EXECUTE:SRA {op1} and {op2}\n")
     elif (de.ALUOperation == 8):
