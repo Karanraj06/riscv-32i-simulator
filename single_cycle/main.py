@@ -24,7 +24,9 @@ with open("output.txt", "w") as f:
     
 def run() -> None:
     '''Executes the program until the end of the instruction memory is reached'''
-    pass
+    while(step()):
+        continue
+
 
 
 def step() -> None:
@@ -34,7 +36,8 @@ def step() -> None:
         ex.execute()
         ma.memory_access()
         wb.writeBack()
-    pass
+        return True
+    return False
 
 
 def reset() -> None:

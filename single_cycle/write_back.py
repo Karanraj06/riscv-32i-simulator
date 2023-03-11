@@ -35,7 +35,7 @@ def writeBack() -> None:
             f.write(f"WRITEBACK: write {rg.x[int(de.rd,2)]} to rd = x[{int(de.rd, 2)}]\n\n")
     else:
         with open("output.txt", "a") as f:
-            f.write(f"WRITEBACK:Can't write to rd = x[{int(de.rd, 2)}\n\n")
+            f.write(f"WRITEBACK:Can't write to rd = x[{int(de.rd, 2)}]\n\n")
     # incrementing clock cycle by 1 after the writeback stage is completed
     clk += 1
 
