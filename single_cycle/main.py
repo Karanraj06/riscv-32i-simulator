@@ -7,6 +7,22 @@ import registers as rg
 
 def print_output():
     print("#=========Register File===========#")
+    track=0
+    for x in rg.x:
+        print(f"x{track} : {x}")
+        track+=1
+    print("#===============Data Memory===========#")
+    #we will first sort the data memory according to address
+    mem_addresses=list(ma.data_memory.keys())
+    mem_addresses.sort()
+    sorted_memory={i:ma.data_memory[i] for i in mem_addresses}
+    for key in mem_addresses:
+        value=de.bin_to_dec(ma.data_memory[key])
+        key=hex(key)[2:].zfill(8)
+        print(f" {key} : {value} ")
+
+
+
 # Read the contents of the input file and store them in instruction_memory
 # !!!!!!!!!!IMPORTANT!!!!!!!!!!
 # data memory is not part of input.mc, it will be filled as the instructions are executed
@@ -31,7 +47,7 @@ def run() -> None:
 
 
 
-def step() -> None:
+def step() -> bool:
     '''Executes one instruction'''
     if (not fi.fetch()):
         de.decode()
@@ -39,7 +55,7 @@ def step() -> None:
         ma.memory_access()
         wb.writeBack()
         return True
-    print("\n\n#================Program execution Successful!!!=====================#\n\n")
+    # print("\n\n#================Program execution Successful!!!=====================#\n\n")
     return False
 
 

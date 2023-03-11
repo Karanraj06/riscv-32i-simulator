@@ -84,7 +84,6 @@ def execute() -> int:
         fi.pc = aluResult
         f.write(f"EXECUTE: PC set to {aluResult}\n")
     f.close()
-    print(aluResult)
 
 
 def init() -> None:
