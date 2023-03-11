@@ -2,6 +2,7 @@ import registers as rg
 #Changed AluOperation for JAL
 #Changed branchtargetadress in JAL
 #Changed resultselect in LW to 1
+#Added immU to the list of globals in decode()
 # =================== GLOBAL VARIABLES ===================
 instruction: str = None
 pc: int = None
@@ -39,7 +40,7 @@ def bin_to_dec(binary: str) -> int:
 
 def decode() -> None:
     """Decodes the instruction and passes the required values to the execute stage"""
-    global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress
+    global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, immU, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress
 
     global opcode
     opcode = instruction[25:]
@@ -441,7 +442,7 @@ def decode() -> None:
         immU = bin_to_dec(instruction[:20] + "0" * 12)
 
         OP2Select = 0
-        ALUOperation = 0
+        ALUOperation = 12
         MemOp = 0
         ResultSelect = 2
         RFWrite = 1
