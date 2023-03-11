@@ -42,16 +42,18 @@ def memory_access() -> None:
         elif(de.func3=='000'):#for LB
             temp=data_memory[ex.aluResult]
             loadData=de.bin_to_dec(temp[:8].rjust(32,temp[0]))
-            pass
+            print(f"The loaded value is{loadData}")
         elif(de.func3=='001'):#for LH
             temp=data_memory[ex.aluResult]
             loadData=de.bin_to_dec(temp[:16].rjust(32,temp[0]))
-            pass
+            print(f"The loaded value is{loadData}")
     elif (de.MemOp == 2):
         if(de.func3=='010'):#for SW
             f.write(f"MEMORY: Store {de.op2} at address {ex.aluResult}\n")
             data_memory[ex.aluResult] = dec_to_bin(de.op2)
         elif(de.func3=='000'):#for SB
+            temp=dec_to_bin(de.op2)
+            temp=temp[:8].ljust(32,0)
             pass
         elif(de.func3=='001'):#for SH
             pass
