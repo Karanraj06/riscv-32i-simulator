@@ -67,3 +67,5 @@ npm run watch-css
 ```
 python app.py
 ```
+
+The webapp should be available at http://127.0.0.1:5100
