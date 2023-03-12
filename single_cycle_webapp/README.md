@@ -1,6 +1,10 @@
 # RISCV-32I-Simulator
 
-Flask App for executing machine code with single cycle processor design. Uses Tailwind CSS
+Flask App for executing machine code with single cycle processor design
+
+Uses Tailwind CSS
+
+The Flask app is already deployed and active at the following URL: http://karanraj.pythonanywhere.com/
 
 ## Prerequisites
 
@@ -10,7 +14,7 @@ Download
 
 - [Python](https://www.python.org/downloads/)
 
-## Installation
+## Install and Run Locally
 
 ### Clone the repository
 
