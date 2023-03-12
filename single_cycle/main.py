@@ -45,12 +45,13 @@ def run() -> None:
 
 def step() -> bool:
     '''Executes one instruction'''
-    if (not fi.fetch()):
+    if (fi.fetch()):
         de.decode()
         ex.execute()
         ma.memory_access()
         wb.writeBack()
         return True
+    print("# =============== Program Execution Successfull. =================")
     return False
 
 

@@ -22,7 +22,7 @@ def fetch() -> bool:
         if instruction is None:
             # HALT: Program has reached the end of the instruction memory
             f.write("Program execution completed successfully")
-            return True
+            return False
         else:
             f.write(f"IF: Fetch instruction {instruction} from address {hex(pc)}\n")
 
@@ -35,7 +35,7 @@ def fetch() -> bool:
     # Pass the instruction to the decode stage in binary format with 32 bits
     de.instruction = bin(int(instruction, 16))[2:].zfill(32)
 
-    return False
+    return True
 
 
 def init() -> None:
