@@ -26,6 +26,7 @@ def execute() -> int:
     op1:int = de.op1
     op2: int = None
     # Selecting op2
+    
     if (de.OP2Select == 0):
         op2 = de.op2
     elif (de.OP2Select == 1):

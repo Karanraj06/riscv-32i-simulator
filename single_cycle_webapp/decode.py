@@ -510,7 +510,7 @@ def decode() -> None:
     elif opcode == "0010111":
         rd = instruction[20:25]
         immU = bin_to_dec(instruction[:20] + "0" * 12)
-
+        op1, op2 = 0, 0
         OP2Select = 0
         ALUOperation = 0
         MemOp = 0
