@@ -6,8 +6,9 @@ lui x2, 0x10000    # x2 = array base address = 0x10000000
 addi x3, x0, 1    # x3 = loop 1 counter = i = 1
 add x4, x2, x0    # x4 = x2
 
+addi x7, x1, 1      #x7 = x1 +1
 loop1:
-    bgt x3, x1, end1    # if x3 > x1, goto end1
+    bge x3, x7, end1    # if x3 >= x7, goto end1
     sw x3, 0(x4)    # M[x4] = x3 OR a[i - 1] = i
     addi x3, x3, 1    # x3++
     addi x4, x4, 4    # x4 += 4
