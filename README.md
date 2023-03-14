@@ -32,7 +32,7 @@ The simulator has two components:
 │   └── write_back.py
 ├── single_cycle_webapp
 │   │── README.md
-│   │── base.html
+│   │── app.py
 │   │── ...
 │   └── write_back.py
 └── test
