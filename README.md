@@ -4,11 +4,9 @@ Functional Simulator for a subset of RISC-V Instruction Set. RISC-V is an open-s
 
 ## Overview
 
-The project implements a functional simulator for a subset of RISC-V Instruction Set using a single-cycle processor design.
+The project implements a functional simulator for a subset of RISC-V Instruction Set using a single-cycle processor design.<br>The simulator has two components:
 
-The simulator has two components:
-
-- Command Line Interface (CLI)<br>The CLI component is explained in detail in the `single_cycle/README.md` file.
+- Command Line Interface (CLI)<br>The CLI component is explained [here](single_cycle/README.md) detail
 
 - Graphical User Interface (GUI) built with Flask and Tailwind<br>The webapp is available at the following url: http://karanraj.pythonanywhere.com/
 
@@ -63,10 +61,7 @@ Each instruction performs a specific operation such as arithmetic, logical, or c
 
 ## Group Members
 
-Atharva Mulay  - 2021CSB1076<br>
-Karanraj Mehta - 2021CSB1100<br>
-Nishad Dhuri   - 2021CSB1116<br>
-Sumit Patil    - 2021CSB1135
+[@AtharvaMulay25](https://github.com/AtharvaMulay25)<br>[@Karanraj06](https://github.com/Karanraj06)<br>[@nishad-dhuri-05](https://github.com/nishad-dhuri-05)<br>[@SumitPatil0404](https://github.com/SumitPatil0404)
 
 ## Documentation
 
