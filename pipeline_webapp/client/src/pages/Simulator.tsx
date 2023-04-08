@@ -44,12 +44,13 @@ export default function Simulator() {
             .then(data => {
                 if (!data.success) {
                     alert("Invalid Machine Code");
+                } else {
+                    setgetId(getId + 1);
                 }
             })
             .catch(error => {
                 alert("Invalid Machine Code");
             });
-        setgetId(getId + 1);
     }
 
     function handleStep() {
