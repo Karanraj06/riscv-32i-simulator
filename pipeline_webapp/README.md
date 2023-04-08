@@ -2,6 +2,8 @@
 
 FastAPI and React project for executing machine code with pipeline execution
 
+The webapp is available at the following url: https://riscv-32i-simulator.netlify.app
+
 ## Prerequisites
 
 Download
