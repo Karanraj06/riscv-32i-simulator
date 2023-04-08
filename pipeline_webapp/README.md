@@ -1,10 +1,6 @@
 # RISCV-32I-Simulator
 
-Flask App for executing machine code with single cycle processor design
-
-Uses Tailwind CSS
-
-The Flask app is already deployed and active at the following URL: http://karanraj.pythonanywhere.com/
+FastAPI and React project for executing machine code with pipeline execution
 
 ## Prerequisites
 
@@ -22,10 +18,10 @@ Download
 git clone https://github.com/Karanraj06/RISCV-32I-Simulator
 ```
 
-### Change the current working directory to `single_cycle_webapp`
+### Change the current working directory to `pipeline_webapp/server`
 
 ```
-cd single_cycle_webapp
+cd pipeline_webapp/server
 ```
 
 ### Create a Python virtual environment
@@ -54,22 +50,23 @@ myenv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
+### Run the FastAPI Server with Uvicorn
+
+```
+uvicorn main:app --reload
+```
+### Now change the current working directory to `pipeline_webapp/client`
+
 ### Install all npm dependencies
 
 ```
 npm install
 ```
 
-### Build CSS with Tailwind CSS
+### Start a local development server for the React app
 
 ```
-npm run watch-css
+npm run dev
 ```
 
-## Start a local development server for the Flask app
-
-```
-python app.py
-```
-
-The webapp should be available at http://127.0.0.1:5100
+The webapp should be available at http://127.0.0.1:5173

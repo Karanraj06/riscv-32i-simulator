@@ -23,13 +23,20 @@ def print_output():
             print(f"{key}: {value}")
 
 with open("input.mc", "r") as f:
-    while True:
-        key, value = f.readline().split()
-        if value == "_":
-            fi.instruction_memory[int(key, 16)] = None
-            break
-        else:
-            fi.instruction_memory[int(key, 16)] = value
+    lines = f.readlines()
+    track = 0
+    for line in lines:
+        key, value = line.split()
+        if track == 0:
+            print(key+" "+value)
+            if value == "_":
+                fi.instruction_memory[int(key, 16)] = None
+                track = 1
+            else:
+                fi.instruction_memory[int(key, 16)] = value
+        elif track == 1:
+            print(key+" "+value)
+            ma.update_mem(key, value)
 
 # Clearing the contents of the output file before writing anything.
 with open("output.txt", "w") as f:      

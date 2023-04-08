@@ -1,5 +1,11 @@
 # macOS .DS_Store files
-.DS_Store/
+**/.DS_Store
+
+# Visual Studio Code settings and workspace files
+**/.vscode/
 
 # Compiled python files
-__pycache__/
+**/__pycache__/
+
+# Virtual environment
+**/myenv/
