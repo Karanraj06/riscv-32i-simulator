@@ -260,7 +260,6 @@ def step() -> bool:
 
 
 def reset() -> None:
-    global clk
     """Resets to the initial state"""
     fi.init()
     de.init()
@@ -268,9 +267,6 @@ def reset() -> None:
     ma.init()
     wb.init()
     rg.init()
-    clk = 0
-    global step_flag
-    step_flag = 0
     with open("output.txt", "w") as f:
         f.truncate(0)
 
@@ -304,8 +300,8 @@ def step_simulator():
 @app.get('/reset')
 def reset_simulator():
     try:
-        reset()
-        updateData()
+        global clk, step_flag
+        clk, step_flag = 0, 0
         wb.total_instructions = 0
         ma.data_transfer_instructions = 0
         ex.alu_instructions  = 0
@@ -316,6 +312,8 @@ def reset_simulator():
         ex.branch_mispredictions  = 0
         de.data_hazard_stalls  = 0
         ex.control_hazard_stalls  = 0
+        reset()
+        updateData()
     except:
         return {'success': False}
     return {'success': True}
