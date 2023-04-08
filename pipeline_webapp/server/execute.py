@@ -19,12 +19,13 @@ control_hazard_count: int = 0
 branch_mispredictions: int = 0
 alu_instructions: int = 0
 control_instructions: int = 0
-
+data_hazard_count:int=0
+data_hazard_stalls:int=0
 current_instruction = ""
 
 
 def check_ma() -> None:
-    global stall_count
+    global stall_count,data_hazard_stalls,data_hazard_count
     # for R type
     if instpkt.opcode == "0110011":
         # R type inst in MA
@@ -44,13 +45,13 @@ def check_ma() -> None:
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 instpkt.op1 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 instpkt.op2 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
         # U type instruction in MA
         # LUI
         if ma.instpkt.opcode == "0110111":
@@ -92,8 +93,8 @@ def check_ma() -> None:
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 instpkt.op1 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
         # U type instruction in MA
         # LUI
         if ma.instpkt.opcode == "0110111":
@@ -127,8 +128,8 @@ def check_ma() -> None:
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 instpkt.op1 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
         # U type instruction in MA
         # LUI
         if ma.instpkt.opcode == "0110111":
@@ -162,8 +163,8 @@ def check_ma() -> None:
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 instpkt.op1 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
         # U type instruction in MA
         # LUI
         if ma.instpkt.opcode == "0110111":
@@ -200,13 +201,13 @@ def check_ma() -> None:
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 instpkt.op1 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 instpkt.op2 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
         # U type instruction in MA
         # LUI
         if ma.instpkt.opcode == "0110111":
@@ -247,8 +248,8 @@ def check_ma() -> None:
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 instpkt.op1 = ma.loadData
                 stall_count = 2
-                de.data_hazard_stalls += 1
-                de.data_hazard_count += 1
+                data_hazard_stalls += 1
+                data_hazard_count += 1
         # U type instruction in MA
         # LUI
         if ma.instpkt.opcode == "0110111":
@@ -551,9 +552,6 @@ def execute() -> int:
     if instpkt.nop == 1:
         print("EX: Bubble")
         current_instruction = "EX: Bubble"
-        init()
-        instpkt.init()
-        instpkt.nop = 1
         de.decode()
         return
     instpkt.instruction = de.instruction
@@ -803,7 +801,16 @@ def execute() -> int:
 
 def init() -> None:
     """Initializes all global variables to their initial value"""
-    global aluResult, isBranch, current_instruction
+    global aluResult, isBranch, current_instruction,stall_count,control_hazard_stalls,control_hazard_count,branch_mispredictions,alu_instructions,control_instructions
+    global data_hazard_count,data_hazard_stalls
     aluResult = None
     isBranch = None
     current_instruction = ""
+    stall_count=0
+    control_hazard_stalls=0
+    control_hazard_count=0
+    branch_mispredictions=0
+    alu_instructions=0
+    control_instructions=0
+    data_hazard_count=0
+    data_hazard_stalls=0

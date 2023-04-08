@@ -53,6 +53,8 @@ import write_back as wb
 import registers as rg
 import knobs
 from collections import OrderedDict
+#importing pipeline registers
+from pipeline_registers import IF_DE,DE_EX,EX_MA,MA_WB
 
 clk: int = 0
 CPI: int = None
@@ -72,10 +74,10 @@ stats = [
     ex.alu_instructions,
     ex.control_instructions,
     wb.total_bubbles,
-    de.data_hazard_count,
+    ex.data_hazard_count,
     ex.control_hazard_count,
     ex.branch_mispredictions,
-    de.data_hazard_stalls,
+    ex.data_hazard_stalls,
     ex.control_hazard_stalls,
 ]
 
@@ -108,10 +110,10 @@ def updateData():
         ex.alu_instructions,
         ex.control_instructions,
         wb.total_bubbles,
-        de.data_hazard_count,
+        ex.data_hazard_count,
         ex.control_hazard_count,
         ex.branch_mispredictions,
-        de.data_hazard_stalls,
+        ex.data_hazard_stalls,
         ex.control_hazard_stalls,
     ]
     data = {
@@ -147,16 +149,18 @@ def updateStats():
         f.write(f"Number of ALU instructions executed: {ex.alu_instructions}\n")
         f.write(f"Number of Control instructions executed: {ex.control_instructions}\n")
         f.write(f"Number of stalls/bubbles in the pipeline: {wb.total_bubbles}\n")
-        f.write(f"Number of data hazards: {de.data_hazard_count}\n")
+        f.write(f"Number of data hazards: {ex.data_hazard_count}\n")
         f.write(f"Number of control hazards: {ex.control_hazard_count}\n")
         f.write(f"Number of branch mispredictions: {ex.branch_mispredictions}\n")
-        f.write(f"Number of stalls due to data hazards: {de.data_hazard_stalls}\n")
+        f.write(f"Number of stalls due to data hazards: {ex.data_hazard_stalls}\n")
         f.write(
             f"Number of stalls due to control hazards: {ex.control_hazard_stalls}\n"
         )
 
 
 def print_output():
+    print(f"Data Hazard Stalls: {ex.data_hazard_stalls}")
+    print(f"Data Hazard Count: {ex.data_hazard_count}")
     print("# ========= Register File ===========")
     track = 0
     for x in rg.x:
@@ -260,11 +264,18 @@ def step() -> bool:
 
 
 def reset() -> None:
+    global clk,step_flag
+    clk=0
+    step_flag=0
     """Resets to the initial state"""
     fi.init()
+    IF_DE.init()
     de.init()
+    DE_EX.init()
     ex.init()
+    EX_MA.init()
     ma.init()
+    MA_WB.init()
     wb.init()
     rg.init()
     with open("output.txt", "w") as f:
@@ -307,10 +318,10 @@ def reset_simulator():
         ex.alu_instructions  = 0
         ex.control_instructions  = 0
         wb.total_bubbles  = 0
-        de.data_hazard_count  = 0
+        ex.data_hazard_count  = 0
         ex.control_hazard_count  = 0
         ex.branch_mispredictions  = 0
-        de.data_hazard_stalls  = 0
+        ex.data_hazard_stalls  = 0
         ex.control_hazard_stalls  = 0
         reset()
         updateData()

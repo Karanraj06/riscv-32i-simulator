@@ -39,8 +39,7 @@ BranchTargetAddress: int = None
 
 nop: int = None
 stall_count: int = 0
-data_hazard_stalls: int = 0
-data_hazard_count: int = 0
+
 
 current_instruction = ""
 
@@ -49,7 +48,7 @@ def check_wb() -> None:
     global stall_count
     global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, immU, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress, nop
 
-    global opcode, data_hazard_count, data_hazard_stalls
+    global opcode
     # for R type
     if opcode == "0110011":
         # R type inst in WB
@@ -58,42 +57,42 @@ def check_wb() -> None:
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
@@ -101,56 +100,56 @@ def check_wb() -> None:
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for I type
     elif opcode == "0010011":
@@ -160,24 +159,24 @@ def check_wb() -> None:
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
@@ -185,16 +184,16 @@ def check_wb() -> None:
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
@@ -203,16 +202,16 @@ def check_wb() -> None:
                 print("Error here!!")
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for Load type
     elif opcode == "0000011":
@@ -222,24 +221,24 @@ def check_wb() -> None:
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
@@ -247,32 +246,32 @@ def check_wb() -> None:
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for store type
     elif opcode == "0100011":
@@ -282,42 +281,42 @@ def check_wb() -> None:
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
@@ -325,56 +324,56 @@ def check_wb() -> None:
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for Branch type
     elif opcode == "1100011":
@@ -384,42 +383,42 @@ def check_wb() -> None:
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
@@ -427,56 +426,56 @@ def check_wb() -> None:
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 op2 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for JALR
     elif opcode == "1100111":
@@ -486,24 +485,24 @@ def check_wb() -> None:
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
@@ -511,38 +510,38 @@ def check_wb() -> None:
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
-                    data_hazard_stalls += 1
-                    data_hazard_count += 1
+                    ex.data_hazard_stalls += 1
+                    ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
 
 
@@ -550,80 +549,80 @@ def check_ma() -> None:
     global stall_count
     global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, immU, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress, nop
 
-    global opcode, data_hazard_stalls, data_hazard_count
+    global opcode
     # for R type
     if opcode == "0110011":
         # R type inst in WB
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # I type inst in WB
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # Load instruction in WB
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for I type
     elif opcode == "0010011":
@@ -631,45 +630,45 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # I type inst in WB
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # Load instruction in WB
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for Load type
     elif opcode == "0000011":
@@ -677,45 +676,45 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # I type inst in WB
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # Load instruction in WB
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for store type
     elif opcode == "0100011":
@@ -723,147 +722,147 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # I type inst in ma
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # Load instruction in ma
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # U type instruction in ma
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
     # for Branch type
     elif opcode == "1100011":
         # R type inst in ma
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # I type inst in ma
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # Load instruction in ma
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # U type instruction in ma
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for JALR
     elif opcode == "1100111":
@@ -871,45 +870,45 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # I type inst in ma
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # Load instruction in ma
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # U type instruction in ma
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 3
-                data_hazard_stalls += 2
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 2
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
 
 
@@ -917,80 +916,80 @@ def check_ex() -> None:
     global stall_count
     global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, immU, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress, nop
 
-    global opcode, data_hazard_stalls, data_hazard_count
+    global opcode
     # for R type
     if opcode == "0110011":
         # R type inst in WB
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # I type inst in WB
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # Load instruction in WB
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for I type
     elif opcode == "0010011":
@@ -998,45 +997,45 @@ def check_ex() -> None:
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # I type inst in WB
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # Load instruction in WB
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for Load type
     elif opcode == "0000011":
@@ -1044,45 +1043,45 @@ def check_ex() -> None:
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # I type inst in WB
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # Load instruction in WB
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # U type instruction in WB
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for store type
     elif opcode == "0100011":
@@ -1090,73 +1089,73 @@ def check_ex() -> None:
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # I type inst in ex
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # Load instruction in ex
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # U type instruction in ex
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for Branch type
     elif opcode == "1100011":
@@ -1164,73 +1163,73 @@ def check_ex() -> None:
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # I type inst in ex
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # Load instruction in ex
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # U type instruction in ex
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
     # for JALR
     elif opcode == "1100111":
@@ -1238,45 +1237,45 @@ def check_ex() -> None:
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # I type inst in ex
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # Load instruction in ex
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # U type instruction in ex
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
                 stall_count = 4
-                data_hazard_stalls += 3
-                data_hazard_count += 1
+                ex.data_hazard_stalls += 3
+                ex.data_hazard_count += 1
         # no need to do anything for store,branch and jal
 
 
@@ -1865,7 +1864,7 @@ def decode() -> None:
 def init() -> None:
     """Initializes all global variables to their initial value"""
     global instruction, pc, rs1, rs2, rd, func3, func7, op1, op2, imm, immS, immB, immJ, OP2Select, ALUOperation, MemOp, ResultSelect, RFWrite, BranchTargetAddress, stall_count, current_instruction
-
+    global nop,stall_count
     (
         instruction,
         pc,
@@ -1886,7 +1885,7 @@ def init() -> None:
         ResultSelect,
         RFWrite,
         BranchTargetAddress,
-        current_instruction
+        current_instruction,
     ) = (
         None,
         None,
@@ -1909,3 +1908,5 @@ def init() -> None:
         None,
         ""
     )
+    nop=0
+    stall_count=0

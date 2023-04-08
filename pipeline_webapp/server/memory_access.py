@@ -77,8 +77,6 @@ def memory_access() -> None:
         print("MA: Bubble")
         current_instruction = "MA: Bubble"
         loadData = None
-        instpkt.init()
-        instpkt.nop = 1
         ex.execute()
         return
     if instpkt.instruction is None:
@@ -174,7 +172,8 @@ def memory_access() -> None:
 
 def init() -> None:
     """Initialize the global variables"""
-    global loadData, data_memory, current_instruction
+    global loadData, data_memory, current_instruction,data_transfer_instructions
     loadData = None
     data_memory = {}
+    data_transfer_instructions=0
     current_instruction = ""

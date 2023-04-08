@@ -20,9 +20,6 @@ def writeBack() -> bool:
         total_bubbles += 1
         print("WB: Bubble")
         current_instruction = "WB: Bubble"
-        init()
-        instpkt.init()
-        instpkt.nop = 1
         ma.memory_access()
         return True
     if instpkt.instruction is None:
@@ -105,8 +102,10 @@ def writeBack() -> bool:
 
 def init() -> None:
     """Initializes pc to its initial value"""
-    global clk, current_instruction
+    global clk, current_instruction,total_bubbles,total_instructions
     # initialising clk cycle to 0
     clk = 0
     current_instruction = ""
+    total_instructions=0
+    total_bubbles=0
     

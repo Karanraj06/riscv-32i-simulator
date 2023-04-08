@@ -65,9 +65,11 @@ def fetch() -> None:
 
 def init() -> None:
     """Initializes pc to its initial value"""
-    global pc, prev_pc, current_instruction
+    global pc, prev_pc, current_instruction,instruction,branch_target_buffer
     current_instruction = ""
     global nop
     nop = 0
     pc = 0x0
+    instruction=None
     prev_pc = 0x0
+    branch_target_buffer={}
