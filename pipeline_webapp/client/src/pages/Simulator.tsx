@@ -8,6 +8,8 @@ export default function Simulator() {
     const [getId, setgetId] = useState(1);
     const [rg, setrg] = useState<Array<number>>(Array(32).fill(0));
     const [ci, setci] = useState<string[]>(["", "", "", "", ""]);
+    const [cf, setcf] = useState<string[]>(["", "", ""]);
+    const [cd, setcd] = useState<string[]>(["", "", ""]);
     const [stats, setStats] = useState<Array<number>>(Array(12).fill(0));
     const [mem, setMem] = useState({});
 
@@ -32,6 +34,8 @@ export default function Simulator() {
             .then(response => response.json())
             .then(data => {
                 setci(data.current_instruction);
+                setcd(data.dependencies);
+                setcf(data.forwarding_paths);
                 setrg(data.registers);
                 setStats(data.stats);
                 setMem(data.memory);
@@ -105,47 +109,60 @@ export default function Simulator() {
                     <div className="flex items-center break-words">
                         Instruction Fetch
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1">
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {ci[0]}
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
+                    <div className="pl-1"></div>
+                    <div className="pl-1"></div>
                 </div>
                 <div className="grid grid-flow-col grid-cols-[18%_40%_14%_14%] gap-2 justify-between">
                     <div className="flex items-center break-words">Decode</div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1">
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {ci[1]}
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
+                        {cd[0]}
+                    </div>
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
+                        {cf[0]}
+                    </div>
                 </div>
                 <div className="grid grid-flow-col grid-cols-[18%_40%_14%_14%] gap-2 justify-between">
                     <div className="flex items-center break-words">Execute</div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1">
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {ci[2]}
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
+                        {cd[1]}
+                    </div>
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
+                        {cf[1]}
+                    </div>
                 </div>
                 <div className="grid grid-flow-col grid-cols-[18%_40%_14%_14%] gap-2 justify-between">
                     <div className="flex items-center break-words">
                         Memory Access
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1">
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {ci[3]}
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
+                    {cd[2]}
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
+                        {cd[2]}
+                    </div>
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
+                        {cf[2]}
+                    </div>
                 </div>
                 <div className="grid grid-flow-col grid-cols-[18%_40%_14%_14%] gap-2 justify-between">
                     <div className="flex items-center break-words">
                         Write Back
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1">
+                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {ci[4]}
                     </div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
-                    <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"></div>
+                    <div className="pl-1"></div>
+                    <div className="pl-1"></div>
                 </div>
                 <div className="flex flex-wrap justify-evenly items-end">
                     <button

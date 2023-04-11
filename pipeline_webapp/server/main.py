@@ -19,7 +19,7 @@ async def create(request: Request):
     with open("input.mc", "w") as f:
         f.truncate(0)
         f.write(text["text"])
-    
+
     try:
         with open("input.mc", "r") as f:
             lines = f.readlines()
@@ -53,8 +53,9 @@ import write_back as wb
 import registers as rg
 import knobs
 from collections import OrderedDict
-#importing pipeline registers
-from pipeline_registers import IF_DE,DE_EX,EX_MA,MA_WB
+
+# importing pipeline registers
+from pipeline_registers import IF_DE, DE_EX, EX_MA, MA_WB
 
 clk: int = 0
 CPI: int = None
@@ -65,16 +66,8 @@ current_instruction = [
     ma.current_instruction,
     wb.current_instruction,
 ]
-forwarding_paths=[
-    ex.de_forwarding_path,
-    ex.ex_forwarding_path,
-    ex.ma_forwarding_path
-]
-dependencies=[
-    ex.de_dependency,
-    ex.ex_dependency,
-    ex.ma_dependency
-]
+forwarding_paths = [ex.de_forwarding_path, ex.ex_forwarding_path, ex.ma_forwarding_path]
+dependencies = [ex.de_dependency, ex.ex_dependency, ex.ma_dependency]
 stats = [
     clk,
     wb.total_instructions,
@@ -95,13 +88,13 @@ data = {
     "memory": OrderedDict(sorted(ma.data_memory.items())),
     "current_instruction": current_instruction,
     "stats": stats,
-    "forwarding_paths":forwarding_paths,
-    "dependencies":dependencies
+    "forwarding_paths": forwarding_paths,
+    "dependencies": dependencies,
 }
 
 
 def updateData():
-    global stats, data, clk, current_instruction, CPI,forwarding_paths,dependencies
+    global stats, data, clk, current_instruction, CPI, forwarding_paths, dependencies
     if wb.total_instructions > 0:
         CPI = clk / wb.total_instructions
     else:
@@ -113,16 +106,12 @@ def updateData():
         ma.current_instruction,
         wb.current_instruction,
     ]
-    forwarding_paths=[
-    ex.de_forwarding_path,
-    ex.ex_forwarding_path,
-    ex.ma_forwarding_path
+    forwarding_paths = [
+        ex.de_forwarding_path,
+        ex.ex_forwarding_path,
+        ex.ma_forwarding_path,
     ]
-    dependencies=[
-    ex.de_dependency,
-    ex.ex_dependency,
-    ex.ma_dependency
-    ]
+    dependencies = [ex.de_dependency, ex.ex_dependency, ex.ma_dependency]
     stats = [
         clk,
         wb.total_instructions,
@@ -142,8 +131,8 @@ def updateData():
         "memory": OrderedDict(sorted(ma.data_memory.items())),
         "current_instruction": current_instruction,
         "stats": stats,
-        "forwarding_paths":forwarding_paths,
-        "dependencies":dependencies
+        "forwarding_paths": forwarding_paths,
+        "dependencies": dependencies,
     }
 
 
@@ -287,9 +276,9 @@ def step() -> bool:
 
 
 def reset() -> None:
-    global clk,step_flag
-    clk=0
-    step_flag=0
+    global clk, step_flag
+    clk = 0
+    step_flag = 0
     """Resets to the initial state"""
     fi.init()
     IF_DE.init()
@@ -310,44 +299,58 @@ async def root():
     return data
 
 
-@app.get('/run')
+@app.get("/run")
 def run_simulator():
     try:
+        global clk, step_flag
+        clk, step_flag = 0, 0
+        wb.total_instructions = 0
+        ma.data_transfer_instructions = 0
+        ex.alu_instructions = 0
+        ex.control_instructions = 0
+        wb.total_bubbles = 0
+        ex.data_hazard_count = 0
+        ex.control_hazard_count = 0
+        ex.branch_mispredictions = 0
+        ex.data_hazard_stalls = 0
+        ex.control_hazard_stalls = 0
+        reset()
+        updateData()
         run()
         updateData()
     except:
-        return {'success': False}
-    return {'success': True}
+        return {"success": False}
+    return {"success": True}
 
 
-@app.get('/step')
+@app.get("/step")
 def step_simulator():
     try:
         if not step():
             print_output()
         updateData()
     except:
-        return {'success': False}
-    return {'success': True}
+        return {"success": False}
+    return {"success": True}
 
 
-@app.get('/reset')
+@app.get("/reset")
 def reset_simulator():
     try:
         global clk, step_flag
         clk, step_flag = 0, 0
         wb.total_instructions = 0
         ma.data_transfer_instructions = 0
-        ex.alu_instructions  = 0
-        ex.control_instructions  = 0
-        wb.total_bubbles  = 0
-        ex.data_hazard_count  = 0
-        ex.control_hazard_count  = 0
-        ex.branch_mispredictions  = 0
-        ex.data_hazard_stalls  = 0
-        ex.control_hazard_stalls  = 0
+        ex.alu_instructions = 0
+        ex.control_instructions = 0
+        wb.total_bubbles = 0
+        ex.data_hazard_count = 0
+        ex.control_hazard_count = 0
+        ex.branch_mispredictions = 0
+        ex.data_hazard_stalls = 0
+        ex.control_hazard_stalls = 0
         reset()
         updateData()
     except:
-        return {'success': False}
-    return {'success': True}
+        return {"success": False}
+    return {"success": True}
