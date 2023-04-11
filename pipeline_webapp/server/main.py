@@ -314,6 +314,12 @@ def run_simulator():
         ex.branch_mispredictions = 0
         ex.data_hazard_stalls = 0
         ex.control_hazard_stalls = 0
+        ex.de_forwarding_path = ""
+        ex.ex_forwarding_path = ""
+        ex.ma_forwarding_path = ""
+        ex.de_dependency = ""
+        ex.ex_dependency = ""
+        ex.ma_dependency = ""
         reset()
         updateData()
         run()
@@ -349,6 +355,12 @@ def reset_simulator():
         ex.branch_mispredictions = 0
         ex.data_hazard_stalls = 0
         ex.control_hazard_stalls = 0
+        ex.de_forwarding_path = ""
+        ex.ex_forwarding_path = ""
+        ex.ma_forwarding_path = ""
+        ex.de_dependency = ""
+        ex.ex_dependency = ""
+        ex.ma_dependency = ""
         reset()
         updateData()
     except:
