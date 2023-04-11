@@ -54,15 +54,19 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -70,15 +74,19 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -86,15 +94,19 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -103,15 +115,19 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -119,15 +135,19 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -135,15 +155,19 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -151,15 +175,19 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -170,8 +198,10 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -179,8 +209,10 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -188,8 +220,10 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -198,8 +232,10 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -207,8 +243,10 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -216,10 +254,12 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 print(rs1)
                 print("Error here!!")
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -227,8 +267,10 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -239,8 +281,10 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -248,8 +292,10 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -257,8 +303,10 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -267,8 +315,10 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -276,8 +326,10 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -285,8 +337,10 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -294,8 +348,10 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -306,15 +362,19 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -322,15 +382,19 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -338,15 +402,19 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -355,15 +423,19 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -371,15 +443,19 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -387,15 +463,19 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -403,15 +483,19 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -422,15 +506,19 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -438,15 +526,19 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -454,15 +546,19 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -471,15 +567,19 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -487,15 +587,19 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -503,15 +607,19 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -519,15 +627,19 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -538,8 +650,10 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -547,8 +661,10 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -556,8 +672,10 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -566,8 +684,10 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -575,8 +695,10 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -584,8 +706,10 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -593,15 +717,19 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
-                ex.de_forwarding_path+="WB-DE"
+                ex.de_dependency="Data "
+                ex.de_forwarding_path+="WB-DE "
                 op2 = wb.instpkt.pc + 4
+                ex.de_dependency="Data "
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
@@ -619,30 +747,36 @@ def check_ma() -> None:
         # R type inst in WB
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # I type inst in WB
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # Load instruction in WB
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -650,40 +784,48 @@ def check_ma() -> None:
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -693,18 +835,21 @@ def check_ma() -> None:
         # R type inst in WB
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # I type inst in WB
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # Load instruction in WB
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -712,24 +857,28 @@ def check_ma() -> None:
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -739,18 +888,21 @@ def check_ma() -> None:
         # R type inst in WB
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # I type inst in WB
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # Load instruction in WB
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -758,24 +910,28 @@ def check_ma() -> None:
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -785,30 +941,36 @@ def check_ma() -> None:
         # R type inst in WB
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # I type inst in ma
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # Load instruction in ma
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -816,30 +978,36 @@ def check_ma() -> None:
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -847,10 +1015,12 @@ def check_ma() -> None:
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -859,30 +1029,36 @@ def check_ma() -> None:
         # R type inst in ma
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # I type inst in ma
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # Load instruction in ma
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -890,40 +1066,48 @@ def check_ma() -> None:
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
             if rs2 == ma.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -933,18 +1117,21 @@ def check_ma() -> None:
         # R type inst in ma
         if ma.instpkt.opcode == "0110011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # I type inst in ma
         if ma.instpkt.opcode == "0010011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # Load instruction in ma
         if ma.instpkt.opcode == "0000011":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -952,24 +1139,28 @@ def check_ma() -> None:
         # LUI
         if ma.instpkt.opcode == "0110111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if rs1 == ma.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 3
                 ex.data_hazard_stalls += 2
                 ex.data_hazard_count += 1
@@ -986,30 +1177,36 @@ def check_ex() -> None:
         # R type inst in WB
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # I type inst in WB
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # Load instruction in WB
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1017,40 +1214,48 @@ def check_ex() -> None:
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1060,18 +1265,21 @@ def check_ex() -> None:
         # R type inst in WB
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # I type inst in WB
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # Load instruction in WB
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1079,24 +1287,28 @@ def check_ex() -> None:
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1106,18 +1318,21 @@ def check_ex() -> None:
         # R type inst in WB
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # I type inst in WB
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # Load instruction in WB
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1125,24 +1340,28 @@ def check_ex() -> None:
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1152,30 +1371,36 @@ def check_ex() -> None:
         # R type inst in WB
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # I type inst in ex
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # Load instruction in ex
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1183,40 +1408,48 @@ def check_ex() -> None:
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1226,30 +1459,36 @@ def check_ex() -> None:
         # R type inst in ex
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # I type inst in ex
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # Load instruction in ex
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1257,40 +1496,48 @@ def check_ex() -> None:
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
             if rs2 == ex.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1300,18 +1547,21 @@ def check_ex() -> None:
         # R type inst in ex
         if ex.instpkt.opcode == "0110011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # I type inst in ex
         if ex.instpkt.opcode == "0010011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # Load instruction in ex
         if ex.instpkt.opcode == "0000011":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
@@ -1319,24 +1569,28 @@ def check_ex() -> None:
         # LUI
         if ex.instpkt.opcode == "0110111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # AUIPC
         if ex.instpkt.opcode == "0010111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JAL
         if ex.instpkt.opcode == "1101111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1
         # for JALR
         if ex.instpkt.opcode == "1100111":
             if rs1 == ex.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_dependency="Data "
                 stall_count = 4
                 ex.data_hazard_stalls += 3
                 ex.data_hazard_count += 1

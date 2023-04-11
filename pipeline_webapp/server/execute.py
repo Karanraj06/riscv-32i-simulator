@@ -26,36 +26,47 @@ current_instruction = ""
 de_forwarding_path:list[str]=""
 ex_forwarding_path:list[str]=""
 ma_forwarding_path:list[str]=""
+#dependency type
+de_dependency=""
+ex_dependency=""
+ma_dependency=""
+
 def check_ma() -> None:
-    global stall_count,data_hazard_stalls,data_hazard_count,ex_forwarding_path
+    global stall_count,data_hazard_stalls,data_hazard_count,ex_forwarding_path,ex_dependency
     # for R type
     if instpkt.opcode == "0110011":
         # R type inst in MA
         if ma.instpkt.opcode == "0110011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.aluResult
         # I type inst in MA
         if ma.instpkt.opcode == "0010011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.aluResult
         # Load instruction in MA
         if ma.instpkt.opcode == "0000011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
                 data_hazard_count += 1
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
@@ -65,33 +76,41 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.immU
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU + ma.instpkt.pc
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.immU + ma.instpkt.pc
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.pc + 4
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.pc + 4
         # no need to do anything for store,branch and jal
     # for I type
@@ -100,16 +119,19 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # I type inst in MA
         if ma.instpkt.opcode == "0010011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # Load instruction in MA
         if ma.instpkt.opcode == "0000011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
@@ -119,22 +141,26 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU + ma.instpkt.pc
         # no need to do anything for store,branch and jal
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
     # for Load type
     elif instpkt.opcode == "0000011":
@@ -142,16 +168,19 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # I type inst in MA
         if ma.instpkt.opcode == "0010011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # Load instruction in MA
         if ma.instpkt.opcode == "0000011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
@@ -161,22 +190,26 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU + ma.instpkt.pc
         # no need to do anything for store,branch and jal
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
     # for Store type
     elif instpkt.opcode == "0100011":
@@ -184,16 +217,19 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # I type inst in MA
         if ma.instpkt.opcode == "0010011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # Load instruction in MA
         if ma.instpkt.opcode == "0000011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
@@ -203,21 +239,25 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU + ma.instpkt.pc
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
     # for Branch Type
     elif instpkt.opcode == "1100011":
@@ -225,28 +265,34 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.aluResult
         # I type inst in MA
         if ma.instpkt.opcode == "0010011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.aluResult
         # Load instruction in MA
         if ma.instpkt.opcode == "0000011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
                 data_hazard_count += 1
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
@@ -256,33 +302,41 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.immU
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU + ma.instpkt.pc
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.immU + ma.instpkt.pc
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.pc + 4
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
             if instpkt.rs2 == ma.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op2 = ma.instpkt.pc + 4
     # for JALR
     elif instpkt.opcode == "1100111":
@@ -290,16 +344,19 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # I type inst in MA
         if ma.instpkt.opcode == "0010011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.aluResult
         # Load instruction in MA
         if ma.instpkt.opcode == "0000011":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.loadData
                 stall_count = 2
                 data_hazard_stalls += 1
@@ -309,21 +366,25 @@ def check_ma() -> None:
         if ma.instpkt.opcode == "0110111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.immU
         # AUIPC
         if ma.instpkt.opcode == "0010111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + ma.instpkt.immU
         # for JAL
         if ma.instpkt.opcode == "1101111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
         # for JALR
         if ma.instpkt.opcode == "1100111":
             if instpkt.rs1 == ma.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path+="MA-EX "
+                ex_dependency="Data "
                 instpkt.op1 = ma.instpkt.pc + 4
         # no need to do anything for store,branch and jal
 
@@ -668,7 +729,7 @@ def add_32Bit(binstr1, binstr2):
 
 def execute() -> int:
     global aluResult, isBranch, stall_count, control_hazard_count, control_hazard_stalls, branch_mispredictions, alu_instructions, control_instructions, current_instruction
-    global de_forwarding_path,ex_forwarding_path,ma_forwarding_path
+    global de_forwarding_path,ex_forwarding_path,ma_forwarding_path,ex_dependency
     # print("In EX")
     # updating values in pipeline register from decode
     instpkt.nop = prev_pip.nop
@@ -786,6 +847,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 0:
                 fi.branch_target_buffer[instpkt.pc][1] = 1
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -800,6 +862,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 1:
                 fi.branch_target_buffer[instpkt.pc][1] = 0
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -815,6 +878,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 0:
                 fi.branch_target_buffer[instpkt.pc][1] = 1
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -828,6 +892,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 1:
                 fi.branch_target_buffer[instpkt.pc][1] = 0
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -843,6 +908,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 0:
                 fi.branch_target_buffer[instpkt.pc][1] = 1
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -856,6 +922,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 1:
                 fi.branch_target_buffer[instpkt.pc][1] = 0
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -871,6 +938,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 0:
                 fi.branch_target_buffer[instpkt.pc][1] = 1
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -884,6 +952,7 @@ def execute() -> int:
             if fi.branch_target_buffer[instpkt.pc][1] == 1:
                 fi.branch_target_buffer[instpkt.pc][1] = 0
                 lock.stall()
+                ex_dependency+="Control"
                 control_hazard_count += 1
                 control_hazard_stalls += 2
                 branch_mispredictions += 1
@@ -899,6 +968,7 @@ def execute() -> int:
         if fi.branch_target_buffer[instpkt.pc][1] == 0:
             fi.branch_target_buffer[instpkt.pc][1] = 1
             lock.stall()
+            ex_dependency+="Control"
             control_hazard_count += 1
             control_hazard_stalls += 2
             branch_mispredictions += 1
@@ -911,6 +981,7 @@ def execute() -> int:
     elif instpkt.opcode == "1100111":  # for JALR
         control_instructions += 1
         lock.stall()
+        ex_dependency+="Control"
         control_hazard_count += 1
         control_hazard_stalls += 2
         fi.pc = aluResult

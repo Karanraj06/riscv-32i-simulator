@@ -38,37 +38,44 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex.ma_forwarding_path+="WB-MA "
+                ex.ma_dependency="Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
 
@@ -78,6 +85,11 @@ def memory_access() -> None:
     ex.ex_forwarding_path=""
     ex.de_forwarding_path=""
     ex.ma_forwarding_path=""
+    #clearing all dependencies
+    ex.de_dependency=""
+    ex.ex_dependency=""
+    ex.ma_dependency=""
+
     # print("In MA")
     global loadData, current_instruction, data_transfer_instructions
     # store all the values in the pipeline register first
