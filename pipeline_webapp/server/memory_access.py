@@ -37,36 +37,47 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
+                ex.ma_forwarding_path+="WB-MA "
                 instpkt.op2 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
 
 
 def memory_access() -> None:
+    #clearing all the forwarding paths from previous cycle
+    ex.ex_forwarding_path=""
+    ex.de_forwarding_path=""
+    ex.ma_forwarding_path=""
     # print("In MA")
     global loadData, current_instruction, data_transfer_instructions
     # store all the values in the pipeline register first
@@ -112,6 +123,7 @@ def memory_access() -> None:
     # check for data hazards
     check_wb()
     print(f"MA: for PC = {instpkt.pc}")
+    print(ex.ma_forwarding_path)
 
     # print(instpkt.MemOp)
     f = open("output.txt", "a")

@@ -54,12 +54,14 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -68,12 +70,14 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -82,12 +86,14 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -97,12 +103,14 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -111,12 +119,14 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -125,12 +135,14 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -139,12 +151,14 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -156,6 +170,7 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -164,6 +179,7 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -172,6 +188,7 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -181,6 +198,7 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -189,6 +207,7 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -197,6 +216,7 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 print(rs1)
                 print("Error here!!")
@@ -207,6 +227,7 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -218,6 +239,7 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -226,6 +248,7 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -234,6 +257,7 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -243,6 +267,7 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -251,6 +276,7 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -259,6 +285,7 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -267,6 +294,7 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -278,12 +306,14 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -292,12 +322,14 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -306,12 +338,14 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -321,12 +355,14 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -335,12 +371,14 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -349,12 +387,14 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -363,12 +403,14 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -380,12 +422,14 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -394,12 +438,14 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -408,12 +454,14 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -423,12 +471,14 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -437,12 +487,14 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:  # rs2 hazard
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -451,12 +503,14 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -465,12 +519,14 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -482,6 +538,7 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -490,6 +547,7 @@ def check_wb() -> None:
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.aluResult
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -498,6 +556,7 @@ def check_wb() -> None:
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.loadData
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -507,6 +566,7 @@ def check_wb() -> None:
         # LUI
         if wb.instpkt.opcode == "0110111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -515,6 +575,7 @@ def check_wb() -> None:
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:  # rs1 hazard
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.immU + wb.instpkt.pc
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -523,6 +584,7 @@ def check_wb() -> None:
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -531,12 +593,14 @@ def check_wb() -> None:
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if rs1 == wb.instpkt.rd and int(rs1, 2) != 0:
+                ex.de_forwarding_path+="WB-DE "
                 op1 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
                     ex.data_hazard_stalls += 1
                     ex.data_hazard_count += 1
             if rs2 == wb.instpkt.rd and int(rs2, 2) != 0:
+                ex.de_forwarding_path+="WB-DE"
                 op2 = wb.instpkt.pc + 4
                 stall_count = 2
                 if knobs.data_forwarding == 0:
@@ -1327,6 +1391,7 @@ def decode() -> None:
         op2 = rg.x[int(rs2, 2)]
         if knobs.data_forwarding == 1:
             check_wb()
+            print(ex.de_forwarding_path)
         else:
             if stall_count == 0:
                 check_wb()
@@ -1456,6 +1521,7 @@ def decode() -> None:
         op1 = rg.x[int(rs1, 2)]
         if knobs.data_forwarding == 1:
             check_wb()
+            print(ex.de_forwarding_path)
         else:
             if stall_count == 0:
                 check_wb()
@@ -1576,6 +1642,7 @@ def decode() -> None:
         op1 = rg.x[int(rs1, 2)]
         if knobs.data_forwarding == 1:
             check_wb()
+            print(ex.de_forwarding_path)
         else:
             if stall_count == 0:
                 check_wb()
@@ -1638,6 +1705,7 @@ def decode() -> None:
 
         if knobs.data_forwarding == 1:
             check_wb()
+            print(ex.de_forwarding_path)
         else:
             if stall_count == 0:
                 check_wb()
@@ -1706,6 +1774,7 @@ def decode() -> None:
 
         if knobs.data_forwarding == 1:
             check_wb()
+            print(ex.de_forwarding_path)
         else:
             if stall_count == 0:
                 check_wb()
@@ -1834,6 +1903,7 @@ def decode() -> None:
         op1 = rg.x[int(rs1, 2)]
         if knobs.data_forwarding == 1:
             check_wb()
+            print(ex.de_forwarding_path)
         else:
             if stall_count == 0:
                 check_wb()

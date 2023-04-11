@@ -65,7 +65,11 @@ current_instruction = [
     ma.current_instruction,
     wb.current_instruction,
 ]
-
+forwarding_paths=[
+    ex.de_forwarding_path,
+    ex.ex_forwarding_path,
+    ex.ma_forwarding_path
+]
 stats = [
     clk,
     wb.total_instructions,
@@ -86,11 +90,12 @@ data = {
     "memory": OrderedDict(sorted(ma.data_memory.items())),
     "current_instruction": current_instruction,
     "stats": stats,
+    "forwarding_paths":forwarding_paths
 }
 
 
 def updateData():
-    global stats, data, clk, current_instruction, CPI
+    global stats, data, clk, current_instruction, CPI,forwarding_paths
     if wb.total_instructions > 0:
         CPI = clk / wb.total_instructions
     else:
@@ -101,6 +106,11 @@ def updateData():
         ex.current_instruction,
         ma.current_instruction,
         wb.current_instruction,
+    ]
+    forwarding_paths=[
+    ex.de_forwarding_path,
+    ex.ex_forwarding_path,
+    ex.ma_forwarding_path
     ]
     stats = [
         clk,
@@ -121,6 +131,7 @@ def updateData():
         "memory": OrderedDict(sorted(ma.data_memory.items())),
         "current_instruction": current_instruction,
         "stats": stats,
+        "forwarding_paths":forwarding_paths
     }
 
 
