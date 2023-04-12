@@ -146,7 +146,6 @@ export default function Simulator() {
                     <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {ci[3]}
                     </div>
-                    {cd[2]}
                     <div className="border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1 hover:border-emerald-400">
                         {cd[2]}
                     </div>

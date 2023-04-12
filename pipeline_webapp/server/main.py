@@ -302,26 +302,7 @@ async def root():
 @app.get("/run")
 def run_simulator():
     try:
-        global clk, step_flag
-        clk, step_flag = 0, 0
-        wb.total_instructions = 0
-        ma.data_transfer_instructions = 0
-        ex.alu_instructions = 0
-        ex.control_instructions = 0
-        wb.total_bubbles = 0
-        ex.data_hazard_count = 0
-        ex.control_hazard_count = 0
-        ex.branch_mispredictions = 0
-        ex.data_hazard_stalls = 0
-        ex.control_hazard_stalls = 0
-        ex.de_forwarding_path = ""
-        ex.ex_forwarding_path = ""
-        ex.ma_forwarding_path = ""
-        ex.de_dependency = ""
-        ex.ex_dependency = ""
-        ex.ma_dependency = ""
-        reset()
-        updateData()
+        reset_simulator()
         run()
         updateData()
     except:
@@ -363,6 +344,22 @@ def reset_simulator():
         ex.ma_dependency = ""
         reset()
         updateData()
+
+        with open("input.mc", "r") as f:
+            lines = f.readlines()
+            track = 0
+            for line in lines:
+                key, value = line.split()
+                if track == 0:
+                    # print(key+" "+value)
+                    if value == "_":
+                        fi.instruction_memory[int(key, 16)] = None
+                        track = 1
+                    else:
+                        fi.instruction_memory[int(key, 16)] = value
+                elif track == 1:
+                    print(key + " " + value)
+                    ma.update_mem(key, value)
     except:
         return {"success": False}
     return {"success": True}
