@@ -1,5 +1,14 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+import instruction_fetch as fi
+import decode as de
+import execute as ex
+import memory_access as ma
+import write_back as wb
+import registers as rg
+import knobs
+from collections import OrderedDict
+from cache import Cache
 
 app = FastAPI()
 
@@ -10,10 +19,57 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+word = 0
+blocks = 0
+associativity = 0
+replace = 0
+hit = 1
+miss = 20
+
+dword = 0
+dblocks = 0
+dassociativity = 0
+dreplace = 0
+dhit = 1
+dmiss = 20
+
 
 @app.post("/text")
 async def create(request: Request):
+    global word, blocks, associativity, replace, hit, miss, dword, dblocks, dassociativity, dreplace, dhit, dmiss
     text = await request.json()
+
+    word = text["word"]
+    blocks = text["blocks"]
+    associativity = text["associativity"]
+    replace = text["replace"]
+    hit = text["hit"]
+    miss = text["miss"]
+
+    dword = text["dword"]
+    dblocks = text["dblocks"]
+    dassociativity = text["dassociativity"]
+    dreplace = text["dreplace"]
+    dhit = text["dhit"]
+    dmiss = text["dmiss"]
+
+    fi.i_cache = Cache(
+        text["word"],
+        text["blocks"],
+        text["associativity"],
+        text["replace"],
+        text["hit"],
+        text["miss"],
+    )
+
+    ma.d_cache = Cache(
+        text["dword"],
+        text["dblocks"],
+        text["dassociativity"],
+        text["dreplace"],
+        text["dhit"],
+        text["dmiss"],
+    )
 
     knobs.data_forwarding = 1 if text["checked"] else 0
     with open("input.mc", "w") as f:
@@ -44,15 +100,6 @@ async def create(request: Request):
 
     return {"success": True}
 
-
-import instruction_fetch as fi
-import decode as de
-import execute as ex
-import memory_access as ma
-import write_back as wb
-import registers as rg
-import knobs
-from collections import OrderedDict
 
 # importing pipeline registers
 from pipeline_registers import IF_DE, DE_EX, EX_MA, MA_WB
@@ -90,6 +137,7 @@ data = {
     "stats": stats,
     "forwarding_paths": forwarding_paths,
     "dependencies": dependencies,
+    # "istats": [],
 }
 
 
@@ -296,6 +344,36 @@ def reset() -> None:
 
 @app.get("/data")
 async def root():
+    data["istats"] = [
+        fi.i_cache.block_size,
+        fi.i_cache.cache_size,
+        fi.i_cache.sets,
+        fi.i_cache.accesses,
+        fi.i_cache.hits,
+        fi.i_cache.misses,
+        fi.i_cache.cold_misses,
+        fi.i_cache.capacity_misses,
+        fi.i_cache.conflict_misses,
+        fi.i_cache.memory_stalls,
+        list(fi.i_cache.prev_address),
+        list(fi.i_cache.prev_victim),
+    ]
+    data["i_cache"] = fi.i_cache.cache
+    data["d_cache"] = ma.d_cache.cache
+    data["dstats"] = [
+        ma.d_cache.block_size,
+        ma.d_cache.cache_size,
+        ma.d_cache.sets,
+        ma.d_cache.accesses,
+        ma.d_cache.hits,
+        ma.d_cache.misses,
+        ma.d_cache.cold_misses,
+        ma.d_cache.capacity_misses,
+        ma.d_cache.conflict_misses,
+        ma.d_cache.memory_stalls,
+        list(ma.d_cache.prev_address),
+        list(ma.d_cache.prev_victim),
+    ]
     return data
 
 
@@ -324,7 +402,7 @@ def step_simulator():
 @app.get("/reset")
 def reset_simulator():
     try:
-        global clk, step_flag
+        global clk, step_flag, word, blocks, associativity, replace, hit, miss, dword, dblocks, dassociativity, dreplace, dhit, dmiss
         clk, step_flag = 0, 0
         wb.total_instructions = 0
         ma.data_transfer_instructions = 0
@@ -342,6 +420,8 @@ def reset_simulator():
         ex.de_dependency = ""
         ex.ex_dependency = ""
         ex.ma_dependency = ""
+        fi.i_cache = Cache(word, blocks, associativity, replace, hit, miss)
+        ma.d_cache = Cache(dword, dblocks, dassociativity, dreplace, dhit, dmiss)
         reset()
         updateData()
 
@@ -363,3 +443,8 @@ def reset_simulator():
     except:
         return {"success": False}
     return {"success": True}
+
+
+@app.get("/cache")
+async def root():
+    return {"i_cache": fi.i_cache.cache, "d_cache": ma.d_cache.cache}

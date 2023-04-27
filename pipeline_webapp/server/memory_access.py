@@ -6,6 +6,10 @@ import execute as ex
 import write_back as wb
 from pipeline_registers import EX_MA as instpkt
 from pipeline_registers import DE_EX as prev_pip
+from cache import dec_to_bin, Cache
+
+
+d_cache = Cache()
 
 # ========Globals=========
 loadData: int = None
@@ -37,58 +41,58 @@ def check_wb() -> None:
         # R type inst in WB
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
-                ex.ma_forwarding_path+="WB-MA "
-                ex.ma_dependency="Data "
+                ex.ma_forwarding_path += "WB-MA "
+                ex.ma_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
 
 
 def memory_access() -> None:
-    #clearing all the forwarding paths from previous cycle
-    ex.ex_forwarding_path=""
-    ex.de_forwarding_path=""
-    ex.ma_forwarding_path=""
-    #clearing all dependencies
-    ex.de_dependency=""
-    ex.ex_dependency=""
-    ex.ma_dependency=""
+    # clearing all the forwarding paths from previous cycle
+    ex.ex_forwarding_path = ""
+    ex.de_forwarding_path = ""
+    ex.ma_forwarding_path = ""
+    # clearing all dependencies
+    ex.de_dependency = ""
+    ex.ex_dependency = ""
+    ex.ma_dependency = ""
 
     # print("In MA")
     global loadData, current_instruction, data_transfer_instructions
@@ -168,6 +172,7 @@ def memory_access() -> None:
             loadData = de.bin_to_dec(temp[:16].rjust(32, temp[0]))
             f.write(f"The loaded value is{loadData}")
             current_instruction = f"The loaded value is{loadData}"
+        d_cache.access(dec_to_bin(instpkt.aluResult), data_memory)
     elif instpkt.MemOp == 2:
         data_transfer_instructions += 1
         print(f"MA:{instpkt.op2} written to memory at address:{instpkt.aluResult}")
@@ -189,6 +194,7 @@ def memory_access() -> None:
                 f"MEMORY (pc: {hex(instpkt.pc)}): Store {de.bin_to_dec(dec_to_bin(instpkt.op2)[16:].zfill(32))} at address {instpkt.aluResult}\n"
             )
             current_instruction = f"MEMORY (pc: {hex(instpkt.pc)}): Store {de.bin_to_dec(dec_to_bin(instpkt.op2)[16:].zfill(32))} at address {instpkt.aluResult}\n"
+        d_cache.access(dec_to_bin(instpkt.aluResult), data_memory)
     f.close()
     # calling execute
     ex.execute()
@@ -196,8 +202,8 @@ def memory_access() -> None:
 
 def init() -> None:
     """Initialize the global variables"""
-    global loadData, data_memory, current_instruction,data_transfer_instructions
+    global loadData, data_memory, current_instruction, data_transfer_instructions
     loadData = None
     data_memory = {}
-    data_transfer_instructions=0
+    data_transfer_instructions = 0
     current_instruction = ""
