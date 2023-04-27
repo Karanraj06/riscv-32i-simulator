@@ -1,4 +1,7 @@
 import decode as de
+from cache import dec_to_bin, Cache
+
+i_cache = Cache()
 
 
 current_instruction: str = ""
@@ -22,7 +25,7 @@ def fetch() -> None:
     returns True if the program has reached the end of the instruction memory, False otherwise
     """
 
-    global instruction_memory, pc, instruction, prev_pc, current_instruction
+    global instruction_memory, pc, instruction, prev_pc, current_instruction, i_cache
     global nop
     if nop == 1:
         print("IF: Bubble")
@@ -32,6 +35,7 @@ def fetch() -> None:
         return
     print(pc)
     instruction = instruction_memory[pc]
+    i_cache.access(dec_to_bin(pc), instruction_memory)
     print(f"IF:for PC = {pc}")
     # Write the fetch operation to the output file
     with open("output.txt", "a") as f:
@@ -65,11 +69,11 @@ def fetch() -> None:
 
 def init() -> None:
     """Initializes pc to its initial value"""
-    global pc, prev_pc, current_instruction,instruction,branch_target_buffer
+    global pc, prev_pc, current_instruction, instruction, branch_target_buffer
     current_instruction = ""
     global nop
     nop = 0
     pc = 0x0
-    instruction=None
+    instruction = None
     prev_pc = 0x0
-    branch_target_buffer={}
+    branch_target_buffer = {}

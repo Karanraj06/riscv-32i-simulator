@@ -1,0 +1,12 @@
+Total number of cycles: 1800
+Total instructions executed: 1348
+CPI: 1.3353115727002967
+Number of Data-transfer (load and store) instructions executed: 287
+Number of ALU instructions executed: 1022
+Number of Control instructions executed: 352
+Number of stalls/bubbles in the pipeline: 448
+Number of data hazards: 0
+Number of control hazards: 224
+Number of branch mispredictions: 186
+Number of stalls due to data hazards: 0
+Number of stalls due to control hazards: 448
