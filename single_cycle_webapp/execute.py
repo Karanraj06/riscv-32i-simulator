@@ -16,14 +16,14 @@ def srl(a: int, b: int) -> int:
         return a >> b
     else:
         return (a + 0x100000000) >> b
-    
+
 
 def sll(a: int, b: int) -> int:
     if b >= 32:
         return 0
     else:
         a = ma.dec_to_bin(a)
-        a =a [b:].ljust(32, '0')
+        a = a[b:].ljust(32, "0")
         return de.bin_to_dec(a)
 
 
@@ -75,7 +75,7 @@ def execute() -> int:
         current_instruction = f"{op1} << {op2}"
 
     elif de.ALUOperation == 6:
-        if(op2 >= 32):
+        if op2 >= 32:
             op2 = op2 % 32
 
         aluResult = srl(op1, op2)
@@ -83,9 +83,9 @@ def execute() -> int:
         current_instruction = f"{op1} >>> {op2}"
 
     elif de.ALUOperation == 7:
-        if(op2 >= 32):
+        if op2 >= 32:
             op2 = op2 % 32
-            
+
         aluResult = op1 >> op2
         # f.write(f"EXECUTE:SRA {op1} and {op2}\n")
         current_instruction = f"{op1} >> {op2}"

@@ -1,9 +1,10 @@
 import registers as rg
-#Changed AluOperation for JAL
-#Changed branchtargetadress in JAL
-#Changed resultselect in LW to 1
-#Added immU to the list of globals in decode()
-#changed immediate in slli
+
+# Changed AluOperation for JAL
+# Changed branchtargetadress in JAL
+# Changed resultselect in LW to 1
+# Added immU to the list of globals in decode()
+# changed immediate in slli
 # =================== GLOBAL VARIABLES ===================
 instruction: str = None
 pc: int = None
@@ -14,7 +15,7 @@ func3: str = None
 func7: str = None
 op1: int = None
 op2: int = None
-opcode:str=None
+opcode: str = None
 # =================== IMMEDIATE VALUES ===================
 imm: int = None
 immS: int = None
@@ -58,7 +59,6 @@ def decode() -> None:
         op2 = rg.x[int(rs2, 2)]
 
         if func3 == "000":
-            
             # ADD
             if func7 == "0000000":
                 OP2Select = 0
@@ -138,7 +138,6 @@ def decode() -> None:
                 )
 
         elif func3 == "101":
-
             # SRL
             if func7 == "0000000":
                 OP2Select = 0
@@ -307,7 +306,7 @@ def decode() -> None:
                 f.write(
                     f"DE: I-type instruction: LH, rs1 = x{int(rs1, 2)} = {op1}, imm = {imm}, rd = x{int(rd, 2)}\n"
                 )
-        
+
         # LW
         elif func3 == "010":
             OP2Select = 1
@@ -485,7 +484,7 @@ def decode() -> None:
         MemOp = 0
         ResultSelect = 3
         RFWrite = 1
-        BranchTargetAddress = pc+immJ
+        BranchTargetAddress = pc + immJ
         with open("output.txt", "a") as f:
             f.write(f"DE: J-type instruction: JAL, rd = x{int(rd, 2)}, immJ = {immJ}\n")
 

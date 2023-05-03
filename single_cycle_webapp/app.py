@@ -12,56 +12,65 @@ from collections import OrderedDict
 app = Flask(__name__)
 
 
-
 @app.route("/")
 def hello_world():
     return render_template("index.html")
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route("/", methods=["GET", "POST"])
 def input_machine_code():
-    if request.method == 'POST':
+    if request.method == "POST":
         with open("input.mc", "w") as f:
             f.truncate(0)
-            f.write(request.json['machineCode'])
-        
+            f.write(request.json["machineCode"])
+
         with open("input.mc", "r") as f:
             lines = f.readlines()
             track = 0
             for line in lines:
                 key, value = line.split()
                 if track == 0:
-                    print(key+" "+value)
+                    print(key + " " + value)
                     if value == "_":
                         fi.instruction_memory[int(key, 16)] = None
                         track = 1
                     else:
                         fi.instruction_memory[int(key, 16)] = value
                 elif track == 1:
-                    print(key+" "+value)
+                    print(key + " " + value)
                     ma.update_mem(key, value)
-        
+
     return render_template("index.html")
+
 
 @app.route("/data")
 def get_data():
-    current_instruction = [fi.current_instruction, de.current_instruction, ex.current_instruction, ma.current_instruction, wb.current_instruction]
-    return jsonify({
-        "clock": wb.clk,
-        "registers": rg.x,
-        "memory": OrderedDict(sorted(ma.data_memory.items())),
-        "current_instruction": current_instruction
-    })
+    current_instruction = [
+        fi.current_instruction,
+        de.current_instruction,
+        ex.current_instruction,
+        ma.current_instruction,
+        wb.current_instruction,
+    ]
+    return jsonify(
+        {
+            "clock": wb.clk,
+            "registers": rg.x,
+            "memory": OrderedDict(sorted(ma.data_memory.items())),
+            "current_instruction": current_instruction,
+        }
+    )
+
 
 def run() -> None:
-    '''Executes the program until the end of the instruction memory is reached'''
-    while(step()):
+    """Executes the program until the end of the instruction memory is reached"""
+    while step():
         continue
 
 
-
 def step() -> None:
-    '''Executes one instruction'''
-    if (not fi.fetch()):
+    """Executes one instruction"""
+    if not fi.fetch():
         de.decode()
         ex.execute()
         ma.memory_access()
@@ -71,7 +80,7 @@ def step() -> None:
 
 
 def reset() -> None:
-    '''Resets to the initial state'''
+    """Resets to the initial state"""
     fi.init()
     de.init()
     ex.init()
@@ -81,20 +90,24 @@ def reset() -> None:
     with open("input.mc", "w") as f:
         f.truncate(0)
 
-@app.route('/run')
+
+@app.route("/run")
 def run_simulator():
     run()
-    return jsonify({'success': True})
+    return jsonify({"success": True})
 
-@app.route('/step')
+
+@app.route("/step")
 def step_simulator():
     step()
-    return jsonify({'success': True})
+    return jsonify({"success": True})
 
-@app.route('/reset')
+
+@app.route("/reset")
 def reset_simulator():
     reset()
-    return jsonify({'success': True})
+    return jsonify({"success": True})
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5100)

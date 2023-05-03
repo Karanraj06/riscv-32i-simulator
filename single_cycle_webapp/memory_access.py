@@ -56,7 +56,6 @@ def memory_access() -> None:
             temp = data_memory[ex.aluResult]
             loadData = de.bin_to_dec(temp[:16].rjust(32, temp[0]))
             # print(f"The loaded value is{loadData}")
-        
 
     elif de.MemOp == 2:
         if de.func3 == "010":  # for SW

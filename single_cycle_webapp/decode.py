@@ -602,7 +602,7 @@ def init() -> None:
         MemOp,
         ResultSelect,
         RFWrite,
-        BranchTargetAddress
+        BranchTargetAddress,
     ) = (
         None,
         None,
@@ -623,5 +623,5 @@ def init() -> None:
         None,
         None,
         None,
-        None
+        None,
     )

@@ -398,72 +398,72 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.loadData
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU + wb.instpkt.pc
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
     # for I type
@@ -472,43 +472,43 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
     # for Load type
@@ -517,44 +517,44 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
     # for store type
@@ -563,72 +563,72 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.loadData
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU + wb.instpkt.pc
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
     # for Branch type
@@ -637,72 +637,72 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.loadData
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU + wb.instpkt.pc
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:  # rs2 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
             if instpkt.rs2 == wb.instpkt.rd and int(instpkt.rs2, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op2 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
     # for JALR
@@ -711,44 +711,44 @@ def check_wb() -> None:
         if wb.instpkt.opcode == "0110011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
         # I type inst in WB
         if wb.instpkt.opcode == "0010011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.aluResult
         # Load instruction in WB
         if wb.instpkt.opcode == "0000011":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.loadData
         # U type instruction in WB
         # LUI
         if wb.instpkt.opcode == "0110111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU
         # AUIPC
         if wb.instpkt.opcode == "0010111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:  # rs1 hazard
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.immU + wb.instpkt.pc
         # for JAL
         if wb.instpkt.opcode == "1101111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
         # for JALR
         if wb.instpkt.opcode == "1100111":
             if instpkt.rs1 == wb.instpkt.rd and int(instpkt.rs1, 2) != 0:
                 ex_forwarding_path += "WB-EX "
-                ex_dependency="Data "
+                ex_dependency = "Data "
                 instpkt.op1 = wb.instpkt.pc + 4
         # no need to do anything for store,branch and jal
 

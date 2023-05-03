@@ -102,10 +102,9 @@ def writeBack() -> bool:
 
 def init() -> None:
     """Initializes pc to its initial value"""
-    global clk, current_instruction,total_bubbles,total_instructions
+    global clk, current_instruction, total_bubbles, total_instructions
     # initialising clk cycle to 0
     clk = 0
     current_instruction = ""
-    total_instructions=0
-    total_bubbles=0
-    
+    total_instructions = 0
+    total_bubbles = 0

@@ -41,5 +41,5 @@ def fetch() -> bool:
 def init() -> None:
     """Initializes pc to its initial value"""
     global pc
-    
+
     pc = 0x0
