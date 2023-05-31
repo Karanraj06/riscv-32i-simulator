@@ -1,138 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="RISCV-32I ISA Simulator that executes machine code and updates registers and memory. Supports all 32I instructions. Written in Python. Made by students of Indian Institute of Technology, Ropar (IIT Ropar)"
-        />
-        <title>RISCV-32I Simulator</title>
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/dist/output.css') }}"
-        />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="RISCV-32I ISA Simulator that executes machine code and updates registers and memory. Supports all 32I instructions. Written in Python. Made by students of Indian Institute of Technology, Ropar (IIT Ropar)"
+    />
+    <title>RISCV-32I Simulator</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/dist/output.css') }}"
+    />
 
-        <!-- Favicon -->
-        <link
-            rel="apple-touch-icon"
-            sizes="57x57"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-57x57.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="60x60"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-60x60.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="72x72"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-72x72.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="76x76"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-76x76.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="114x114"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-114x114.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="120x120"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-120x120.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="144x144"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-144x144.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="152x152"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-152x152.png') }}"
-        />
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="{{ url_for('static', filename='favicon.ico/apple-icon-180x180.png') }}"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="192x192"
-            href="{{ url_for('static', filename='favicon.ico/android-icon-192x192.png') }}"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="{{ url_for('static', filename='favicon.ico/favicon-32x32.png') }}"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="96x96"
-            href="{{ url_for('static', filename='favicon.ico/favicon-96x96.png') }}"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="{{ url_for('static', filename='favicon.ico/favicon-16x16.png') }}"
-        />
-        <link
-            rel="manifest"
-            href="{{ url_for('static', filename='favicon.ico/manifest.json')}}"
-        />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
-        <meta name="theme-color" content="#ffffff" />
-    </head>
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-57x57.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-60x60.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-72x72.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-76x76.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-114x114.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-120x120.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-144x144.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-152x152.png') }}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ url_for('static', filename='favicon.ico/apple-icon-180x180.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="{{ url_for('static', filename='favicon.ico/android-icon-192x192.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ url_for('static', filename='favicon.ico/favicon-32x32.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="{{ url_for('static', filename='favicon.ico/favicon-96x96.png') }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ url_for('static', filename='favicon.ico/favicon-16x16.png') }}"
+    />
+    <link
+      rel="manifest"
+      href="{{ url_for('static', filename='favicon.ico/manifest.json')}}"
+    />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
 
-    <body>
-        <!-- Navbar Starts -->
-        <nav class="bg-slate-500 text-white py-4">
-            <div class="container mx-auto flex justify-between items-center">
-                <div>
-                    <a href="/" class="font-bold text-xl"
-                        >RISCV-32I Simulator</a
-                    >
-                </div>
-                <div>
-                    <ul class="flex">
-                        <li>
-                            <a href="/" class="px-4 py-2 hover:text-gray-300"
-                                >Home</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="https://github.com/Karanraj06/RISCV-32I-Simulator/blob/main/README.md"
-                                class="px-4 py-2 hover:text-gray-300"
-                                >About</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="https://github.com/Karanraj06/RISCV-32I-Simulator/tree/main/docs"
-                                class="px-4 py-2 hover:text-gray-300"
-                                >Documentation</a
-                            >
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Navbar Ends -->
+  <body>
+    <!-- Navbar Starts -->
+    <nav class="bg-slate-500 text-white py-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <div>
+          <a href="/" class="font-bold text-xl">RISCV-32I Simulator</a>
+        </div>
+        <div>
+          <ul class="flex">
+            <li>
+              <a href="/" class="px-4 py-2 hover:text-gray-300">Home</a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/Karanraj06/RISCV-32I-Simulator/blob/main/README.md"
+                class="px-4 py-2 hover:text-gray-300"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://github.com/Karanraj06/RISCV-32I-Simulator/tree/main/docs"
+                class="px-4 py-2 hover:text-gray-300"
+                >Documentation</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar Ends -->
 
-        {% block body %} {% endblock body %}
-        <script
-            type="module"
-            src="{{ url_for('static', filename='js/script.js') }}"
-        ></script>
-    </body>
+    {% block body %} {% endblock body %}
+    <script
+      type="module"
+      src="{{ url_for('static', filename='js/script.js') }}"
+    ></script>
+  </body>
 </html>

@@ -1,160 +1,156 @@
 {% extends 'base.html' %} {% block body %}
 <div class="grid md:grid-flow-col md:grid-cols-2 gap-20">
-    <!-- Editor Starts -->
-    <div class="grid place-items-center p-4">
-        <h1 class="my-4 text-xl text-emerald-500">Editor</h1>
-        <textarea
-            class="border-2 resize-none font-mono border-gray-200 text-indigo-600 outline-none focus:border-gray-400 w-full"
-            rows="16"
-            id="machine_code_editor"
-        ></textarea>
-        <button
-            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
-            id="save_button"
-        >
-            Save
-        </button>
-    </div>
-    <!-- Editor Ends -->
+  <!-- Editor Starts -->
+  <div class="grid place-items-center p-4">
+    <h1 class="my-4 text-xl text-emerald-500">Editor</h1>
+    <textarea
+      class="border-2 resize-none font-mono border-gray-200 text-indigo-600 outline-none focus:border-gray-400 w-full"
+      rows="16"
+      id="machine_code_editor"
+    ></textarea>
+    <button
+      class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-md mt-4"
+      id="save_button"
+    >
+      Save
+    </button>
+  </div>
+  <!-- Editor Ends -->
 
-    <!-- Simulator Starts -->
-    <div class="grid p-4 gap-4 align-top">
-        <h1 class="my-4 text-xl text-emerald-500 text-center">Simulator</h1>
-        <div class="grid grid-flow-col grid-cols-5 gap-2">
-            <div class="col-start-1 col-end-2 flex items-center">
-                Instruction Fetch
-            </div>
-            <div
-                class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
-                id="instruction_fetch"
-            ></div>
-        </div>
-        <div class="grid grid-flow-col grid-cols-5 gap-2">
-            <div class="col-start-1 col-end-2 flex items-center">Decode</div>
-            <div
-                class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
-                id="decode"
-            ></div>
-        </div>
-        <div class="grid grid-flow-col grid-cols-5 gap-2">
-            <div class="col-start-1 col-end-2 flex items-center">Execute</div>
-            <div
-                class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
-                id="execute"
-            ></div>
-        </div>
-        <div class="grid grid-flow-col grid-cols-5 gap-2">
-            <div class="col-start-1 col-end-2 flex items-center">
-                Memory Access
-            </div>
-            <div
-                class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
-                id="memory_access"
-            ></div>
-        </div>
-        <div class="grid grid-flow-col grid-cols-5 gap-2">
-            <div class="col-start-1 col-end-2 flex items-center">
-                Write Back
-            </div>
-            <div
-                class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
-                id="write_back"
-            ></div>
-        </div>
-        <div class="flex flex-wrap justify-evenly items-end">
-            <button
-                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
-                id="run_button"
-            >
-                Run
-            </button>
-            <button
-                class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-md"
-                id="step_button"
-            >
-                Step
-            </button>
-            <button
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
-                id="reset_button"
-            >
-                Reset
-            </button>
-        </div>
+  <!-- Simulator Starts -->
+  <div class="grid p-4 gap-4 align-top">
+    <h1 class="my-4 text-xl text-emerald-500 text-center">Simulator</h1>
+    <div class="grid grid-flow-col grid-cols-5 gap-2">
+      <div class="col-start-1 col-end-2 flex items-center">
+        Instruction Fetch
+      </div>
+      <div
+        class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
+        id="instruction_fetch"
+      ></div>
     </div>
-    <!-- Simulator Ends -->
+    <div class="grid grid-flow-col grid-cols-5 gap-2">
+      <div class="col-start-1 col-end-2 flex items-center">Decode</div>
+      <div
+        class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
+        id="decode"
+      ></div>
+    </div>
+    <div class="grid grid-flow-col grid-cols-5 gap-2">
+      <div class="col-start-1 col-end-2 flex items-center">Execute</div>
+      <div
+        class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
+        id="execute"
+      ></div>
+    </div>
+    <div class="grid grid-flow-col grid-cols-5 gap-2">
+      <div class="col-start-1 col-end-2 flex items-center">Memory Access</div>
+      <div
+        class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
+        id="memory_access"
+      ></div>
+    </div>
+    <div class="grid grid-flow-col grid-cols-5 gap-2">
+      <div class="col-start-1 col-end-2 flex items-center">Write Back</div>
+      <div
+        class="col-start-2 col-end-6 border border-gray-200 text-gray-400 font-mono align-middle flex items-center overflow-auto pl-1"
+        id="write_back"
+      ></div>
+    </div>
+    <div class="flex flex-wrap justify-evenly items-end">
+      <button
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md"
+        id="run_button"
+      >
+        Run
+      </button>
+      <button
+        class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-md"
+        id="step_button"
+      >
+        Step
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+        id="reset_button"
+      >
+        Reset
+      </button>
+    </div>
+  </div>
+  <!-- Simulator Ends -->
 </div>
 
 <!-- Clock Cycles -->
 <div class="flex gap-20 justify-center mt-20">
-    <div class="text-xl text-emerald-500"># Clock Cycles</div>
-    <div
-        class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center font-mono text-gray-400"
-        id="clock_cycles"
-    >
-        0
-    </div>
+  <div class="text-xl text-emerald-500"># Clock Cycles</div>
+  <div
+    class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center font-mono text-gray-400"
+    id="clock_cycles"
+  >
+    0
+  </div>
 </div>
 
 <div class="grid md:grid-flow-col md:grid-cols-2 mt-20 gap-20 items-start">
-    <!-- Registers Start -->
-    <div class="grid gap-2">
-        <!-- Heading -->
-        <h1 class="my-4 text-xl text-emerald-500 text-center">Registers</h1>
-        <!-- Table Heading -->
-        <div class="flex justify-evenly">
-            <p class="text-teal-500 hover:text-black">Register</p>
-            <p class="text-teal-500 hover:text-black">Hex</p>
-            <p class="text-teal-500 hover:text-black">Decimal</p>
-        </div>
-        <!-- x0 - x31 -->
-        <div class="grid gap-4" id="registers">
-            <!-- for -->
-            <div class="flex justify-evenly font-mono">
-                <div>x0</div>
-                <div
-                    class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
-                >
-                    0x00000000
-                </div>
-                <div
-                    class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
-                >
-                    0
-                </div>
-            </div>
-        </div>
+  <!-- Registers Start -->
+  <div class="grid gap-2">
+    <!-- Heading -->
+    <h1 class="my-4 text-xl text-emerald-500 text-center">Registers</h1>
+    <!-- Table Heading -->
+    <div class="flex justify-evenly">
+      <p class="text-teal-500 hover:text-black">Register</p>
+      <p class="text-teal-500 hover:text-black">Hex</p>
+      <p class="text-teal-500 hover:text-black">Decimal</p>
     </div>
-    <!-- Registers End -->
+    <!-- x0 - x31 -->
+    <div class="grid gap-4" id="registers">
+      <!-- for -->
+      <div class="flex justify-evenly font-mono">
+        <div>x0</div>
+        <div
+          class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
+        >
+          0x00000000
+        </div>
+        <div
+          class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
+        >
+          0
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Registers End -->
 
-    <!-- Memory Starts -->
-    <div class="grid gap-2">
-        <!-- Heading -->
-        <h1 class="my-4 text-xl text-emerald-500 text-center">Memory</h1>
-        <!-- Table Heading -->
-        <div class="flex justify-evenly">
-            <p class="text-teal-500 hover:text-black">Address</p>
-            <p class="text-teal-500 hover:text-black">Hex</p>
-            <p class="text-teal-500 hover:text-black">Decimal</p>
-        </div>
-        <!-- Data Memory -->
-        <div class="grid gap-4" id="memory">
-            <!-- for -->
-            <div class="flex justify-evenly font-mono">
-                <div>0x00000018</div>
-                <div
-                    class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
-                >
-                    0x00000000
-                </div>
-                <div
-                    class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
-                >
-                    0
-                </div>
-            </div>
-        </div>
+  <!-- Memory Starts -->
+  <div class="grid gap-2">
+    <!-- Heading -->
+    <h1 class="my-4 text-xl text-emerald-500 text-center">Memory</h1>
+    <!-- Table Heading -->
+    <div class="flex justify-evenly">
+      <p class="text-teal-500 hover:text-black">Address</p>
+      <p class="text-teal-500 hover:text-black">Hex</p>
+      <p class="text-teal-500 hover:text-black">Decimal</p>
     </div>
-    <!-- Memory Ends -->
+    <!-- Data Memory -->
+    <div class="grid gap-4" id="memory">
+      <!-- for -->
+      <div class="flex justify-evenly font-mono">
+        <div>0x00000018</div>
+        <div
+          class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
+        >
+          0x00000000
+        </div>
+        <div
+          class="border border-gray-200 hover:border-emerald-400 w-28 rounded-sm text-center text-gray-400"
+        >
+          0
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Memory Ends -->
 </div>
 {% endblock body %}

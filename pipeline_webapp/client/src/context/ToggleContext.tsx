@@ -1,39 +1,39 @@
-import { useContext, useState, createContext, ReactNode } from "react";
+import { useContext, useState, createContext, ReactNode } from 'react';
 
 interface ToggleProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 interface ToggleUpdateContext {
-    updateToggle: () => void;
+  updateToggle: () => void;
 }
 
 const ToggleContext = createContext<boolean>(true);
 
 const ToggleUpdateContext = createContext<ToggleUpdateContext>({
-    updateToggle: () => {},
+  updateToggle: () => {},
 });
 
 export function useToggle() {
-    return useContext(ToggleContext);
+  return useContext(ToggleContext);
 }
 
 export function useUpdateToggle() {
-    return useContext(ToggleUpdateContext);
+  return useContext(ToggleUpdateContext);
 }
 
 export function ToggleProvider({ children }: ToggleProviderProps) {
-    const [toggle, setToggle] = useState<boolean>(true);
+  const [toggle, setToggle] = useState<boolean>(true);
 
-    function updateToggle() {
-        setToggle(prevToggle => !prevToggle);
-    }
+  function updateToggle() {
+    setToggle(prevToggle => !prevToggle);
+  }
 
-    return (
-        <ToggleContext.Provider value={toggle}>
-            <ToggleUpdateContext.Provider value={{ updateToggle }}>
-                {children}
-            </ToggleUpdateContext.Provider>
-        </ToggleContext.Provider>
-    );
+  return (
+    <ToggleContext.Provider value={toggle}>
+      <ToggleUpdateContext.Provider value={{ updateToggle }}>
+        {children}
+      </ToggleUpdateContext.Provider>
+    </ToggleContext.Provider>
+  );
 }

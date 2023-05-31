@@ -1,39 +1,39 @@
-import { useContext, useState, createContext, ReactNode } from "react";
+import { useContext, useState, createContext, ReactNode } from 'react';
 
 interface TextProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 interface TextUpdateContext {
-    updateText: (newText: string) => void;
+  updateText: (newText: string) => void;
 }
 
-const TextContext = createContext<string>("");
+const TextContext = createContext<string>('');
 
 const TextUpdateContext = createContext<TextUpdateContext>({
-    updateText: () => {},
+  updateText: () => {},
 });
 
 export function useText() {
-    return useContext(TextContext);
+  return useContext(TextContext);
 }
 
 export function useUpdateText() {
-    return useContext(TextUpdateContext);
+  return useContext(TextUpdateContext);
 }
 
 export function TextProvider({ children }: TextProviderProps) {
-    const [text, setText] = useState<string>(String());
+  const [text, setText] = useState<string>(String());
 
-    function updateText(newText: string) {
-        setText(newText);
-    }
+  function updateText(newText: string) {
+    setText(newText);
+  }
 
-    return (
-        <TextContext.Provider value={text}>
-            <TextUpdateContext.Provider value={{ updateText }}>
-                {children}
-            </TextUpdateContext.Provider>
-        </TextContext.Provider>
-    );
+  return (
+    <TextContext.Provider value={text}>
+      <TextUpdateContext.Provider value={{ updateText }}>
+        {children}
+      </TextUpdateContext.Provider>
+    </TextContext.Provider>
+  );
 }
